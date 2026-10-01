@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --ease-out-soft: cubic-bezier(.2, .7, .1, 1);
+  --ease-inout: cubic-bezier(.65, 0, .15, 1);
+  --ease-volet: cubic-bezier(.75, 0, .15, 1);
+}
+
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  /* 5,3:1 sur blanc : le gris de la maquette (#8A8A8A) ne passait pas l'AA */
+  --mute: #6b6b6b;
+  --line: color-mix(in srgb, var(--fg) 12%, transparent);
+  color-scheme: light;
+}
+.dark {
+  --bg: #0b0b0b;
+  --fg: #ededed;
+  --mute: #8f8f8f;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .6s ease, color .6s ease;
+}
+
+:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+
+/* Soulignement qui se dessine au survol */
+.u { position: relative; }
+.u::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 12px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .5s cubic-bezier(.7, 0, .2, 1);
+}
+.u:hover::after, .u[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+
+/* Cadre du projet : 360 × 460 sur grand écran, ~80 % de la largeur sur mobile, sans jamais forcer de scroll */
+.frame {
+  --fw: min(360px, 80vw, calc((100dvh - 210px) * 360 / 460));
+  width: var(--fw);
+  aspect-ratio: 360 / 460;
+}
+
+/* Transition « Volets » : six bandes qui montent l'une après l'autre */
+.strip {
+  position: absolute; top: 0; height: 100%; overflow: hidden;
+  transition: clip-path .9s var(--ease-volet);
+}
+.strip-pic { position: absolute; top: 0; height: 100%; width: 600%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
