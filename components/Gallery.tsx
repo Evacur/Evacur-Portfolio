@@ -50,7 +50,7 @@ export function Gallery({ projects, idx, prev, ready, go }: Props) {
         initial={{ opacity: 0, y: 40 }}
         animate={ready ? { opacity: 1, y: 0 } : undefined}
         transition={{ duration: 1.2, ease: [0.2, 0.7, 0.1, 1], delay: 0.2 }}
-        className="frame relative touch-pan-y"
+        className="frame relative overflow-hidden touch-pan-y"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
