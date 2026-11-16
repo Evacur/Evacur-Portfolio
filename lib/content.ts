@@ -49,6 +49,5 @@ export const contact = {
   links: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/pablocuerva" },
     { label: "Malt", href: "https://www.malt.fr/profile/pablocuerva" },
-    { label: "CV", href: "#" },
   ],
 };

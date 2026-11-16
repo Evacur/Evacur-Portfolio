@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useTheme } from "./useTheme";
+import { Coords } from "./Coords";
 
 /**
  * En-tête des pages qui défilent (accueil, pages thème).
@@ -10,7 +10,6 @@ import { useTheme } from "./useTheme";
  */
 export function SiteHeader({ hideLogoUntilScroll = false }: { hideLogoUntilScroll?: boolean }) {
   const [scrolled, setScrolled] = useState(!hideLogoUntilScroll);
-  const { dark, toggle } = useTheme();
 
   useEffect(() => {
     if (!hideLogoUntilScroll) return;
@@ -31,13 +30,12 @@ export function SiteHeader({ hideLogoUntilScroll = false }: { hideLogoUntilScrol
       >
         Pablo Cuerva
       </Link>
+      {/* Coordonnées du curseur, toujours visibles au centre de l'en-tête */}
+      <Coords className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
       <nav aria-label="Navigation principale" className="flex items-center gap-6 max-[640px]:gap-3.5">
         <Link href="/work" className="u inline-flex min-h-14 items-center">Travaux</Link>
         <Link href="/#faq" className="u inline-flex min-h-14 items-center">FAQ</Link>
         <Link href="/#contact" className="u inline-flex min-h-14 items-center">Contact</Link>
-        <button type="button" onClick={toggle} aria-label={dark ? "Passer en thème clair" : "Passer en thème sombre"} className="inline-flex min-h-14 items-center text-mute">
-          ({dark ? "clair" : "sombre"})
-        </button>
       </nav>
     </header>
   );

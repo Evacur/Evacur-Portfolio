@@ -5,6 +5,7 @@ import { MotionConfig } from "motion/react";
 import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
 import { Clock } from "./Clock";
+import { Coords } from "./Coords";
 import { Loader } from "./Loader";
 import { ProjectList } from "./ProjectList";
 
@@ -19,18 +20,7 @@ const corner = "absolute z-[5] inline-flex min-h-11 items-center px-6";
 
 /** Work : un seul écran, sans scroll. La liste des thèmes, au centre. */
 export function WorkScreen() {
-  const [dark, setDark] = useState(false);
   const [menu, setMenu] = useState(false);
-
-  useEffect(() => { setDark(document.documentElement.classList.contains("dark")); }, []);
-
-  const toggleTheme = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch {}
-  };
-
 
   return (
     <MotionConfig reducedMotion="user">
@@ -58,9 +48,8 @@ export function WorkScreen() {
           {menu ? "Fermer" : "Menu"}
         </button>
 
-        <button type="button" onClick={toggleTheme} aria-label={dark ? "Passer en thème clair" : "Passer en thème sombre"} className={`${corner} right-0 top-3`}>
-          ({dark ? "clair" : "sombre"})
-        </button>
+
+        <span className={`${corner} right-0 top-3 max-[760px]:hidden`}><Coords /></span>
 
         {/* Centre */}
         <ProjectList projects={projects} />
