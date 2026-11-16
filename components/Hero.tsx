@@ -56,56 +56,59 @@ export function Hero() {
       aria-label="Introduction"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="relative flex h-[min(82dvh,760px)] min-h-[460px] flex-col max-[760px]:h-[min(76dvh,640px)] items-center justify-center gap-[max(14px,2vw)] overflow-hidden px-4"
+      className="relative flex h-[min(82svh,760px)] min-h-[520px] items-center justify-center overflow-hidden px-4 max-[760px]:h-auto max-[760px]:min-h-0 max-[760px]:pb-[calc(23.75vw+36px)] max-[760px]:pt-[calc(31.25vw+40px)]"
     >
-      <FloatCard
-        start={1}
-        offset={0}
-        x={x1} y={y1} lift={lift1}
-        delay={0.5}
-        bob={0}
-        className="right-[6vw] top-[2%] w-[22vw] max-w-[340px] max-[760px]:right-[5vw] max-[760px]:top-[9%] max-[760px]:w-[52vw]"
-      />
-      <FloatCard
-        start={3}
-        offset={SWITCH_MS / 2}
-        x={x2} y={y2} lift={lift2}
-        delay={0.65}
-        bob={-3.5}
-        className="bottom-[14%] left-[7vw] w-[18vw] max-w-[280px] max-[760px]:bottom-[9%] max-[760px]:left-[5vw] max-[760px]:w-[40vw]"
-      />
+      {/* Bloc texte : les cards sont accrochées à lui, pas aux bords de l'écran, pour rester collées au nom */}
+      <div className="relative flex flex-col items-center gap-[max(14px,2vw)]">
+        <FloatCard
+          start={1}
+          offset={0}
+          x={x1} y={y1} lift={lift1}
+          delay={0.5}
+          bob={0}
+          className="bottom-full right-[1vw] -mb-[2.2vw] w-[21vw] max-w-[340px] max-[760px]:right-0 max-[760px]:-mb-2 max-[760px]:w-[50vw]"
+        />
+        <FloatCard
+          start={3}
+          offset={SWITCH_MS / 2}
+          x={x2} y={y2} lift={lift2}
+          delay={0.65}
+          bob={-3.5}
+          className="left-[2vw] top-[10.6vw] w-[16vw] max-w-[260px] max-[760px]:left-0 max-[760px]:top-[calc(100%+20px)] max-[760px]:w-[38vw]"
+        />
 
-      <motion.h1
-        aria-label="Pablo Cuerva"
-        className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap text-[11.2vw] font-bold leading-[0.9] tracking-[-0.045em] max-[760px]:text-[12.4vw]"
-        style={{ scale, y: nameY, opacity: nameOpacity }}
-      >
-        {NAME.split("").map((c, i) => (
-          <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.04em] align-bottom">
-            <motion.span
-              className="inline-block"
-              initial={{ y: "105%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1.1, ease, delay: i * 0.04 }}
-            >
-              {c === " " ? "\u00a0" : c}
-            </motion.span>
-          </span>
-        ))}
-      </motion.h1>
+        <motion.h1
+          aria-label="Pablo Cuerva"
+          className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap text-[11.2vw] font-bold leading-[0.9] tracking-[-0.045em] max-[760px]:text-[12.4vw]"
+          style={{ scale, y: nameY, opacity: nameOpacity }}
+        >
+          {NAME.split("").map((c, i) => (
+            <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.04em] align-bottom">
+              <motion.span
+                className="inline-block"
+                initial={{ y: "105%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 1.1, ease, delay: i * 0.04 }}
+              >
+                {c === " " ? "\u00a0" : c}
+              </motion.span>
+            </span>
+          ))}
+        </motion.h1>
 
-      <motion.p
-        className="relative z-[2] m-0 text-[max(11px,1.1vw)] font-medium uppercase tracking-[0.12em]"
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease, delay: 0.8 }}
-      >
-        Product designer · IA et SaaS
-      </motion.p>
+        <motion.p
+          className="relative z-[2] m-0 text-[max(11px,1.1vw)] font-medium uppercase tracking-[0.12em]"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease, delay: 0.8 }}
+        >
+          Product designer · IA et SaaS
+        </motion.p>
 
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.9 }} className="relative z-[2]">
-        <MagneticLink href="/work">Voir le travail</MagneticLink>
-      </motion.div>
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.9 }} className="relative z-[2]">
+          <MagneticLink href="/work">Voir le travail</MagneticLink>
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -120,6 +123,15 @@ function FloatCard({
 }) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(start);
+  // Sur mobile (pas de survol), la card reste fixe : ni flottement, ni décalage au scroll
+  const [still, setStill] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none)");
+    const on = () => setStill(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
   const p = projects[i % projects.length];
 
   useEffect(() => {
@@ -136,10 +148,10 @@ function FloatCard({
 
   return (
     <motion.div className={`absolute z-[1] ${className}`} style={{ x, y }}>
-      <motion.div style={{ y: lift }}>
+      <motion.div style={still ? undefined : { y: lift }}>
         <motion.div
-          animate={reduce ? undefined : { y: [0, -8, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: bob }}
+          animate={reduce || still ? { y: 0 } : { y: [0, -8, 0] }}
+          transition={still ? { duration: 0 } : { duration: 7, repeat: Infinity, ease: "easeInOut", delay: bob }}
         >
           <Link
             href={`/work/${p.slug}`}
@@ -157,8 +169,9 @@ function FloatCard({
                   key={i}
                   className="absolute inset-0 block"
                   initial={{ clipPath: "inset(100% 0 0 0)" }}
-                  animate={{ clipPath: "inset(0% 0 0 0)" }}
-                  exit={{ opacity: 1 }}
+                  animate={{ clipPath: "inset(0% 0 0 0)", zIndex: 1 }}
+                  // L'ancienne image reste dessous le temps que la nouvelle la recouvre
+                  exit={{ zIndex: 0, opacity: 0.99, transition: { duration: 0.65 } }}
                   transition={{ duration: 0.6, ease: volet }}
                 >
                   <span className="absolute inset-0 block transition-transform duration-700 ease-out-soft group-hover:scale-[1.04]">
