@@ -108,7 +108,6 @@ const bim: Case = {
       media: [
         shot("bim/06", "Dicter un devis via l'IA, puis le créer en un clic"),
         shot("bim/03", "Fiche article et catalogue"),
-        { ...shot("bim/08", "Accueil, compte restreint, liste des devis et fin de la période d'essai sur mobile"), ratio: "1418 / 710" },
       ],
     },
     {
@@ -119,7 +118,7 @@ const bim: Case = {
         "L'ambition initiale, un produit minimal et radicalement nouveau, s'est atténuée à mesure que le périmètre s'élargissait. Le résultat est plus structuré et plus classique que prévu.",
         "Dans un grand groupe, le périmètre se protège comme le calendrier : par un arbitrage explicite dès le cadrage, et par des critères d'entrée pour chaque fonctionnalité ajoutée.",
       ],
-      media: [shot("bim/05", "Bim ! by Cegid : cartes, transactions et identité")],
+      media: [{ ...shot("bim/08", "Accueil, compte restreint, liste des devis et fin de la période d'essai sur mobile"), ratio: "1418 / 710" }],
     },
   ],
 };
@@ -416,27 +415,36 @@ const gaspard: Case = {
       lede: "Le site d'un artiste muraliste, avec une boutique.",
       body: ["Un site 100 % sur mesure en Next.js, avec une partie e-commerce intégrée."],
       media: [
-        clip("gaspard-mariotte", "Navigation dans les peintures murales", "1348 / 1280"),
-        shot("gaspard-mariotte/01", "Gaspard Mariotte : peintures murales et projets"),
+        { ...shot("gaspard-mariotte/site-02", "Créations : l'entrée de la catégorie Murs"), ratio: "2880 / 1800" },
+        { ...shot("gaspard-mariotte/site-03", "Murs : la liste des peintures murales"), ratio: "2880 / 1800" },
       ],
     },
     {
       title: "Problème et recherche",
       lede: "Mettre en valeur le travail mural.",
       body: ["L'interface met les œuvres au premier plan, avec une navigation fluide et un parcours d'achat simple."],
-      media: [shot("gaspard-mariotte/02", "Page projet : Biennale d'art contemporain de Lyon")],
+      media: [
+        { ...shot("gaspard-mariotte/site-05", "Collaborations : la grille des projets"), ratio: "2880 / 1800" },
+        { ...shot("gaspard-mariotte/site-10", "Page exposition : Asilah"), ratio: "2880 / 1800" },
+      ],
     },
     {
       title: "Décisions",
       lede: "Un back-office que l'artiste gère seul.",
       body: ["Un back-office sur mesure avec Sanity, pour que l'artiste gère facilement ses œuvres, ses projets et ses ventes en ligne."],
-      media: ["Back-office Sanity"],
+      media: [
+        { ...shot("gaspard-mariotte/site-13", "Boutique : les œuvres en vente"), ratio: "2880 / 1800" },
+        clip("gaspard-mariotte", "Navigation dans les peintures murales", "1348 / 1280"),
+      ],
     },
     {
       title: "Résultats",
       lede: "Ce qui a changé pour l'artiste.",
       body: [],
-      media: ["Site en ligne"],
+      media: [
+        { ...shot("gaspard-mariotte/site-18", "Créations sur mobile"), ratio: "1170 / 2532" },
+        { ...shot("gaspard-mariotte/site-20", "Boutique sur mobile"), ratio: "1170 / 2532" },
+      ],
     },
   ],
 };

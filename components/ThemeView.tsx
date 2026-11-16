@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Chapter, Media as MediaItem, Project } from "@/lib/projects";
 import { scrollToTarget } from "./SmoothScroll";
@@ -21,8 +21,6 @@ function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: 
   const box = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const visible = useInView(box, { margin: "100px 0px 100px 0px" });
-  const { scrollYProgress } = useScroll({ target: box, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-2.6%", "2.6%"]);
 
   useEffect(() => {
     const v = video.current;
@@ -37,7 +35,7 @@ function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: 
   const tall = w / h < 1.3;
 
   return (
-    <figure className={`group/media m-0 flex flex-col gap-2.5 ${tall ? "w-full max-w-[min(100%,560px)]" : ""}`}>
+    <figure className={`group/media m-0 flex flex-col gap-2.5 ${w / h < 0.7 ? "w-full max-w-[min(100%,320px)]" : tall ? "w-full max-w-[min(100%,560px)]" : ""}`}>
       <motion.div
         ref={box}
         className="relative overflow-hidden rounded-[8px] bg-line"
@@ -55,8 +53,8 @@ function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: 
           transition={{ duration: 1.6, ease }}
         >
           <motion.span
-            className="absolute inset-x-0 -inset-y-[3%] block transition-transform duration-[900ms] ease-out-soft group-hover/media:scale-[1.015]"
-            style={typeof media === "string" ? { background: tint } : reduce ? undefined : { y }}
+            className="absolute inset-0 block transition-transform duration-[900ms] ease-out-soft group-hover/media:scale-[1.015]"
+            style={typeof media === "string" ? { background: tint } : undefined}
           >
             {typeof media !== "string" && ("video" in media ? (
               <video
