@@ -267,6 +267,135 @@ const pulse: Case = {
   ],
 };
 
+// Kleio : mission freelance, 2026. Les visuels restent à fournir.
+const kleio: Case = {
+  slug: "kleio",
+  name: "Kleio",
+  client: "Kleio",
+  year: "2026",
+  role: "Product designer freelance",
+  duration: "[x mois]",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Un assistant conversationnel intégré aux sites des marques, à faire passer en V2.",
+      body: [
+        "Kleio fournit à des sites comme Orpi ou Selectour un widget intégré à leurs pages. Le visiteur y engage une conversation avec une IA, qui se poursuit ensuite dans l'interface de Kleio.",
+        "Je suis intervenu en freelance en 2026, après une levée de fonds. Un premier designer avait posé les maquettes initiales. Ma mission était d'amener le produit à une V2 plus moderne et plus professionnelle, et de prendre en charge l'ensemble du design.",
+      ],
+      media: ["Le widget Kleio sur le site d'une marque"],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Retenir l'utilisateur après son premier message.",
+      body: [
+        "Problème. Des visiteurs quittaient la conversation après le premier message. Deux causes étaient à traiter : l'incertitude sur la nature de l'interlocuteur, et le délai avant de voir un premier produit.",
+        "Données. J'ai travaillé avec un AI researcher qui analysait les messages reçus. Ces données ont permis de construire des personas types, fondés sur l'intention exprimée dès le premier message : chercher une information, voir rapidement des offres, comparer.",
+        "[Volume de conversations analysées, et nombre de personas retenus.]",
+      ],
+      media: ["Personas issus de l'analyse des messages"],
+    },
+    {
+      title: "Décisions",
+      lede: "Rassurer, montrer vite, et adapter le ton à l'intention.",
+      body: [
+        "Réassurance. L'interface indique clairement à l'utilisateur qu'il échange avec une IA, et ce qu'il peut en attendre.",
+        "Produits visibles tôt. La conversation affiche des produits le plus tôt possible, pour apporter une valeur concrète dès les premiers échanges.",
+        "Détection du persona. Dès le premier message, le système identifie le type d'utilisateur, puis adapte le ton et le contenu des réponses de l'IA pour proposer un échange plus personnalisé.",
+      ],
+      media: ["Premier message, réassurance et produits", "Réponses adaptées selon le persona"],
+    },
+    {
+      title: "Résultats",
+      lede: "Des clients signés, et des démonstrations produites plus vite.",
+      body: [
+        "Kleio a signé plusieurs clients sur la période, dont Selectour, Showroomprivé et Orpi.",
+        "Les démonstrations commerciales ont été produites plus vite : j'intégrais moi-même les interfaces avec Claude Code, sans attendre un cycle de développement.",
+        "[Évolution de la part d'utilisateurs qui poursuivent après le premier message.]",
+      ],
+      media: ["La V2 en production"],
+    },
+  ],
+};
+
+const kleioDesignSystem: Case = {
+  ...kleio,
+  slug: "kleio-design-system",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Structurer le design d'une start-up après sa levée de fonds.",
+      body: [
+        "À mon arrivée, le produit reposait sur les maquettes d'un premier designer, sans système partagé. J'ai pris en charge l'ensemble du design : le widget, l'application et le site.",
+      ],
+      media: ["L'interface avant le design system"],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Trois surfaces, aucune règle commune.",
+      body: [
+        "Le widget intégré chez les clients, l'application et le site évoluaient séparément. Sans référentiel, chaque écran demandait de nouvelles décisions et la cohérence graphique se dégradait.",
+        "[Inventaire de l'existant : composants en double, écarts relevés.]",
+      ],
+      media: ["Inventaire des composants"],
+    },
+    {
+      title: "Décisions",
+      lede: "Un seul système, dans Figma et dans le code.",
+      body: [
+        "J'ai construit le design system dans Figma et en code, pour que la maquette et le produit partagent les mêmes tokens et les mêmes composants.",
+        "J'ai mis en place des process de design : une source unique, des règles d'usage, et un circuit de validation avant le développement.",
+      ],
+      media: ["Composants du design system Kleio"],
+    },
+    {
+      title: "Résultats",
+      lede: "Une cohérence graphique sur toutes les surfaces, et une intégration plus rapide.",
+      body: [
+        "Le système en code m'a permis d'intégrer directement des interfaces avec Claude Code, et de produire les démonstrations commerciales plus vite.",
+        "[Nombre de composants, temps gagné par écran.]",
+      ],
+      media: ["Le système appliqué au widget et à l'application"],
+    },
+  ],
+};
+
+const kleioSite: Case = {
+  ...kleio,
+  slug: "kleio-site",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Le site d'une start-up B2B, à aligner sur sa V2.",
+      body: [
+        "Dans le cadre de ma mission chez Kleio, j'ai repris le site internet pour qu'il porte la même identité que le produit.",
+      ],
+      media: ["Page d'accueil du site Kleio"],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Ce qui bloquait, et comment je l'ai vérifié.",
+      body: ["[Le problème du site existant, la recherche menée, ce qu'elle a montré.]"],
+      media: ["Le site avant la refonte"],
+    },
+    {
+      title: "Décisions",
+      lede: "Le même design system que le produit.",
+      body: [
+        "Le site s'appuie sur le design system du produit, pour une cohérence graphique entre la promesse commerciale et l'interface réelle.",
+        "[Structure des pages, choix éditoriaux.]",
+      ],
+      media: ["Pages clés du site"],
+    },
+    {
+      title: "Résultats",
+      lede: "Ce qui a changé pour les visiteurs.",
+      body: ["[Les résultats mesurés.]"],
+      media: ["Le site en ligne"],
+    },
+  ],
+};
+
 const gaspard: Case = {
   slug: "gaspard-mariotte",
   name: "Gaspard Mariotte",
@@ -316,7 +445,7 @@ export const projects: Project[] = [
     slug: "ia-conversationnelle", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
     pitch: "Assistants, chatbots et outils connectés en MCP.",
     cover: "/projects/pulse-ia/03.webp", tint: "#E4DEEA", ink: "#5B3F86",
-    cases: [pulse, placeholder("Kleio", "Kleio")],
+    cases: [pulse, kleio],
   },
   {
     slug: "produit-et-discovery", n: "02", title: "Produit et discovery", kind: "Bim ! · Livestore", year: "2 cas",
@@ -328,13 +457,13 @@ export const projects: Project[] = [
     slug: "design-system", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
     pitch: "Trois systèmes construits, et comment chacun a été pensé.",
     cover: "/projects/bim/04.webp", tint: "#DEE5DE", ink: "#2F5D3F",
-    cases: [bimDesignSystem, placeholder("Cegid", "Cegid"), placeholder("Kleio", "Kleio")],
+    cases: [bimDesignSystem, placeholder("Cegid", "Cegid"), kleioDesignSystem],
   },
   {
     slug: "sites-vitrines", n: "04", title: "Sites vitrines", kind: "Gaspard Mariotte · Vers le Sud · Kleio", year: "3 cas",
     pitch: "Des sites de marque, du mock à la mise en ligne.",
     cover: "/projects/gaspard.webp", tint: "#ECE2D6", ink: "#7A4A2A",
-    cases: [gaspard, versLeSud, placeholder("Kleio", "Kleio")],
+    cases: [gaspard, versLeSud, kleioSite],
   },
   {
     slug: "front-end", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
