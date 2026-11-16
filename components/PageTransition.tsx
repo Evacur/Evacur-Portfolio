@@ -4,29 +4,27 @@ import { motion, useAnimationControls } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-const volet = [0.75, 0, 0.15, 1] as const;
+const out = [0.2, 0.7, 0.1, 1] as const;
 
 /**
- * Changement de page : un volet noir monte et couvre l'écran, la page change dessous,
- * puis le volet continue vers le haut et découvre la nouvelle page.
+ * Changement de page en fondu : la page en cours s'efface en glissant vers le haut,
+ * la suivante monte à sa place. Pas de panneau, on reste dans le fond de page.
  * Ne joue pas pour les ancres de la même page, les liens externes, ni si le système demande moins de mouvement.
  */
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const curtain = useAnimationControls();
+  const page = useAnimationControls();
   const busy = useRef(false);
   const failsafe = useRef(0);
 
-  // La nouvelle page est là : le volet s'en va par le haut
+  // La nouvelle page est là : elle monte en apparaissant
   useEffect(() => {
     if (!busy.current) return;
     clearTimeout(failsafe.current);
-    curtain.start({ clipPath: "inset(0% 0% 100% 0%)", transition: { duration: 0.7, ease: volet, delay: 0.08 } }).then(() => {
-      curtain.set({ clipPath: "inset(100% 0% 0% 0%)" });
-      busy.current = false;
-    });
-  }, [pathname, curtain]);
+    page.set({ opacity: 0, y: 28 });
+    page.start({ opacity: 1, y: 0, transition: { duration: 0.75, ease: out } }).then(() => { busy.current = false; });
+  }, [pathname, page]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -39,29 +37,16 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       e.preventDefault();
       if (busy.current) return;
       busy.current = true;
-      // Le compteur de chargement de Work ne se rejoue pas derrière le volet
+      // Le compteur de chargement de Work ne se rejoue pas après un fondu
       try { sessionStorage.setItem("loaded", "1"); } catch {}
-      const go = () => router.push(url.pathname + url.search + url.hash);
-      curtain.start({ clipPath: "inset(0% 0% 0% 0%)", transition: { duration: 0.55, ease: volet } }).then(go);
-      // Si la page ne change pas, on ne laisse jamais l'écran couvert
-      failsafe.current = window.setTimeout(() => {
-        curtain.set({ clipPath: "inset(100% 0% 0% 0%)" });
-        busy.current = false;
-      }, 5000);
+      page.start({ opacity: 0, y: -20, transition: { duration: 0.36, ease: [0.5, 0, 0.8, 0.4] } })
+        .then(() => router.push(url.pathname + url.search + url.hash));
+      // Si la page ne change pas, on ne la laisse jamais invisible
+      failsafe.current = window.setTimeout(() => { page.set({ opacity: 1, y: 0 }); busy.current = false; }, 5000);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, [router, curtain]);
+  }, [router, page]);
 
-  return (
-    <>
-      {children}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-[100] bg-fg"
-        initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
-        animate={curtain}
-      />
-    </>
-  );
+  return <motion.div animate={page}>{children}</motion.div>;
 }
