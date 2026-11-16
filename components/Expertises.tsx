@@ -3,11 +3,11 @@ import { expertises, type Expertise } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
 const groups: { title: string; items: Expertise[] }[] = [
-  { title: "Ce que je fais", items: expertises.filter((e) => e.kind !== "Secteur") },
-  { title: "Pour qui", items: expertises.filter((e) => e.kind === "Secteur") },
+  { title: "Expertises", items: expertises.filter((e) => e.kind !== "Secteur") },
+  { title: "Secteurs", items: expertises.filter((e) => e.kind === "Secteur") },
 ];
 
-/** Une seule colonne : les savoir-faire, puis les secteurs en dessous. */
+/** Une seule colonne : les expertises, puis les secteurs en dessous. */
 export function Expertises() {
   return (
     <section aria-label="Expertises" className="flex flex-col gap-[max(56px,6vw)] px-6 py-[max(64px,6vw)] max-[640px]:px-4">
