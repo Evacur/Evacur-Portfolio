@@ -168,6 +168,45 @@ const bimDesignSystem: Case = {
   ],
 };
 
+const cegidDesignSystem: Case = {
+  slug: "cegid-design-system",
+  name: "Cegid",
+  client: "Cegid",
+  year: "2020 – 2025",
+  role: "Contributeur design system",
+  duration: "En continu",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Compose Design, le design system commun aux produits de Cegid.",
+      body: [
+        "Compose Design est le design system de Cegid, fondé sur Material Design. Il sert une pluralité de produits, développés avec des frameworks différents.",
+        "J'y ai contribué en tant que designer : création de composants et rédaction des guidelines qui les documentent.",
+      ],
+      media: [{ ...shot("cegid-ds/01", "Compose Design : fondations, composants, patterns et templates"), ratio: "2614 / 1700" }],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Un système unique pour des produits et des frameworks différents.",
+      body: [
+        "La base Material imposait une discipline stricte : chaque composant devait respecter des règles de construction précises, et chaque guideline suivre le même format de rédaction.",
+        "L'adoption n'était pas acquise. Les équipes produit travaillaient avec des frameworks différents côté développement : il fallait convaincre certaines d'entre elles d'utiliser le design system, en démontrant sa valeur ajoutée.",
+      ],
+      media: [{ ...shot("cegid-ds/02", "Documentation du composant Buttons : aperçu, spécifications, guidelines et mobile"), ratio: "2614 / 1770" }],
+    },
+    {
+      title: "Décisions",
+      lede: "Un suivi tracé, et une communication régulière avec les équipes.",
+      body: [
+        "Le suivi était tenu dans Notion : composants à produire, en cours, validés. Chaque composant passait par une validation avant publication.",
+        "Des présentations régulières aux équipes de design, soit une trentaine de designers, exposaient les avancées et les questions ouvertes.",
+      ],
+      media: [],
+    },
+    { title: "Résultats", lede: "Un référentiel partagé par les équipes de design.", body: [], media: [] },
+  ],
+};
+
 const livestore: Case = {
   slug: "livestore",
   name: "Livestore",
@@ -472,7 +511,7 @@ export const projects: Project[] = [
     slug: "design-system", layout: "rangs", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
     pitch: "Trois systèmes construits, et comment chacun a été pensé.",
     cover: "/projects/bim/04.webp", tint: "#DEE5DE", ink: "#2F5D3F",
-    cases: [bimDesignSystem, placeholder("Cegid", "Cegid"), kleioDesignSystem],
+    cases: [bimDesignSystem, cegidDesignSystem, kleioDesignSystem],
   },
   {
     slug: "sites-vitrines", layout: "visuel", n: "04", title: "Sites vitrines", kind: "Gaspard Mariotte · Vers le Sud · Kleio", year: "3 cas",
