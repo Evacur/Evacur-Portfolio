@@ -70,17 +70,18 @@ const clip = (dir: string, alt: string, ratio: string, name = "video") => ({ vid
 const bim: Case = {
   slug: "bim",
   name: "Bim !",
-  client: "EBP",
+  client: "Cegid",
   year: "2025",
   role: "Product designer référent",
   duration: "9 mois",
   chapters: [
     {
       title: "Contexte",
-      lede: "Un outil de gestion pour les très petites entreprises, conçu de zéro en neuf mois.",
+      lede: "Une squad montée comme une start-up interne, et neuf mois pour livrer un produit de A à Z.",
       body: [
-        "Bim ! s'adresse aux dirigeants de TPE, aux indépendants et aux micro-entrepreneurs. Devis, factures, dépenses et compte professionnel sont réunis dans un même outil, sur mobile et sur ordinateur. Le produit est pensé pour le dirigeant lui-même, pas pour son comptable.",
-        "Le calendrier réglementaire fixait l'échéance. Depuis le 1er septembre 2026, toute entreprise assujettie à la TVA doit pouvoir recevoir des factures électroniques. L'obligation d'en émettre s'applique aux TPE, aux PME et aux micro-entreprises au 1er septembre 2027. Une population peu outillée doit donc changer de pratique en peu de temps.",
+        "Bim ! s'adresse aux dirigeants de TPE, aux indépendants et aux micro-entrepreneurs, en particulier à ceux qui n'utilisent aucun outil de facturation. Le produit se positionne face à des acteurs installés comme Pennylane, Qonto ou Indy.",
+        "L'enjeu était aussi interne : installer chez Cegid une autre façon de concevoir, avec une squad dédiée et resserrée, sur le modèle d'une start-up. L'échéance était fixée dès janvier : présenter un produit complet au Congrès des experts-comptables, neuf mois plus tard.",
+        "Le calendrier réglementaire renforçait cette échéance. Depuis le 1er septembre 2026, toute entreprise assujettie à la TVA doit pouvoir recevoir des factures électroniques. L'obligation d'en émettre s'applique aux TPE, aux PME et aux micro-entreprises au 1er septembre 2027.",
         "En tant que designer référent, j'ai porté la vision produit et assuré la cohérence entre deux équipes de dix designers pendant les neuf mois de conception.",
       ],
       media: [shot("bim/02", "Bim ! : tableau de bord, factures et aperçu d'une facture")],
@@ -90,36 +91,36 @@ const bim: Case = {
     },
     {
       title: "Problème et recherche",
-      lede: "Comprendre comment un dirigeant de TPE facture réellement, avant de dessiner.",
+      lede: "Produire un maximum d'hypothèses, puis les confronter au terrain en continu.",
       body: [
-        "Question de recherche : à quel moment et dans quelles conditions un indépendant produit-il un devis ou une facture, et qu'est-ce qui lui fait repousser cette tâche ?",
-        "Méthode : une phase de discovery avec des entretiens utilisateurs auprès de dirigeants de TPE, puis des ateliers de cadrage avec le produit et la technique pour hiérarchiser les fonctionnalités. [Nombre d'entretiens, profils rencontrés, durée de la phase.]",
-        "Constats : [les trois ou quatre enseignements qui ont orienté la conception, chacun relié à une décision.]",
+        "Cadrage. En amont, des ateliers internes avec les directions produit et marketing, que j'ai menés avec le manager UX. L'objectif n'était pas de décider, mais de formuler le plus grand nombre d'hypothèses d'usage, à valider ou à invalider ensuite.",
+        "Discovery. Une première vague d'études menée avec le lab de Station F a fourni des enseignements rapides sur une population difficile à atteindre : des dirigeants qui ne sont équipés d'aucun outil de facturation.",
+        "Recherche continue. Environ une étude par mois, sous forme de tests de maquettes, dans une logique de test and learn. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant.",
+        "[Nombre de participants par étude, et les trois ou quatre constats qui ont orienté la conception.]",
       ],
       media: [shot("bim/01", "Bim ! sur mobile : cartes, accueil et parcours de démarrage")],
     },
     {
       title: "Décisions",
-      lede: "Réduire le coût de saisie, et tenir la cohérence à l'échelle de vingt designers.",
+      lede: "Peu de fonctionnalités, mais les plus pertinentes : le principe de départ, et ce qu'il est devenu.",
       body: [
+        "Principe de départ. Sortir vite imposait un périmètre réduit : peu de fonctionnalités, retenues pour leur valeur d'usage immédiate, à commencer par le devis et la facture.",
         "Saisie par la voix. Sur mobile, l'utilisateur dicte son devis et l'IA en structure le client, les lignes et les montants. La saisie manuelle reste disponible à chaque étape : l'utilisateur relit et corrige avant d'émettre, ce qui lui laisse le contrôle sur un document à valeur légale.",
         "Un design system créé de zéro. Tokens, composants et règles d'usage sont partagés par les deux équipes de design et par le développement. Ce socle a servi de référence unique pour la simplicité et l'accessibilité des maquettes, sans ralentir l'exécution.",
-        "Un périmètre livré par modules. Le devis et la facture d'abord, parce que c'est le premier geste utile pour l'utilisateur. Les dépenses, le compte professionnel et le lien avec l'expert-comptable ensuite. [Ce qui a été écarté, et pourquoi.]",
+        "Arbitrage. Le produit s'inscrit dans un écosystème de logiciels existants. S'appuyer sur ces briques réduisait le coût et le délai de développement, mais imposait de reprendre les fonctionnalités qui leur étaient liées. Le périmètre s'est donc élargi au fil du projet.",
       ],
       media: [
         shot("bim/06", "Dicter un devis via l'IA, puis le créer en un clic"),
         shot("bim/03", "Fiche article et catalogue"),
       ],
-      sources: [
-        { label: "Étude de cas Cegid, Theodo", href: "https://www.theodo.com/en-fr/client-stories/cegid-platform-saas-tpe" },
-      ],
     },
     {
       title: "Résultats",
-      lede: "Un produit lancé en 2025, de la première facture au compte professionnel.",
+      lede: "Un produit lancé en 2025, et un enseignement sur la tenue du périmètre.",
       body: [
         "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable. L'éditeur annonce une facture créée en moins d'une minute.",
-        "Début 2026, l'éditeur a annoncé le rapprochement avec Shine : l'application devient Shine Facture.",
+        "Limite. L'ambition initiale, un produit minimal et radicalement nouveau, s'est atténuée à mesure que le périmètre s'élargissait. Le résultat est plus structuré et plus classique que prévu.",
+        "Enseignement. Dans un grand groupe, le périmètre se protège comme le calendrier : par un arbitrage explicite dès le cadrage, et par des critères d'entrée pour chaque fonctionnalité ajoutée.",
         "[Mesures à compléter : taux de complétion du premier devis, temps médian de création, part des devis dictés, satisfaction.]",
       ],
       media: [shot("bim/05", "Bim ! by Cegid : cartes, transactions et identité")],
