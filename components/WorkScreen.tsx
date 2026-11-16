@@ -10,18 +10,18 @@ import { Loader } from "./Loader";
 import { ProjectList } from "./ProjectList";
 
 const NAV = [
-  { href: "/", label: "Travaux" },
-  { href: "/a-propos", label: "À propos" },
-  { href: "/contact", label: "Contact" },
+  { href: "/work", label: "Travaux" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const corner = "absolute z-[5] inline-flex min-h-11 items-center px-6";
 
-export function Home() {
+/** Work : un seul écran, sans scroll. Liste des thèmes par défaut, galerie en option. */
+export function WorkScreen() {
   const [ready, setReady] = useState(false);
   const [idx, setIdx] = useState(0);
   const [prev, setPrev] = useState(-1);
-  const [view, setView] = useState<"gallery" | "list">("gallery");
+  const [view, setView] = useState<"gallery" | "list">("list");
   const [dark, setDark] = useState(false);
   const [menu, setMenu] = useState(false);
 
@@ -60,14 +60,14 @@ export function Home() {
     <MotionConfig reducedMotion="user">
       <main className="relative h-dvh min-h-[560px] overflow-hidden">
         <Loader onDone={onReady} />
-        <h1 className="sr-only">Pablo Cuerva, product designer à Paris</h1>
+        <h1 className="sr-only">Travaux de Pablo Cuerva, product designer à Paris</h1>
 
         {/* Haut */}
-        <Link href="/" className={`${corner} left-0 top-3`}>Pablo Cuerva</Link>
+        <Link href="/" className={`${corner} left-0 top-3 font-medium`}>Pablo Cuerva</Link>
 
         <nav aria-label="Navigation principale" className="absolute left-1/2 top-3 z-[5] flex -translate-x-1/2 gap-7 max-[760px]:hidden">
           {NAV.map((l) => (
-            <Link key={l.href} href={l.href} aria-current={l.href === "/" ? "page" : undefined} className="u inline-flex min-h-11 items-center">
+            <Link key={l.href} href={l.href} aria-current={l.href === "/work" ? "page" : undefined} className="u inline-flex min-h-11 items-center">
               {l.label}
             </Link>
           ))}
@@ -104,7 +104,7 @@ export function Home() {
         {menu && (
           <div id="menu-mobile" className="fixed inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-bg">
             {NAV.map((l) => (
-              <Link key={l.href} href={l.href} onClick={() => setMenu(false)} aria-current={l.href === "/" ? "page" : undefined} className="u inline-flex min-h-11 items-center">
+              <Link key={l.href} href={l.href} onClick={() => setMenu(false)} aria-current={l.href === "/work" ? "page" : undefined} className="u inline-flex min-h-11 items-center">
                 {l.label}
               </Link>
             ))}

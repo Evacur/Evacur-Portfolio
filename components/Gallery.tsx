@@ -42,7 +42,7 @@ export function Gallery({ projects, idx, prev, ready, go }: Props) {
 
   return (
     <section
-      aria-label="Projets"
+      aria-label="Thèmes"
       onWheel={onWheel}
       className="absolute inset-0 flex flex-col items-center justify-center gap-5 pb-4"
     >
@@ -61,8 +61,8 @@ export function Gallery({ projects, idx, prev, ready, go }: Props) {
           return (
             <Link
               key={p.slug}
-              href={`/travaux/${p.slug}`}
-              aria-label={`Ouvrir le projet ${p.title}`}
+              href={`/work/${p.slug}`}
+              aria-label={`Ouvrir le thème ${p.title}`}
               aria-hidden={!on}
               tabIndex={on ? 0 : -1}
               draggable={false}
@@ -104,13 +104,13 @@ export function Gallery({ projects, idx, prev, ready, go }: Props) {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="flex items-center gap-7 whitespace-nowrap max-[480px]:flex-col max-[480px]:gap-0"
       >
-        <div role="group" aria-label="Choisir un projet" className="flex gap-0.5">
+        <div role="group" aria-label="Choisir un thème" className="flex gap-0.5">
           {projects.map((p, i) => (
             <button
               key={p.slug}
               type="button"
               aria-pressed={i === idx}
-              aria-label={`Projet ${p.n} : ${p.title}`}
+              aria-label={`Thème ${p.n} : ${p.title}`}
               onClick={() => go(i)}
               className={`min-h-11 min-w-[30px] tabular-nums transition-colors duration-300 hover:text-fg ${i === idx ? "text-fg" : "text-mute"}`}
             >
@@ -133,8 +133,8 @@ export function Gallery({ projects, idx, prev, ready, go }: Props) {
           ))}
         </span>
 
-        <Link href={`/travaux/${cur.slug}`} className="u inline-flex min-h-11 items-center">
-          (voir le projet)
+        <Link href={`/work/${cur.slug}`} className="u inline-flex min-h-11 items-center">
+          (voir le thème)
         </Link>
       </motion.div>
     </section>
