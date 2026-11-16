@@ -6,17 +6,16 @@ import { useState } from "react";
 import { expertises } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
-const skills = expertises.filter((e) => e.kind !== "Secteur");
-const sectors = expertises.filter((e) => e.kind === "Secteur");
+const skills = expertises;
 
 /**
- * Expertises en accordéon (une ligne ouverte à la fois, comme la FAQ),
- * puis les secteurs en texte courant, non cliquables.
+ * Expertises en accordéon (une ligne ouverte à la fois, comme la FAQ).
+ * Les secteurs sont cités dans les descriptions.
  */
 export function Expertises() {
   const [open, setOpen] = useState(0);
   return (
-    <section aria-label="Expertises" className="flex flex-col gap-[max(56px,6vw)] px-6 py-[max(64px,6vw)] max-[640px]:px-4">
+    <section aria-label="Expertises" className="px-6 py-[max(64px,6vw)] max-[640px]:px-4">
       <Reveal>
         <h2 className="m-0 mb-4 flex justify-between text-[13px] font-normal text-mute">
           Expertises
@@ -62,21 +61,6 @@ export function Expertises() {
         </ul>
       </Reveal>
 
-      <Reveal>
-        <h2 className="m-0 mb-4 text-[13px] font-normal text-mute">Secteurs</h2>
-        <p className="m-0 border-b border-line pb-[max(24px,2vw)] text-[max(26px,4.2vw)] font-medium leading-[1.08] tracking-[-0.04em] text-mute [text-wrap:balance]">
-          {sectors.map((s, i) => (
-            // La barre reste collée au mot qui la précède, jamais en début de ligne
-            <span key={s.n}>
-              <span className="whitespace-nowrap">
-                {s.name}
-                {i < sectors.length - 1 && <span aria-hidden="true" className="text-[color-mix(in_srgb,var(--fg)_22%,transparent)]"> /</span>}
-              </span>
-              {i < sectors.length - 1 && " "}
-            </span>
-          ))}
-        </p>
-      </Reveal>
     </section>
   );
 }

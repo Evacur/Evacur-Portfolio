@@ -24,7 +24,7 @@ export function ContactFooter() {
           {copied ? "Copié ✓" : "Copier l'email"}
         </button>
         {contact.links.map((l) => (
-          <a key={l.label} href={l.href} className={`${pill} hover:border-fg`}>{l.label}</a>
+          <a key={l.label} href={l.href} {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={`${pill} hover:border-fg`}>{l.label}</a>
         ))}
       </div>
       <div className="flex flex-wrap justify-between gap-2 pt-3.5 text-mute">
