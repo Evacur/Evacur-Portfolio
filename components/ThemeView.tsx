@@ -105,21 +105,25 @@ function Rise({ children, delay = 0, className }: { children: React.ReactNode; d
   );
 }
 
-/** Grand lien de fin de page : le titre roule au survol, la flèche glisse, un trait se dessine au-dessus. */
-function NextLink({ label, title, href, onClick }: { label: string; title: string; href?: string; onClick?: () => void }) {
+/** Lien de fin de page, précédent ou suivant : le titre roule au survol, la flèche glisse. */
+function EndLink({ label, title, href, onClick, back }: { label: string; title: string; href?: string; onClick?: () => void; back?: boolean }) {
+  const arrow = (
+    <span aria-hidden="true" className={`inline-block transition-transform duration-700 ease-out-soft ${back ? "group-hover:-translate-x-[0.2em]" : "group-hover:translate-x-[0.2em]"}`}>{back ? "←" : "→"}</span>
+  );
   const inner = (
     <>
       <span className="text-mute">{label}</span>
-      <span className="flex items-baseline gap-[0.25em] font-serif text-[max(32px,5.8vw)] font-normal leading-none tracking-[-0.025em]">
+      <span className="flex items-baseline gap-[0.25em] font-serif text-[max(28px,3.8vw)] font-normal leading-none tracking-[-0.025em]">
+        {back && arrow}
         <span className="relative block overflow-hidden pb-[0.12em]">
           <span className="block transition-transform duration-700 ease-out-soft group-hover:-translate-y-[110%]">{title}</span>
           <span aria-hidden="true" className="absolute inset-0 block translate-y-[110%] transition-transform duration-700 ease-out-soft group-hover:translate-y-0">{title}</span>
         </span>
-        <span aria-hidden="true" className="inline-block transition-transform duration-700 ease-out-soft group-hover:translate-x-[0.2em]">→</span>
+        {!back && arrow}
       </span>
     </>
   );
-  const cls = "group relative flex w-full flex-col items-start gap-2 py-[5vw] text-left";
+  const cls = `group flex flex-col gap-2 ${back ? "items-start text-left" : "items-end text-right max-[640px]:items-start max-[640px]:text-left"}`;
   return href
     ? <Link href={href} className={cls}>{inner}</Link>
     : <button type="button" onClick={onClick} className={cls}>{inner}</button>;
@@ -203,7 +207,7 @@ function Gallery({ items, tint, wideFirst }: { items: MediaItem[]; tint: string;
  * Cas de recherche : contexte et son écran, problème et décisions côte à côte en texte,
  * les écrans, puis les résultats. Cas visuel : trois textes courts, puis les écrans.
  */
-export function ThemeView({ project, next }: { project: Project; next: Project }) {
+export function ThemeView({ project, prev, next }: { project: Project; prev: Project; next: Project }) {
   const [ci, setCi] = useState(0);
   const c = project.cases[ci];
   const lastCase = ci === project.cases.length - 1;
@@ -225,7 +229,7 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
 
   return (
     <article className="px-6 max-[640px]:px-4">
-      <header className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-x-[4vw] gap-y-[2.4vw] pb-[4vw] pt-[4vw] max-[640px]:grid-cols-1 max-[640px]:gap-y-5 max-[640px]:pb-8 max-[640px]:pt-8">
+      <header className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-end gap-x-[4vw] gap-y-[2.4vw] pt-[4vw] max-[900px]:grid-cols-1 max-[640px]:gap-y-5 max-[640px]:pt-8">
         <Link href="/work" className="group col-span-full inline-flex w-fit items-center gap-1.5 text-mute transition-colors duration-300 hover:text-fg">
           <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:-translate-x-1">←</span>
           Travaux · Thème {project.n}
@@ -255,7 +259,7 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
           {project.pitch}
         </motion.p>
         <motion.dl
-          className="m-0 grid grid-cols-2 gap-x-4 gap-y-2.5"
+          className="m-0 grid grid-cols-[auto_auto_auto_auto] justify-between gap-x-6 gap-y-2.5 max-[640px]:grid-cols-2 max-[640px]:justify-start"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.55 }}
         >
           {[["Client", c.client], ["Année", c.year], ["Rôle", c.role], ["Durée", c.duration]].map(([k, v], n) => (
@@ -278,7 +282,7 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
           ))}
         </motion.dl>
         <motion.div
-          id="cas" role="tablist" aria-label="Cas" className="col-span-full flex flex-wrap gap-2"
+          id="cas" role="tablist" aria-label="Cas" className="col-span-full mt-[1.4vw] flex flex-wrap gap-x-8 border-t border-line max-[640px]:mt-2 max-[640px]:gap-x-6"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.65 }}
         >
           {project.cases.map((k, i) => (
@@ -288,11 +292,11 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
               role="tab"
               aria-selected={i === ci}
               onClick={() => pickCase(i)}
-              className={`relative inline-flex min-h-9 items-center rounded-full border px-3.5 transition-colors duration-500 active:scale-[0.97] ${i === ci ? "border-transparent text-bg" : "border-line text-mute hover:border-fg hover:text-fg"}`}
+              className={`relative py-3.5 transition-colors duration-300 hover:text-fg ${i === ci ? "text-fg" : "text-mute"}`}
             >
-              {/* La pastille noire glisse d'un cas à l'autre */}
-              {i === ci && <motion.span layoutId="case-pill" className="absolute -inset-px rounded-full bg-fg" transition={{ duration: 0.6, ease: inout }} />}
-              <span className="relative">Cas {i + 1} · {k.name}</span>
+              {/* Le trait glisse d'un cas à l'autre, sur le filet */}
+              {i === ci && <motion.span layoutId="case-line" className="absolute inset-x-0 -top-px h-px bg-fg" transition={{ duration: 0.6, ease: inout }} />}
+              <span className="mr-1.5 text-[11px] tabular-nums text-mute">{String(i + 1).padStart(2, "0")}</span>{k.name}
             </button>
           ))}
         </motion.div>
@@ -301,7 +305,6 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={ci}
-          className="border-t border-line"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease } }}
           exit={{ opacity: 0, y: -12, transition: { duration: 0.25, ease: "easeIn" } }}
@@ -350,9 +353,14 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
         </motion.div>
       </AnimatePresence>
 
-      {lastCase
-        ? <NextLink label="Thème suivant" title={next.title} href={`/work/${next.slug}`} />
-        : <NextLink label="Cas suivant" title={project.cases[ci + 1].name} onClick={() => { setCi(ci + 1); scrollToTarget(0); }} />}
+      <nav aria-label="Précédent et suivant" className="flex items-end justify-between gap-8 border-t border-line py-[5vw] max-[640px]:flex-col max-[640px]:items-start max-[640px]:py-10">
+        {ci === 0
+          ? <EndLink back label="Thème précédent" title={prev.title} href={`/work/${prev.slug}`} />
+          : <EndLink back label="Cas précédent" title={project.cases[ci - 1].name} onClick={() => { setCi(ci - 1); scrollToTarget(0); }} />}
+        {lastCase
+          ? <EndLink label="Thème suivant" title={next.title} href={`/work/${next.slug}`} />
+          : <EndLink label="Cas suivant" title={project.cases[ci + 1].name} onClick={() => { setCi(ci + 1); scrollToTarget(0); }} />}
+      </nav>
     </article>
   );
 }

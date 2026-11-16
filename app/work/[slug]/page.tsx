@@ -21,12 +21,14 @@ export default async function Page({ params }: Props) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
-  const next = projects[(projects.indexOf(project) + 1) % projects.length];
+  const at = projects.indexOf(project);
+  const next = projects[(at + 1) % projects.length];
+  const prev = projects[(at + projects.length - 1) % projects.length];
   return (
     <MotionRoot>
       <SiteHeader />
       <main>
-        <ThemeView key={project.slug} project={project} next={next} />
+        <ThemeView key={project.slug} project={project} prev={prev} next={next} />
       </main>
       <ContactFooter />
     </MotionRoot>
