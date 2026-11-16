@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { MotionConfig } from "motion/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { projects } from "@/lib/projects";
 import { Clock } from "./Clock";
-import { Gallery } from "./Gallery";
 import { Loader } from "./Loader";
 import { ProjectList } from "./ProjectList";
 
@@ -14,14 +13,11 @@ const NAV = [
   { href: "/#contact", label: "Contact" },
 ];
 
+const noop = () => {};
 const corner = "absolute z-[5] inline-flex min-h-11 items-center px-6";
 
-/** Work : un seul écran, sans scroll. Liste des thèmes par défaut, galerie en option. */
+/** Work : un seul écran, sans scroll. La liste des thèmes, au centre. */
 export function WorkScreen() {
-  const [ready, setReady] = useState(false);
-  const [idx, setIdx] = useState(0);
-  const [prev, setPrev] = useState(-1);
-  const [view, setView] = useState<"gallery" | "list">("list");
   const [dark, setDark] = useState(false);
   const [menu, setMenu] = useState(false);
 
@@ -34,32 +30,11 @@ export function WorkScreen() {
     try { localStorage.setItem("theme", next ? "dark" : "light"); } catch {}
   };
 
-  const go = useCallback((i: number) => {
-    const j = Math.max(0, Math.min(projects.length - 1, i));
-    setIdx((cur) => {
-      if (j !== cur) setPrev(cur);
-      return j;
-    });
-  }, []);
-
-  const onReady = useCallback(() => setReady(true), []);
-
-  // Flèches du clavier pour changer de projet
-  useEffect(() => {
-    if (view !== "gallery") return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLElement && e.target.closest("input, textarea, [contenteditable]")) return;
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); setIdx((c) => { const j = Math.min(projects.length - 1, c + 1); if (j !== c) setPrev(c); return j; }); }
-      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); setIdx((c) => { const j = Math.max(0, c - 1); if (j !== c) setPrev(c); return j; }); }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [view]);
 
   return (
     <MotionConfig reducedMotion="user">
       <main className="relative h-dvh min-h-[560px] overflow-hidden">
-        <Loader onDone={onReady} />
+        <Loader onDone={noop} />
         <h1 className="sr-only">Travaux de Pablo Cuerva, product designer à Paris</h1>
 
         {/* Haut */}
@@ -87,14 +62,9 @@ export function WorkScreen() {
         </button>
 
         {/* Centre */}
-        {view === "gallery"
-          ? <Gallery projects={projects} idx={idx} prev={prev} ready={ready} go={go} />
-          : <ProjectList projects={projects} />}
+        <ProjectList projects={projects} />
 
         {/* Bas */}
-        <button type="button" onClick={() => setView(view === "gallery" ? "list" : "gallery")} className={`${corner} bottom-3 left-0`}>
-          ({view === "gallery" ? "voir la liste" : "voir la galerie"})
-        </button>
         <span className="absolute bottom-3 left-1/2 z-[5] inline-flex min-h-11 -translate-x-1/2 items-center gap-1 whitespace-nowrap text-mute max-[480px]:hidden">
           Product designer, Paris <Clock />
         </span>

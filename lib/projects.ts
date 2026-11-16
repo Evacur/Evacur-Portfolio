@@ -62,7 +62,7 @@ const placeholder = (name: string, client = "[client]"): Case => ({
 });
 
 const shot = (src: string, alt: string) => ({ src: `/projects/${src}.webp`, alt });
-const clip = (dir: string, alt: string, ratio: string) => ({ video: `/projects/${dir}/video.mp4`, poster: `/projects/${dir}/video-poster.webp`, alt, ratio });
+const clip = (dir: string, alt: string, ratio: string, name = "video") => ({ video: `/projects/${dir}/${name}.mp4`, poster: `/projects/${dir}/${name}-poster.webp`, alt, ratio });
 
 // Cas tirés du portfolio PDF (Portfolio-PabloCuerva.pdf, mai 2026)
 const bim: Case = {
@@ -197,6 +197,8 @@ const pulse: Case = {
         "Une solution desktop de comptabilité pour les TPE, les auto-entrepreneurs et les dirigeants de petites structures, avec des fonctionnalités avancées intégrant l'IA.",
       ],
       media: [
+        shot("pulse-ia/03", "Une équipe d'assistants : Shop, Fisca, Devis Fact et Compta"),
+        clip("pulse-ia", "Chaque assistant s'ouvre en carte et se lance d'un clic", "1600 / 1000", "video-2"),
         clip("pulse-ia", "L'assistant projette la trésorerie sur six mois et propose des actions", "1042 / 584"),
         shot("pulse-ia/02", "Pulse IA : assistant, audit et équipe d'assistants"),
       ],
@@ -270,7 +272,7 @@ export const projects: Project[] = [
   {
     slug: "ia-conversationnelle", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
     pitch: "Assistants, chatbots et outils connectés en MCP.",
-    cover: "/projects/pulse-ia/01.webp", tint: "#E4DEEA", ink: "#5B3F86",
+    cover: "/projects/pulse-ia/03.webp", tint: "#E4DEEA", ink: "#5B3F86",
     cases: [pulse, placeholder("Kleio", "Kleio")],
   },
   {
@@ -302,7 +304,7 @@ export const projects: Project[] = [
 /** Les images qui défilent dans les cards de l'accueil, chacune mène à son thème. */
 export const heroShots: { src: string; slug: string; title: string }[] = [
   { src: "/projects/bim/02.webp", slug: "produit-et-discovery", title: "Bim !" },
-  { src: "/projects/pulse-ia/01.webp", slug: "ia-conversationnelle", title: "Pulse IA" },
+  { src: "/projects/pulse-ia/03.webp", slug: "ia-conversationnelle", title: "Pulse IA" },
   { src: "/projects/livestore/01.webp", slug: "produit-et-discovery", title: "Livestore" },
   { src: "/projects/gaspard-mariotte/01.webp", slug: "sites-vitrines", title: "Gaspard Mariotte" },
   { src: "/projects/bim/04.webp", slug: "design-system", title: "Design system Bim !" },

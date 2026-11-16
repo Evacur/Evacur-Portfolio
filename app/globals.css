@@ -78,16 +78,6 @@ body {
 .xp-text { opacity: 0; transform: translateY(6px); transition: opacity .5s ease .12s, transform .6s var(--ease-out-soft) .12s; }
 .xp-a.is-open .xp-text { opacity: 1; transform: none; }
 
-/* Work : la ligne survolée glisse, un trait se dessine dessous */
-.wk-row { position: relative; }
-.wk-row::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: currentColor;
-  transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease-inout);
-}
-.wk-row:hover::after, .wk-row:focus-visible::after { transform: scaleX(1); }
-.wk-title { display: inline-block; transition: transform .55s var(--ease-out-soft); }
-.wk-row:hover .wk-title, .wk-row:focus-visible .wk-title { transform: translateX(10px); }
-
 /* FAQ */
 .faq-plus { position: relative; width: 12px; height: 12px; flex: none; }
 .faq-plus::before, .faq-plus::after {
@@ -108,3 +98,16 @@ body {
 }
 .faq-rows { opacity: 0; transform: translateY(6px); transition: opacity .5s ease .16s, transform .6s var(--ease-out-soft) .16s; }
 .faq-a.is-open .faq-rows { opacity: 1; transform: none; }
+/* Liste Work : au survol, un volet noir monte derrière la ligne et le texte passe en blanc ; le titre glisse derrière une flèche */
+.wk-row { isolation: isolate; transition: color .45s var(--ease-inout), opacity .3s ease; }
+.wk-row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--color-fg); clip-path: inset(100% 0 0 0); transition: clip-path .55s var(--ease-inout); }
+.wk-row > span { transition: color .45s var(--ease-inout); }
+.wk-title { display: inline-block; transition: transform .6s var(--ease-out-soft), color .45s var(--ease-inout); }
+.wk-arrow { position: absolute; left: -1.3em; opacity: 0; transform: translateX(-6px); transition: opacity .35s ease, transform .6s var(--ease-out-soft); }
+@media (hover: hover) {
+  .wk-row:hover::before, .wk-row:focus-visible::before { clip-path: inset(0 0 0 0); }
+  .wk-row:hover > span, .wk-row:focus-visible > span { color: var(--color-bg); }
+  .wk-row:hover .wk-title, .wk-row:focus-visible .wk-title { transform: translateX(1.3em); }
+  .wk-row:hover .wk-arrow, .wk-row:focus-visible .wk-arrow { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .wk-row::before, .wk-title, .wk-arrow { transition: none; } }
