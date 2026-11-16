@@ -160,7 +160,7 @@ const livestore: Case = {
   slug: "livestore",
   name: "Livestore",
   client: "Cegid",
-  year: "[année]",
+  year: "2025",
   role: "Lead product designer",
   duration: "2 ans",
   chapters: [
@@ -217,7 +217,7 @@ const pulse: Case = {
   slug: "pulse-ia",
   name: "Pulse IA",
   client: "Cegid",
-  year: "[année]",
+  year: "2025",
   role: "Product designer",
   duration: "1 an",
   chapters: [
@@ -259,7 +259,7 @@ const pulse: Case = {
       title: "Résultats",
       lede: "Un produit sorti, adopté en interne et approuvé par ses bêta-testeurs.",
       body: [
-        "Pulse IA a été mis en production et bien adopté en interne. Environ 80 % des bêta-testeurs ont approuvé le produit.",
+        "Pulse IA a été mis en production et bien adopté en interne. Une large majorité des bêta-testeurs a approuvé le produit.",
         "Le sujet s'inscrit dans la durée : les composants conversationnels conçus ici servent de base aux itérations suivantes.",
       ],
       media: ["Écran final en production"],
