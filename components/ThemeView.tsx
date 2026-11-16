@@ -143,7 +143,7 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
           <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:-translate-x-1">←</span>
           Travaux · Thème {project.n}
         </Link>
-        <h1 className="col-span-full m-0 text-[max(36px,6vw)] font-semibold leading-[0.95] tracking-[-0.04em]">
+        <h1 className="col-span-full m-0 font-serif text-[max(42px,7.2vw)] font-normal leading-[0.95] tracking-[-0.025em]">
           {project.title.split(" ").map((word, wi, all) => {
             const start = all.slice(0, wi).join(" ").length + (wi ? 1 : 0);
             return (
@@ -249,7 +249,7 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
                     <Rise><span className="font-mono text-[11px] uppercase tracking-[0.06em] text-mute tabular-nums">{String(i + 1).padStart(2, "0")}</span></Rise>
                     {/* Le titre monte derrière un masque ; c'est le h2, jamais masqué, qui détecte l'entrée à l'écran */}
                     <motion.h2
-                      className="m-0 overflow-hidden pb-[0.1em] text-[max(26px,3.2vw)] font-semibold leading-[1.02] tracking-[-0.03em]"
+                      className="m-0 overflow-hidden pb-[0.1em] font-serif text-[max(30px,3.8vw)] font-normal leading-[1.02] tracking-[-0.015em]"
                       initial="hide" whileInView="show" viewport={seen}
                     >
                       <motion.span className="block" variants={{ hide: { y: "110%" }, show: { y: "0%" } }} transition={{ duration: 1, ease, delay: 0.05 }}>

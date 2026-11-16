@@ -40,9 +40,10 @@ export function Expertises() {
                   aria-expanded={on}
                   aria-controls={`xp-${i}`}
                   onClick={() => setOpen(on ? -1 : i)}
+                  data-cur={on ? "fermer" : "lire"}
                   className="xp-btn flex min-h-11 w-full items-center justify-between gap-4 py-[max(18px,1.5vw)] text-left"
                 >
-                  <span className="xp-title flex items-center gap-3 text-[max(26px,3.2vw)] font-medium leading-none tracking-[-0.035em]">
+                  <span className="xp-title flex items-center gap-3 font-serif text-[max(30px,3.9vw)] font-normal leading-none tracking-[-0.015em]">
                     {e.name}
                   </span>
                   <span aria-hidden="true" className={`faq-plus ${on ? "is-open" : ""}`} />

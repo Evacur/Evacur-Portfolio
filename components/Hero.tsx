@@ -16,7 +16,7 @@ import {
 import { heroShots } from "@/lib/projects";
 import { useScramble } from "./useScramble";
 
-const NAME = "PABLO CUERVA";
+const NAME = "Pablo Cuerva";
 const SUB = "Product designer · IA & SaaS · Paris";
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const volet = [0.75, 0, 0.15, 1] as const;
@@ -61,36 +61,34 @@ export function Hero() {
       aria-label="Introduction"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="hero relative flex h-[min(74svh,760px)] min-h-[480px] flex-col items-center justify-center gap-[max(18px,2.4vw)] overflow-hidden max-[760px]:h-[min(70svh,600px)] max-[760px]:min-h-[440px]"
+      className="hero relative flex h-[min(74svh,760px)] min-h-[480px] flex-col items-center justify-center gap-[max(10px,1.2vw)] overflow-hidden max-[760px]:h-[min(70svh,600px)] max-[760px]:min-h-[440px]"
     >
       {sets.map((shots, n) => (
         <StackCard key={n} n={n} shots={shots} sx={sx} sy={sy} settled={settled} />
       ))}
-      <span aria-hidden="true" className={`hc hc-5 transition-opacity duration-700 ${settled ? "opacity-0" : ""}`} style={{ "--i": 4 } as React.CSSProperties}>
+      <span aria-hidden="true" className={`hc hc-5 ${settled ? "opacity-0" : ""}`} style={{ "--i": 4 } as React.CSSProperties}>
         <Image src={heroShots[4].src} alt="" fill sizes="(max-width: 760px) 46vw, 520px" className="object-cover" />
       </span>
 
       <motion.h1
         aria-label="Pablo Cuerva"
-        className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap text-center font-display text-[9.6vw] font-extrabold leading-[0.86] tracking-[-0.03em] [font-stretch:125%] max-[760px]:text-[17vw]"
+        className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap text-center font-serif text-[14vw] font-normal leading-[0.9] tracking-[-0.035em] max-[760px]:text-[21vw]"
         style={{ scale, y: nameY, opacity: nameOpacity }}
       >
         {WORDS.map((w, wi) => {
           const start = WORDS.slice(0, wi).join(" ").length + (wi ? 1 : 0);
           return (
-            <span key={wi} aria-hidden="true" className="inline-block max-[760px]:block">
-              {wi > 0 && <span className="max-[760px]:hidden">{"\u00a0"}</span>}
+            <span key={wi} aria-hidden="true" className={`-mx-[0.05em] inline-block overflow-hidden px-[0.05em] pb-[0.08em] align-bottom ${wi ? "ml-[0.16em]" : ""}`}>
               {w.split("").map((c, k) => (
-                <span key={k} className="inline-block overflow-hidden pb-[0.04em] align-bottom">
-                  <motion.span
-                    className="inline-block"
-                    initial={{ y: "105%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ duration: 1.1, ease, delay: 1.45 + (start + k) * 0.04 }}
-                  >
-                    {c}
-                  </motion.span>
-                </span>
+                <motion.span
+                  key={k}
+                  className="inline-block"
+                  initial={{ y: "110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 1.1, ease, delay: 1.45 + (start + k) * 0.04 }}
+                >
+                  {c}
+                </motion.span>
               ))}
             </span>
           );
@@ -108,7 +106,7 @@ export function Hero() {
 
 /** Le métier en mono : les lettres se déchiffrent à l'arrivée, et de nouveau au survol. */
 function Scramble({ text }: { text: string }) {
-  const [out, run] = useScramble(text);
+  const [out, run] = useScramble(text, 900, false);
 
   useEffect(() => {
     const t = window.setTimeout(run, 2100);
@@ -119,7 +117,7 @@ function Scramble({ text }: { text: string }) {
     <motion.p
       aria-label={text}
       onPointerEnter={run}
-      className="relative z-[2] m-0 font-mono text-[max(12px,1.15vw)] font-medium uppercase tracking-[0.08em] max-[760px]:text-[11px]"
+      className="relative z-[2] m-0 text-[max(14px,1.25vw)] text-mute max-[760px]:text-[14px]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, delay: 2.1 }}
@@ -157,7 +155,8 @@ function StackCard({
       <Link
         href={`/work/${p.slug}`}
         aria-label={`${p.title}, voir le projet`}
-        className={`hc hc-${n + 1} pointer-events-auto transition-opacity duration-700 hover:opacity-100 ${settled ? "opacity-60" : ""}`}
+        data-cur="ouvrir"
+        className={`hc hc-${n + 1} pointer-events-auto`}
         style={{ "--i": n } as React.CSSProperties}
       >
         <AnimatePresence initial={false}>
@@ -200,13 +199,14 @@ function MagneticLink({ href, children }: { href: string; children: React.ReactN
         <Link
           ref={ref}
           href={href}
-          className="group inline-flex min-h-11 items-center gap-2 overflow-hidden rounded-full bg-fg px-5 font-medium text-bg transition-transform duration-300 ease-out-soft active:scale-[0.97]"
+          data-cur="aller"
+          className="cta group inline-flex min-h-11 items-center gap-2.5 text-[max(14px,1.25vw)] max-[760px]:text-[14px]"
         >
           <span className="relative block overflow-hidden">
             <span className="block transition-transform duration-500 ease-out-soft group-hover:-translate-y-full">{children}</span>
             <span aria-hidden="true" className="absolute inset-0 block translate-y-full transition-transform duration-500 ease-out-soft group-hover:translate-y-0">{children}</span>
           </span>
-          <span aria-hidden="true" className="inline-block transition-transform duration-400 ease-out-soft group-hover:translate-x-1">→</span>
+          <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:-rotate-45">→</span>
         </Link>
       </motion.span>
     </span>

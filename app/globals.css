@@ -5,6 +5,7 @@
 @theme {
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-display: var(--font-archivo), var(--font-geist-sans), system-ui, sans-serif;
+  --font-serif: var(--font-instrument), "Times New Roman", serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-bg: var(--bg);
   --color-fg: var(--fg);
@@ -116,6 +117,7 @@ body {
   position: absolute; left: 50%; top: 50%; display: block; width: var(--w); aspect-ratio: 16 / 10;
   margin: calc(var(--w) * -0.3125) 0 0 calc(var(--w) * -0.5);
   overflow: hidden; border-radius: min(1.2vw, 16px); background: var(--line);
+  transition: opacity .6s ease, translate .7s var(--ease-out-soft), box-shadow .7s var(--ease-out-soft);
   transform: translate(var(--x), var(--y)) scale(var(--s));
   animation: hc-pin .55s var(--ease-inout) both calc(var(--i) * .17s), hc-scatter 1.15s var(--ease-inout) forwards 1.2s;
 }
@@ -128,7 +130,7 @@ body {
   to { transform: translate(var(--x), var(--y)) scale(var(--s)); }
 }
 .hc-1 { --x: -34cqw; --y: -30cqh; --s: .6; --r: -5deg; }
-.hc-2 { --x: 32cqw; --y: -24cqh; --s: .95; --r: 3deg; }
+.hc-2 { --x: 35cqw; --y: -31cqh; --s: .72; --r: 3deg; }
 .hc-3 { --x: -33cqw; --y: 27cqh; --s: .5; --r: 6deg; }
 .hc-4 { --x: 31cqw; --y: 30cqh; --s: .68; --r: -3deg; }
 .hc-5 { --x: 0cqw; --y: 0cqh; --s: .8; --r: 1deg; z-index: 1; pointer-events: none; }
@@ -144,9 +146,45 @@ body {
 /* Hero : une fois posées, les cards flottent doucement, chacune à son rythme. Fixes sur mobile. */
 @media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
   .hc-float { animation: hc-float var(--fd, 7s) ease-in-out var(--fs, 2.4s) infinite alternate; }
-  .hc-float-1 { --fd: 6.5s; --fy: -14px; --fx: 6px; --fr: .5deg; }
-  .hc-float-2 { --fd: 8s; --fy: 16px; --fx: -8px; --fr: -.4deg; --fs: 2.6s; }
-  .hc-float-3 { --fd: 7.2s; --fy: 12px; --fx: 7px; --fr: -.6deg; --fs: 2.9s; }
-  .hc-float-4 { --fd: 9s; --fy: -15px; --fx: -6px; --fr: .45deg; --fs: 2.5s; }
+  .hc-float-1 { --fd: 7s; --fy: -10px; --fx: 5px; --fr: .7deg; }
+  .hc-float-2 { --fd: 8.6s; --fy: 11px; --fx: -6px; --fr: -.6deg; --fs: 2.6s; }
+  .hc-float-3 { --fd: 7.8s; --fy: 9px; --fx: 6px; --fr: -.7deg; --fs: 2.9s; }
+  .hc-float-4 { --fd: 9.4s; --fy: -11px; --fx: -5px; --fr: .6deg; --fs: 2.5s; }
 }
-@keyframes hc-float { to { transform: translate(var(--fx), var(--fy)) rotate(var(--fr)); } }
+/* Dérive en trois temps : la card ne fait jamais un simple aller-retour */
+@keyframes hc-float {
+  33% { transform: translate(var(--fx), var(--fy)) rotate(var(--fr)); }
+  66% { transform: translate(calc(var(--fx) * -1.2), calc(var(--fy) * -.6)) rotate(calc(var(--fr) * -.7)); }
+  100% { transform: translate(calc(var(--fx) * .5), calc(var(--fy) * .4)) rotate(calc(var(--fr) * .4)); }
+}
+
+/* Hero : au survol d'une card, les autres s'effacent et elle se soulève */
+@media (hover: hover) {
+  .hero:has(a.hc:hover) a.hc:not(:hover) { opacity: .3; }
+  a.hc:hover { translate: 0 -8px; box-shadow: 0 22px 40px -18px rgba(0, 0, 0, .28); }
+  a.hc img { transition: transform 1.1s var(--ease-out-soft); }
+  a.hc:hover img { transform: scale(1.04); }
+}
+
+/* Lien principal du hero : un texte souligné, le filet se redessine au survol */
+.cta { position: relative; padding-bottom: 2px; }
+.cta::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: currentColor;
+  transform-origin: left; transition: transform .6s var(--ease-inout);
+}
+@media (hover: hover) { .cta:hover::after { animation: cta-line .9s var(--ease-inout); } }
+@keyframes cta-line { 0% { transform: scaleX(1); transform-origin: right; } 45% { transform: scaleX(0); transform-origin: right; } 46% { transform: scaleX(0); transform-origin: left; } 100% { transform: scaleX(1); transform-origin: left; } }
+
+/* Curseur : un point qui s'ouvre en étiquette */
+html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
+.cursor { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; opacity: 0; transition: opacity .3s ease; will-change: transform; }
+.cursor > span {
+  display: flex; align-items: center; justify-content: center; width: 10px; height: 10px; margin: -5px 0 0 -5px;
+  overflow: hidden; border-radius: 999px; background: var(--fg); color: var(--bg);
+  font: 500 11px/1 var(--font-sans); white-space: nowrap;
+  transition: width .4s var(--ease-out-soft), height .4s var(--ease-out-soft), margin .4s var(--ease-out-soft);
+}
+.cursor i { font-style: normal; opacity: 0; transition: opacity .2s ease; }
+.cursor.is-big > span { width: 64px; height: 26px; margin: 14px 0 0 12px; }
+.cursor.is-big i { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .cursor { display: none; } html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: auto; } }

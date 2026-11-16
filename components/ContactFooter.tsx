@@ -1,8 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { contact } from "@/lib/content";
 import { Clock } from "./Clock";
+
+/** Position du curseur en direct, comme un repère d'outil de dessin. Souris uniquement. */
+function Coords() {
+  const [p, setP] = useState<[number, number] | null>(null);
+  useEffect(() => {
+    const on = (e: PointerEvent) => { if (e.pointerType === "mouse") setP([Math.round(e.clientX), Math.round(e.clientY)]); };
+    window.addEventListener("pointermove", on, { passive: true });
+    return () => window.removeEventListener("pointermove", on);
+  }, []);
+  if (!p) return null;
+  return (
+    <span aria-hidden="true" className="inline-flex gap-1 tabular-nums max-[760px]:hidden">
+      x <span className="inline-block min-w-[4ch] text-fg">{p[0]}</span> y <span className="inline-block min-w-[4ch] text-fg">{p[1]}</span>
+    </span>
+  );
+}
 
 /** Contact en bas de chaque page qui défile : email en grand, copie en un clic, liens, dispo. */
 export function ContactFooter() {
@@ -16,7 +32,7 @@ export function ContactFooter() {
   return (
     <footer id="contact" className="flex flex-col gap-5 border-t border-line px-6 pb-6 pt-[6vw]">
       <span className="text-mute">Un projet en tête ?</span>
-      <a href={`mailto:${contact.email}`} className="max-w-full break-words text-[max(28px,5.6vw)] font-semibold leading-none tracking-[-0.04em]">
+      <a href={`mailto:${contact.email}`} data-cur="écrire" className="max-w-full break-words font-serif text-[max(30px,6.4vw)] font-normal leading-none tracking-[-0.025em]">
         {contact.email}
       </a>
       <div className="flex flex-wrap items-center gap-2.5">
@@ -27,9 +43,10 @@ export function ContactFooter() {
           <a key={l.label} href={l.href} {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={`${pill} hover:border-fg`}>{l.label}</a>
         ))}
       </div>
-      <div className="flex flex-wrap justify-between gap-2 pt-3.5 text-mute">
+      <div className="flex flex-wrap justify-between gap-2 border-t border-line pt-4 text-mute">
         <span>{contact.availability}</span>
-        <span className="inline-flex gap-1">Paris <Clock /></span>
+        <span className="inline-flex gap-1">Paris <span className="text-fg"><Clock /></span></span>
+        <Coords />
         <span>2026 ©</span>
       </div>
     </footer>

@@ -27,6 +27,7 @@ function Row({ p }: { p: Project }) {
         onPointerEnter={(e) => { if (e.pointerType === "mouse") run(); }}
         onFocus={run}
         aria-label={`${p.title}, ${p.kind}, ${p.year}`}
+        data-cur="ouvrir"
         className="wk-row grid min-h-11 grid-cols-[48px_1fr_1fr_64px] items-center border-b border-line transition-opacity duration-300 group-hover/list:opacity-30 hover:!opacity-100 focus-visible:!opacity-100 max-[760px]:grid-cols-[36px_1fr_52px]"
       >
         <span aria-hidden="true" className="text-mute tabular-nums">{p.n}</span>
