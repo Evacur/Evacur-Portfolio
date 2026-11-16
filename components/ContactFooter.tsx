@@ -16,7 +16,7 @@ export function ContactFooter() {
   return (
     <footer id="contact" className="flex flex-col gap-5 border-t border-line px-6 pb-6 pt-[6vw]">
       <span className="text-mute">Un projet en tête ?</span>
-      <a href={`mailto:${contact.email}`} className="text-[max(32px,5.6vw)] font-semibold leading-none tracking-[-0.04em]">
+      <a href={`mailto:${contact.email}`} className="max-w-full break-words text-[max(28px,5.6vw)] font-semibold leading-none tracking-[-0.04em]">
         {contact.email}
       </a>
       <div className="flex flex-wrap items-center gap-2.5">

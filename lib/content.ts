@@ -40,12 +40,12 @@ export const faq: FaqItem[] = [
   { q: "Comment tu mènes la recherche ?", a: "Entretiens, ateliers de cadrage, tests utilisateurs et questionnaires in-app pour une discovery continue. Outils : Figma, Maze, Dovetail, Jira et Confluence." },
   { q: "Freelance, CDI, remote ?", a: "Freelance sur Malt, Supermalter noté 5/5, et ouvert à un poste. Basé à Paris, sur site ou en hybride." },
   { q: "Tu parles anglais ?", a: "Oui. Français natif, anglais professionnel (B2)." },
-  { q: "Quand es-tu dispo ?", a: "À partir de [mois]. Le premier échange de 30 min est offert." },
+  { q: "Quand es-tu dispo ?", a: "À partir de janvier 2027. Le premier échange de 30 min est offert." },
 ];
 
 export const contact = {
-  email: "[email pro]",
-  availability: "Dispo dès [mois]",
+  email: "cuervapbl@gmail.com",
+  availability: "Dispo dès janvier 2027",
   links: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/pablocuerva" },
     { label: "Malt", href: "https://www.malt.fr/profile/pablocuerva" },
