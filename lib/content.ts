@@ -24,7 +24,7 @@ export const expertises: Expertise[] = [
 
 // Réponses tirées du profil Malt et de LinkedIn (novembre 2026)
 export const faq = [
-  { q: "Quel est ton TJM ?", a: "400 € HT par jour." },
+  { q: "Quel est ton TJM ?", a: "450 € HT par jour." },
   { q: "Quelle est ton expérience ?", a: "Cinq ans chez Cegid, de 2020 à 2025 : designer référent sur une application retail pour des grands groupes du luxe, de la cosmétique et du prêt-à-porter, puis principal designer d'un outil de comptabilité lancé de zéro en neuf mois. Depuis, en freelance sur des bots conversationnels et des SaaS avec IA." },
   { q: "Tu codes aussi ?", a: "Oui. Je développe des interfaces en production en Next.js et Tailwind, et j'ouvre des pull requests pour intégrer mes designs directement dans le code." },
   { q: "Tu sais travailler en équipe ?", a: "Chez Cegid, dans une équipe de 30 designers, j'ai coordonné jusqu'à 10 designers sur un même produit et j'étais le référent du design system. J'ai aussi été mentor UX Research pour des startups au Cegid Data Lab, à Station F." },
