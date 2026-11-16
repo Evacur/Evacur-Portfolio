@@ -106,3 +106,5 @@ body {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+.faq-rows { opacity: 0; transform: translateY(6px); transition: opacity .5s ease .16s, transform .6s var(--ease-out-soft) .16s; }
+.faq-a.is-open .faq-rows { opacity: 1; transform: none; }

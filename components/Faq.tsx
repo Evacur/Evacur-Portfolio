@@ -31,6 +31,17 @@ export function Faq() {
                 <div id={`faq-${i}`} className={`faq-a ${on ? "is-open" : ""}`}>
                   <div>
                     <p className="m-0 mb-[18px] max-w-[52ch] text-mute">{f.a}</p>
+                    {f.rows && (
+                      <dl className="faq-rows m-0 mb-[22px] max-w-[720px]">
+                        {f.rows.map((r, k) => (
+                          <div key={k} className={`grid grid-cols-[110px_90px_1fr] gap-x-4 py-3 ${r.when ? "border-t border-line" : "pt-0"} max-[760px]:grid-cols-[1fr] max-[760px]:gap-y-1">
+                            <dt className="font-mono text-[12px] uppercase tracking-[0.06em] text-mute max-[760px]:empty:hidden">{r.when}</dt>
+                            <dd className="m-0 font-medium max-[760px]:empty:hidden">{r.where}</dd>
+                            <dd className="m-0 text-mute">{r.what}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
                   </div>
                 </div>
               </li>
