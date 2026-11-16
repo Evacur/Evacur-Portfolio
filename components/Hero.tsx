@@ -152,6 +152,8 @@ function StackCard({
 
   return (
     <motion.div className="pointer-events-none absolute inset-0 z-[1]" style={{ x, y }}>
+      {/* Flottement lent et continu, propre à chaque card (sur grand écran seulement) */}
+      <span className={`hc-float hc-float-${n + 1} absolute inset-0 block`}>
       <Link
         href={`/work/${p.slug}`}
         aria-label={`${p.title}, voir le projet`}
@@ -171,6 +173,7 @@ function StackCard({
           </motion.span>
         </AnimatePresence>
       </Link>
+      </span>
     </motion.div>
   );
 }

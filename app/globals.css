@@ -140,3 +140,13 @@ body {
   .hc-4 { --x: 18cqw; --y: 37cqh; --s: .95; }
 }
 @media (prefers-reduced-motion: reduce) { .hc { animation: none; } }
+
+/* Hero : une fois posées, les cards flottent doucement, chacune à son rythme. Fixes sur mobile. */
+@media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
+  .hc-float { animation: hc-float var(--fd, 7s) ease-in-out var(--fs, 2.4s) infinite alternate; }
+  .hc-float-1 { --fd: 6.5s; --fy: -14px; --fx: 6px; --fr: .5deg; }
+  .hc-float-2 { --fd: 8s; --fy: 16px; --fx: -8px; --fr: -.4deg; --fs: 2.6s; }
+  .hc-float-3 { --fd: 7.2s; --fy: 12px; --fx: 7px; --fr: -.6deg; --fs: 2.9s; }
+  .hc-float-4 { --fd: 9s; --fy: -15px; --fx: -6px; --fr: .45deg; --fs: 2.5s; }
+}
+@keyframes hc-float { to { transform: translate(var(--fx), var(--fy)) rotate(var(--fr)); } }
