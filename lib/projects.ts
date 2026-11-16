@@ -18,7 +18,7 @@ export type Chapter = {
 /** Une image (16:9) ou une vidéo en boucle dans /public, ou une simple légende tant qu'elle manque. */
 export type Media =
   | string
-  | { src: string; alt: string }
+  | { src: string; alt: string; ratio?: string }
   | { video: string; poster: string; alt: string; ratio: string };
 
 export type Case = {
@@ -145,7 +145,7 @@ const bimDesignSystem: Case = {
         "Les premières bases ont été posées à deux designers. L'arrivée d'autres designers, alors que la direction artistique était encore en cours de définition, a produit des écarts : chacun appliquait sa propre interprétation.",
         "Le modèle de départ était collaboratif : chaque designer créait ses composants et les versait dans la bibliothèque Figma. À dix designers, ce fonctionnement multipliait les doublons et les variantes.",
       ],
-      media: ["Directions artistiques testées"],
+      media: [{ ...shot("bim/07", "Bannières illustrées du calendrier, en composants desktop et mobile dans Figma"), ratio: "1397 / 1642" }],
     },
     {
       title: "Décisions",

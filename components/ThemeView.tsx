@@ -31,7 +31,7 @@ function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: 
   }, [visible, reduce]);
 
   const label = typeof media === "string" ? media : media.alt;
-  const shape = typeof media === "string" ? ratio : "video" in media ? media.ratio : "16 / 9";
+  const shape = typeof media === "string" ? ratio : media.ratio ?? "16 / 9";
   // Une vidéo presque carrée resterait trop haute en pleine largeur : on la limite
   const [w, h] = shape.split("/").map(Number);
   const tall = w / h < 1.3;
