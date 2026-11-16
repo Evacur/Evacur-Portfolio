@@ -108,6 +108,7 @@ const bim: Case = {
       media: [
         shot("bim/06", "Dicter un devis via l'IA, puis le créer en un clic"),
         shot("bim/03", "Fiche article et catalogue"),
+        { ...shot("bim/08", "Accueil, compte restreint, liste des devis et fin de la période d'essai sur mobile"), ratio: "1418 / 710" },
       ],
     },
     {
