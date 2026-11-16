@@ -93,7 +93,7 @@ const bim: Case = {
       body: [
         "En amont, j'ai mené avec le manager UX des ateliers internes avec les directions produit et marketing. L'objectif n'était pas de décider, mais de formuler le plus grand nombre d'hypothèses d'usage, à valider ou à invalider ensuite.",
         "Une première vague d'études menée avec le lab de Station F a fourni des enseignements rapides sur une population difficile à atteindre : des dirigeants qui ne sont équipés d'aucun outil de facturation.",
-        "La recherche s'est ensuite poursuivie en continu : environ une étude par mois, sous forme de tests de maquettes. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant. [Nombre de participants par étude, et les trois ou quatre constats qui ont orienté la conception.]",
+        "La recherche s'est ensuite poursuivie en continu : environ une étude par mois, sous forme de tests de maquettes. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant.",
       ],
       media: [shot("bim/01", "Bim ! sur mobile : cartes, accueil et parcours de démarrage")],
     },
@@ -114,7 +114,7 @@ const bim: Case = {
       title: "Résultats",
       lede: "Un produit lancé en 2025, et un enseignement sur la tenue du périmètre.",
       body: [
-        "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable. [Mesures à compléter : taux de complétion du premier devis, temps médian de création, part des devis dictés, satisfaction.]",
+        "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable.",
         "L'ambition initiale, un produit minimal et radicalement nouveau, s'est atténuée à mesure que le périmètre s'élargissait. Le résultat est plus structuré et plus classique que prévu.",
         "Dans un grand groupe, le périmètre se protège comme le calendrier : par un arbitrage explicite dès le cadrage, et par des critères d'entrée pour chaque fonctionnalité ajoutée.",
       ],
@@ -141,7 +141,7 @@ const bimDesignSystem: Case = {
       title: "Problème et recherche",
       lede: "Une direction artistique à valider, puis une équipe qui grandit plus vite que ses règles.",
       body: [
-        "Plusieurs directions artistiques ont été soumises à des tests quantitatifs et qualitatifs, pour identifier celle qui parlait le plus aux cibles. [Taille des échantillons et direction retenue.]",
+        "Plusieurs directions artistiques ont été soumises à des tests quantitatifs et qualitatifs, pour identifier celle qui parlait le plus aux cibles.",
         "Les premières bases ont été posées à deux designers. L'arrivée d'autres designers, alors que la direction artistique était encore en cours de définition, a produit des écarts : chacun appliquait sa propre interprétation.",
         "Le modèle de départ était collaboratif : chaque designer créait ses composants et les versait dans la bibliothèque Figma. À dix designers, ce fonctionnement multipliait les doublons et les variantes.",
       ],
@@ -162,7 +162,6 @@ const bimDesignSystem: Case = {
       lede: "Une cohérence graphique sur tout le produit, et une application construite plus vite.",
       body: [
         "La gouvernance par un référent a rétabli la cohérence graphique sur l'ensemble du produit et accéléré la construction de l'application.",
-        "[Nombre de composants, mesures de vélocité.]",
       ],
       media: [shot("bim/03", "Fiche article et catalogue construits avec le système")],
     },
@@ -209,7 +208,6 @@ const livestore: Case = {
       body: [
         "Tous les composants ont été retravaillés pour fluidifier les parcours de vente et d'encaissement, et les adapter au contexte du point de vente. L'encaissement sans contact Tap to Pay sur iPhone a été testé, puis intégré au parcours des vendeurs.",
         "Le travail de conception a été mené avec l'équipe clienteling et l'équipe encaissement, afin que le vendeur retrouve les mêmes composants et les mêmes règles d'un module à l'autre.",
-        "[Les alternatives écartées, et pourquoi.]",
       ],
       media: [shot("livestore/03", "Livestore sur desktop : panier, actions et catalogue")],
     },
@@ -346,7 +344,6 @@ const kleioDesignSystem: Case = {
       lede: "Trois surfaces, aucune règle commune.",
       body: [
         "Le widget intégré chez les clients, l'application et le site évoluaient séparément. Sans référentiel, chaque écran demandait de nouvelles décisions et la cohérence graphique se dégradait.",
-        "[Inventaire de l'existant : composants en double, écarts relevés.]",
       ],
       media: ["Inventaire des composants"],
     },
@@ -364,7 +361,6 @@ const kleioDesignSystem: Case = {
       lede: "Une cohérence graphique sur toutes les surfaces, et une intégration plus rapide.",
       body: [
         "Le système en code m'a permis d'intégrer directement des interfaces avec Claude Code, et de produire les démonstrations commerciales plus vite.",
-        "[Nombre de composants, temps gagné par écran.]",
       ],
       media: ["Le système appliqué au widget et à l'application"],
     },
@@ -394,14 +390,13 @@ const kleioSite: Case = {
       lede: "Le même design system que le produit.",
       body: [
         "Le site s'appuie sur le design system du produit, pour une cohérence graphique entre la promesse commerciale et l'interface réelle.",
-        "[Structure des pages, choix éditoriaux.]",
       ],
       media: ["Pages clés du site"],
     },
     {
       title: "Résultats",
       lede: "Ce qui a changé pour les visiteurs.",
-      body: ["[Les résultats mesurés.]"],
+      body: [],
       media: ["Le site en ligne"],
     },
   ],
@@ -439,7 +434,7 @@ const gaspard: Case = {
     {
       title: "Résultats",
       lede: "Ce qui a changé pour l'artiste.",
-      body: ["[Les résultats.]"],
+      body: [],
       media: ["Site en ligne"],
     },
   ],
