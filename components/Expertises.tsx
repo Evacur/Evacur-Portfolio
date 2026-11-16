@@ -52,7 +52,7 @@ export function Expertises() {
                   <div>
                     <div className="flex items-start gap-[max(16px,2vw)] pb-[max(20px,1.8vw)] max-[640px]:flex-col max-[640px]:gap-3">
                       <span className="xp-thumb relative block aspect-[16/10] w-[min(280px,22vw)] flex-none overflow-hidden rounded-[6px] bg-line max-[640px]:w-full">
-                        {e.image && <Image src={e.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" className="object-cover" />}
+                        {e.image && <Image src={e.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" className="object-cover" style={e.position ? { objectPosition: e.position } : undefined} />}
                       </span>
                       <span className="xp-text flex flex-col gap-1">
                         <span className="text-[15px] leading-[1.4]">{e.text}</span>
