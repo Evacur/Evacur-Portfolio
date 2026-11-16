@@ -163,7 +163,7 @@ const bimDesignSystem: Case = {
       body: [
         "La gouvernance par un référent a rétabli la cohérence graphique sur l'ensemble du produit et accéléré la construction de l'application.",
       ],
-      media: [shot("bim/03", "Fiche article et catalogue construits avec le système")],
+      media: [{ ...shot("bim/08", "Le système appliqué sur mobile : accueil, liste des devis et fin de la période d'essai"), ratio: "1418 / 710" }],
     },
   ],
 };
