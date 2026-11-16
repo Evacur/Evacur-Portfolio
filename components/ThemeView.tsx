@@ -231,8 +231,9 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
   const pickCase = (i: number) => {
     if (i === ci) return;
     setCi(i);
-    const el = document.getElementById("cas");
-    if (el && el.getBoundingClientRect().top < 0) scrollToTarget(el, -72);
+    // Onglets déjà collés : on ramène le début du nouveau cas juste dessous
+    const el = document.getElementById("cas-contenu");
+    if (el && el.getBoundingClientRect().top < 110) scrollToTarget(el, -110);
   };
 
   return (
@@ -290,30 +291,33 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
             </div>
           ))}
         </motion.dl>
-        <motion.div
-          id="cas" role="tablist" aria-label="Cas" className="col-span-full mt-[1.4vw] flex flex-wrap gap-x-8 border-t border-line max-[640px]:mt-2 max-[640px]:gap-x-6"
-          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.65 }}
-        >
-          {project.cases.map((k, i) => (
-            <button
-              key={k.slug + i}
-              type="button"
-              role="tab"
-              aria-selected={i === ci}
-              onClick={() => pickCase(i)}
-              className={`relative py-3.5 transition-colors duration-300 hover:text-fg ${i === ci ? "text-fg" : "text-mute"}`}
-            >
-              {/* Le trait glisse d'un cas à l'autre, sur le filet */}
-              {i === ci && <motion.span layoutId="case-line" className="absolute inset-x-0 -top-px h-px bg-fg" transition={{ duration: 0.6, ease: inout }} />}
-              <span className="mr-1.5 text-[11px] tabular-nums text-mute">{String(i + 1).padStart(2, "0")}</span>{k.name}
-            </button>
-          ))}
-        </motion.div>
       </header>
+
+      {/* Les onglets des cas restent collés sous le menu pendant la lecture */}
+      <motion.div
+        id="cas" role="tablist" aria-label="Cas" className="sticky top-14 z-10 mt-[2.4vw] flex gap-x-8 overflow-x-auto border-y border-line bg-bg [scrollbar-width:none] max-[640px]:mt-5 max-[640px]:gap-x-6"
+        initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.65 }}
+      >
+        {project.cases.map((k, i) => (
+          <button
+            key={k.slug + i}
+            type="button"
+            role="tab"
+            aria-selected={i === ci}
+            onClick={() => pickCase(i)}
+            className={`relative flex-none py-3.5 transition-colors duration-300 hover:text-fg ${i === ci ? "text-fg" : "text-mute"}`}
+          >
+            {/* Le trait glisse d'un cas à l'autre, sur le filet */}
+            {i === ci && <motion.span layoutId="case-line" className="absolute inset-x-0 -top-px h-px bg-fg" transition={{ duration: 0.6, ease: inout }} />}
+            <span className="mr-1.5 text-[11px] tabular-nums text-mute">{String(i + 1).padStart(2, "0")}</span>{k.name}
+          </button>
+        ))}
+      </motion.div>
 
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={ci}
+          id="cas-contenu"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease } }}
           exit={{ opacity: 0, y: -12, transition: { duration: 0.25, ease: "easeIn" } }}
@@ -323,7 +327,7 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
               <section key={i} className={`${section} grid grid-cols-2 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-8`}>
                 {i > 0 && <Rule />}
                 <ChapterText ch={ch as Chapter} n={i + 1} title={title as string | undefined} />
-                <div className="sticky top-24 flex flex-col gap-[max(16px,2vw)] self-start max-[900px]:static">
+                <div className="sticky top-32 flex flex-col gap-[max(16px,2vw)] self-start max-[900px]:static">
                   {rows[i].map((m, j) => <Media key={mediaKey(m)} media={m} ratio="16 / 10" tint={j % 2 ? project.tint : neutral} />)}
                 </div>
               </section>
@@ -344,7 +348,7 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
               <section className={`${section} grid grid-cols-2 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-8`}>
                 <ChapterText ch={contexte} n={1} />
                 {lead && (
-                  <div className="sticky top-24 self-start max-[900px]:static">
+                  <div className="sticky top-32 self-start max-[900px]:static">
                     <Media media={lead} ratio="16 / 10" tint={neutral} />
                   </div>
                 )}
