@@ -267,20 +267,21 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
           {project.pitch}
         </motion.p>
         <motion.dl
-          className="m-0 grid grid-cols-[auto_auto_auto_auto] justify-between gap-x-6 gap-y-2.5 max-[640px]:grid-cols-2 max-[640px]:justify-start"
+          className="m-0 grid grid-cols-[1fr_1fr_2fr_1fr] gap-x-6 gap-y-2.5 max-[640px]:grid-cols-2"
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.55 }}
         >
           {[["Client", c.client], ["Année", c.year], ["Rôle", c.role], ["Durée", c.duration]].map(([k, v], n) => (
             <div key={k}>
               <dt className="text-[11px] text-mute">{k}</dt>
-              {/* La valeur roule quand on change de cas */}
-              <dd className="m-0 mt-0.5 overflow-hidden">
-                <AnimatePresence mode="popLayout" initial={false}>
+              {/* La valeur sort par le haut, puis la nouvelle monte : jamais deux textes en même temps */}
+              <dd className="relative m-0 mt-0.5 h-[1.5em] overflow-hidden whitespace-nowrap leading-[1.5]">
+                <AnimatePresence mode="wait" initial={false}>
                   <motion.span
                     key={ci + v}
                     className="block"
-                    initial={{ y: "100%" }} animate={{ y: "0%" }} exit={{ y: "-100%" }}
-                    transition={{ duration: 0.6, ease, delay: n * 0.04 }}
+                    initial={{ y: "110%" }}
+                    animate={{ y: "0%", transition: { duration: 0.5, ease, delay: n * 0.03 } }}
+                    exit={{ y: "-110%", transition: { duration: 0.2, ease: "easeIn" } }}
                   >
                     {v}
                   </motion.span>
