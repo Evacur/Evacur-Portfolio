@@ -82,8 +82,7 @@ const bim: Case = {
       lede: "Une squad montée comme une start-up interne, et neuf mois pour livrer un produit de A à Z.",
       body: [
         "Bim ! s'adresse aux dirigeants de TPE, aux indépendants et aux micro-entrepreneurs, en particulier à ceux qui n'utilisent aucun outil de facturation. Le produit se positionne face à des acteurs installés comme Pennylane, Qonto ou Indy.",
-        "L'enjeu était aussi interne : installer chez Cegid une autre façon de concevoir, avec une squad dédiée et resserrée, sur le modèle d'une start-up. L'échéance était fixée dès janvier : présenter un produit complet au Congrès des experts-comptables, neuf mois plus tard.",
-        "Le calendrier de la facture électronique renforçait cette échéance. Depuis le 1er septembre 2026, toute entreprise assujettie à la TVA doit pouvoir recevoir des factures électroniques. L'obligation d'en émettre s'applique aux TPE, aux PME et aux micro-entreprises au 1er septembre 2027.",
+        "L'enjeu était aussi interne : installer chez Cegid une autre façon de concevoir, avec une squad dédiée et resserrée, sur le modèle d'une start-up. L'échéance était fixée dès janvier : présenter un produit complet au Congrès des experts-comptables, neuf mois plus tard, alors que la facture électronique se généralise (réception obligatoire au 1er septembre 2026, émission au 1er septembre 2027 pour les TPE et les micro-entreprises).",
         "En tant que designer référent, j'ai porté la vision produit et assuré la cohérence entre deux équipes de dix designers pendant les neuf mois de conception.",
       ],
       media: [shot("bim/02", "Bim ! : tableau de bord, factures et aperçu d'une facture")],
@@ -94,8 +93,7 @@ const bim: Case = {
       body: [
         "En amont, j'ai mené avec le manager UX des ateliers internes avec les directions produit et marketing. L'objectif n'était pas de décider, mais de formuler le plus grand nombre d'hypothèses d'usage, à valider ou à invalider ensuite.",
         "Une première vague d'études menée avec le lab de Station F a fourni des enseignements rapides sur une population difficile à atteindre : des dirigeants qui ne sont équipés d'aucun outil de facturation.",
-        "La recherche s'est ensuite poursuivie en continu : environ une étude par mois, sous forme de tests de maquettes, dans une logique de test and learn. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant.",
-        "[Nombre de participants par étude, et les trois ou quatre constats qui ont orienté la conception.]",
+        "La recherche s'est ensuite poursuivie en continu : environ une étude par mois, sous forme de tests de maquettes. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant. [Nombre de participants par étude, et les trois ou quatre constats qui ont orienté la conception.]",
       ],
       media: [shot("bim/01", "Bim ! sur mobile : cartes, accueil et parcours de démarrage")],
     },
@@ -103,10 +101,9 @@ const bim: Case = {
       title: "Décisions",
       lede: "Peu de fonctionnalités, mais les plus pertinentes : le principe de départ, et ce qu'il est devenu.",
       body: [
-        "Sortir vite imposait un périmètre réduit : peu de fonctionnalités, retenues pour leur valeur d'usage immédiate, à commencer par le devis et la facture.",
+        "Sortir vite imposait un périmètre réduit : peu de fonctionnalités, retenues pour leur valeur d'usage immédiate, à commencer par le devis et la facture. Le produit s'appuie toutefois sur un écosystème de logiciels existants : réutiliser ces briques réduisait le coût et le délai, mais imposait de reprendre les fonctionnalités qui leur étaient liées. Le périmètre s'est donc élargi au fil du projet.",
         "Sur mobile, l'utilisateur dicte son devis et l'IA en structure le client, les lignes et les montants. La saisie manuelle reste disponible à chaque étape : l'utilisateur relit et corrige avant d'émettre, ce qui lui laisse le contrôle sur un document à valeur légale.",
-        "Un design system a été créé de zéro : tokens, composants et règles d'usage sont partagés par les deux équipes de design et par le développement. Ce socle a servi de référence unique pour la simplicité et l'accessibilité des maquettes, sans ralentir l'exécution.",
-        "Le produit s'inscrit dans un écosystème de logiciels existants. S'appuyer sur ces briques réduisait le coût et le délai de développement, mais imposait de reprendre les fonctionnalités qui leur étaient liées. Le périmètre s'est donc élargi au fil du projet.",
+        "Un design system a été créé de zéro : tokens, composants et règles d'usage sont partagés par les deux équipes de design et par le développement. Il a servi de référence unique pour la simplicité et l'accessibilité des maquettes.",
       ],
       media: [
         shot("bim/06", "Dicter un devis via l'IA, puis le créer en un clic"),
@@ -117,10 +114,9 @@ const bim: Case = {
       title: "Résultats",
       lede: "Un produit lancé en 2025, et un enseignement sur la tenue du périmètre.",
       body: [
-        "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable. L'éditeur annonce une facture créée en moins d'une minute.",
+        "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable. [Mesures à compléter : taux de complétion du premier devis, temps médian de création, part des devis dictés, satisfaction.]",
         "L'ambition initiale, un produit minimal et radicalement nouveau, s'est atténuée à mesure que le périmètre s'élargissait. Le résultat est plus structuré et plus classique que prévu.",
         "Dans un grand groupe, le périmètre se protège comme le calendrier : par un arbitrage explicite dès le cadrage, et par des critères d'entrée pour chaque fonctionnalité ajoutée.",
-        "[Mesures à compléter : taux de complétion du premier devis, temps médian de création, part des devis dictés, satisfaction.]",
       ],
       media: [shot("bim/05", "Bim ! by Cegid : cartes, transactions et identité")],
     },
@@ -183,8 +179,7 @@ const livestore: Case = {
       title: "Problème et recherche",
       lede: "Observer le logiciel là où il sert : sur la surface de vente.",
       body: [
-        "Dans le retail, l'adoption ne dépend pas seulement de l'ergonomie des écrans. Elle dépend de l'adéquation du produit à la situation de travail du vendeur et du manager.",
-        "L'étude a reposé sur du shadowing et de l'observation dans douze magasins, auprès d'enseignes du luxe, du haut de gamme et du mass market. Les personnes observées étaient essentiellement des vendeurs et des managers de magasin. L'étude portait sur l'usage réel du logiciel au quotidien, et non sur l'usage déclaré.",
+        "Hypothèse : dans le retail, l'adoption dépend moins de l'ergonomie des écrans que de l'adéquation du produit à la situation de travail. Pour la vérifier, j'ai mené du shadowing et de l'observation dans douze magasins du luxe, du haut de gamme et du mass market, auprès de vendeurs et de managers. L'étude portait sur l'usage réel du logiciel, et non sur l'usage déclaré.",
         "Constat principal : le type d'appareil freinait l'usage. Beaucoup d'enseignes équipaient leurs équipes de tablettes, alors que le vendeur a besoin d'un téléphone : il tient dans une poche et se manipule d'une main, pendant que l'autre présente le produit au client.",
         "Tap to Pay sur iPhone est arrivé en France en novembre 2023 et permet d'encaisser sans terminal de paiement. Il fallait tester ce mode d'encaissement avec les vendeurs avant de l'intégrer.",
       ],
@@ -197,8 +192,7 @@ const livestore: Case = {
       title: "Décisions",
       lede: "Une refonte complète du design et de l'ergonomie, pour des parcours plus fluides.",
       body: [
-        "Tous les composants ont été retravaillés pour fluidifier les parcours de vente et d'encaissement, et les adapter au contexte du point de vente.",
-        "L'encaissement sans contact sur iPhone a été testé, puis intégré au parcours des vendeurs.",
+        "Tous les composants ont été retravaillés pour fluidifier les parcours de vente et d'encaissement, et les adapter au contexte du point de vente. L'encaissement sans contact Tap to Pay sur iPhone a été testé, puis intégré au parcours des vendeurs.",
         "Le travail de conception a été mené avec l'équipe clienteling et l'équipe encaissement, afin que le vendeur retrouve les mêmes composants et les mêmes règles d'un module à l'autre.",
         "[Les alternatives écartées, et pourquoi.]",
       ],
