@@ -525,7 +525,7 @@ export const projects: Project[] = [
     cases: [gaspard, versLeSud, kleioSite],
   },
   {
-    slug: "front-end", layout: "visuel", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
+    slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
     pitch: "React, Next.js et animations, codés par moi.",
     tint: "#EEE9D6", ink: "#6B5A1E",
     cases: [placeholder("Progemi", "Progemi"), placeholder("Laku")],
