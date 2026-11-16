@@ -172,10 +172,11 @@ const livestore: Case = {
   chapters: [
     {
       title: "Contexte",
-      lede: "Une progressive web app en marque blanche pour le retail.",
+      lede: "Une application de vente en magasin en marque blanche, et un défaut d'adoption à expliquer.",
       body: [
-        "Designer référent sur Livestore, déployée pour plusieurs grandes marques internationales : LVMH, Zadig & Voltaire, Pomellato, Balibaris, Palais des Thés…",
-        "L'application sert aux vendeurs, aux responsables de magasin et aux directeurs de réseau.",
+        "Livestore est une progressive web app en marque blanche pour le retail. Elle réunit le clienteling et l'encaissement, et sert aux vendeurs, aux responsables de magasin et aux directeurs de réseau. Elle est déployée chez plusieurs grandes marques internationales : LVMH, Zadig & Voltaire, Pomellato, Balibaris, Palais des Thés.",
+        "Constat de départ : l'adoption restait faible dans plusieurs enseignes. En tant que designer référent, ma mission était d'en identifier les causes, puis de concevoir les améliorations.",
+        "Organisation : deux équipes distinctes, l'une pour le clienteling, l'autre pour l'encaissement, chacune avec son product manager, son product owner et ses développeurs. Le design était le rôle commun aux deux.",
       ],
       media: [
         clip("livestore", "La caisse Livestore sur mobile", "16 / 9"),
@@ -184,20 +185,36 @@ const livestore: Case = {
     },
     {
       title: "Problème et recherche",
-      lede: "Améliorer la qualité de service en point de vente.",
-      body: ["L'objectif : améliorer la qualité de service en magasin et l'efficacité opérationnelle.", "[La recherche menée, ce qu'elle a montré.]"],
+      lede: "Observer le logiciel là où il sert : sur la surface de vente.",
+      body: [
+        "Hypothèse. Dans le retail, l'adoption ne dépend pas seulement de l'ergonomie des écrans. Elle dépend de l'adéquation du produit à la situation de travail du vendeur et du manager.",
+        "Méthode. Du shadowing et de l'observation en magasin, complétés par des entretiens avec les équipes de vente, chez Lacoste, Hermès, Les Bougies de Charroux, Balibaris et Rimowa. L'étude portait sur l'usage réel du logiciel au quotidien, et non sur l'usage déclaré.",
+        "Facteur externe. Tap to Pay sur iPhone est arrivé en France en novembre 2023 et permet d'encaisser sans terminal de paiement. Il fallait tester ce mode d'encaissement avec les vendeurs avant de l'intégrer.",
+        "[Nombre de magasins et de personnes observés, et les principaux constats.]",
+      ],
       media: [shot("livestore/02", "Panier, actions et fiche client sur mobile")],
+      sources: [
+        { label: "Tap to Pay sur iPhone en France, Apple", href: "https://www.apple.com/fr/newsroom/2023/11/apple-introduces-tap-to-pay-on-iphone-in-france" },
+      ],
     },
     {
       title: "Décisions",
-      lede: "Les choix clés, et ce qu'on a écarté.",
-      body: ["[Les décisions, les alternatives écartées et pourquoi.]"],
+      lede: "Une refonte complète du design et de l'ergonomie, pour des parcours plus fluides.",
+      body: [
+        "Refonte complète. Tous les composants ont été retravaillés pour fluidifier les parcours de vente et d'encaissement, et les adapter au contexte du point de vente.",
+        "Tap to Pay. L'encaissement sans contact sur iPhone a été testé, puis intégré au parcours des vendeurs.",
+        "Un seul produit pour deux équipes. Le travail de conception a été mené avec l'équipe clienteling et l'équipe encaissement, afin que le vendeur retrouve les mêmes composants et les mêmes règles d'un module à l'autre.",
+        "[Les alternatives écartées, et pourquoi.]",
+      ],
       media: [shot("livestore/03", "Livestore sur desktop : panier, actions et catalogue")],
     },
     {
       title: "Résultats",
-      lede: "Ce qui a changé pour les vendeurs.",
-      body: ["[Les résultats mesurés.]"],
+      lede: "Une refonte bien reçue, qui a pesé dans une décision commerciale.",
+      body: [
+        "J'ai présenté la refonte à plusieurs clients. Pandora a signé à l'issue de cette présentation, en citant une application plus moderne et plus ergonomique comme facteur de décision.",
+        "[Mesures d'adoption avant et après la refonte.]",
+      ],
       media: ["Écran final en production"],
     },
   ],
