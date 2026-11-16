@@ -85,9 +85,6 @@ const bim: Case = {
         "En tant que designer référent, j'ai porté la vision produit et assuré la cohérence entre deux équipes de dix designers pendant les neuf mois de conception.",
       ],
       media: [shot("bim/02", "Bim ! : tableau de bord, factures et aperçu d'une facture")],
-      sources: [
-        { label: "Calendrier de la facture électronique, Cegid", href: "https://www.cegid.com/fr/facturation-electronique/facture-electronique-obligatoire/calendrier-facture-electronique/" },
-      ],
     },
     {
       title: "Problème et recherche",
@@ -124,9 +121,6 @@ const bim: Case = {
         "[Mesures à compléter : taux de complétion du premier devis, temps médian de création, part des devis dictés, satisfaction.]",
       ],
       media: [shot("bim/05", "Bim ! by Cegid : cartes, transactions et identité")],
-      sources: [
-        { label: "Présentation du produit, bim.cegid.com", href: "https://bim.cegid.com/compte-pro/" },
-      ],
     },
   ],
 };
@@ -188,9 +182,9 @@ const livestore: Case = {
       lede: "Observer le logiciel là où il sert : sur la surface de vente.",
       body: [
         "Hypothèse. Dans le retail, l'adoption ne dépend pas seulement de l'ergonomie des écrans. Elle dépend de l'adéquation du produit à la situation de travail du vendeur et du manager.",
-        "Méthode. Du shadowing et de l'observation en magasin, complétés par des entretiens avec les équipes de vente, chez Lacoste, Hermès, Les Bougies de Charroux, Balibaris et Rimowa. L'étude portait sur l'usage réel du logiciel au quotidien, et non sur l'usage déclaré.",
+        "Méthode. Du shadowing et de l'observation dans douze magasins, auprès d'enseignes du luxe, du haut de gamme et du mass market. Les personnes observées étaient essentiellement des vendeurs et des managers de magasin. L'étude portait sur l'usage réel du logiciel au quotidien, et non sur l'usage déclaré.",
+        "Constat principal. Le type d'appareil freinait l'usage. Beaucoup d'enseignes équipaient leurs équipes de tablettes, alors que le vendeur a besoin d'un téléphone : il tient dans une poche et se manipule d'une main, pendant que l'autre présente le produit au client.",
         "Facteur externe. Tap to Pay sur iPhone est arrivé en France en novembre 2023 et permet d'encaisser sans terminal de paiement. Il fallait tester ce mode d'encaissement avec les vendeurs avant de l'intégrer.",
-        "[Nombre de magasins et de personnes observés, et les principaux constats.]",
       ],
       media: [shot("livestore/02", "Panier, actions et fiche client sur mobile")],
       sources: [
@@ -213,7 +207,6 @@ const livestore: Case = {
       lede: "Une refonte bien reçue, qui a pesé dans une décision commerciale.",
       body: [
         "J'ai présenté la refonte à plusieurs clients. Pandora a signé à l'issue de cette présentation, en citant une application plus moderne et plus ergonomique comme facteur de décision.",
-        "[Mesures d'adoption avant et après la refonte.]",
       ],
       media: ["Écran final en production"],
     },
