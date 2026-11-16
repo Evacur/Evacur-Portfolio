@@ -25,7 +25,7 @@ export function Faq() {
                   onClick={() => setOpen(on ? -1 : i)}
                   className="flex min-h-11 w-full items-center justify-between gap-4 py-[18px] text-left text-[17px] font-medium tracking-[-0.01em]"
                 >
-                  <span>{f.q}</span>
+                  <span className="faq-q">{f.q}</span>
                   <span aria-hidden="true" className={`faq-plus ${on ? "is-open" : ""}`} />
                 </button>
                 <div id={`faq-${i}`} className={`faq-a ${on ? "is-open" : ""}`}>

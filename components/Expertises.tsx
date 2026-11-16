@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { expertises } from "@/lib/content";
 import { Reveal } from "./Reveal";
@@ -21,11 +22,19 @@ export function Expertises() {
           Expertises
           <span className="tabular-nums">{String(skills.length).padStart(2, "0")}</span>
         </h2>
+      </Reveal>
         <ul className="m-0 list-none border-t border-line p-0">
           {skills.map((e, i) => {
             const on = open === i;
             return (
-              <li key={e.n} className="border-b border-line">
+              <motion.li
+                key={e.n}
+                className="border-b border-line"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px 0px -30px 0px" }}
+                transition={{ duration: 0.9, ease: [0.2, 0.7, 0.1, 1], delay: i * 0.07 }}
+              >
                 <button
                   type="button"
                   aria-expanded={on}
@@ -41,7 +50,7 @@ export function Expertises() {
                 <div id={`xp-${i}`} className={`xp-a ${on ? "is-open" : ""}`}>
                   <div>
                     <div className="flex items-start gap-[max(16px,2vw)] pb-[max(20px,1.8vw)] max-[640px]:flex-col max-[640px]:gap-3">
-                      <span className="xp-thumb relative block aspect-[16/10] w-[min(280px,22vw)] flex-none overflow-hidden rounded-[2px] bg-line max-[640px]:w-full">
+                      <span className="xp-thumb relative block aspect-[16/10] w-[min(280px,22vw)] flex-none overflow-hidden rounded-[6px] bg-line max-[640px]:w-full">
                         {e.image && <Image src={e.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" className="object-cover" />}
                       </span>
                       <span className="xp-text flex flex-col gap-1">
@@ -54,11 +63,10 @@ export function Expertises() {
                     </div>
                   </div>
                 </div>
-              </li>
+              </motion.li>
             );
           })}
         </ul>
-      </Reveal>
 
     </section>
   );
