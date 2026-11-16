@@ -273,6 +273,16 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
                 </motion.h2>
                 <Rise delay={0.15}><p className="m-0">{ch.lede}</p></Rise>
                 {ch.body.map((b, j) => <Rise key={j} delay={0.22 + j * 0.07}><p className="m-0 text-mute">{b}</p></Rise>)}
+                {ch.sources && (
+                  <Rise delay={0.4}>
+                    <p className="m-0 mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-mute">
+                      <span>{ch.sources.length > 1 ? "Sources" : "Source"}</span>
+                      {ch.sources.map((src) => (
+                        <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-fg">{src.label}</a>
+                      ))}
+                    </p>
+                  </Rise>
+                )}
               </div>
               {/* Deux légendes sans image : côte à côte. Dès qu'il y a de vraies images, elles passent en pleine largeur. */}
               <div className={`grid gap-[max(16px,2vw)] ${ch.media.length === 2 && ch.media.every((m) => typeof m === "string") ? "grid-cols-2 max-[640px]:grid-cols-1" : ""}`}>
