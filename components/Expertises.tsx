@@ -35,7 +35,6 @@ export function Expertises() {
                 >
                   <span className="xp-title flex items-center gap-3 text-[max(26px,3.2vw)] font-medium leading-none tracking-[-0.035em]">
                     {e.name}
-                    {e.ai && <span className="rounded-full bg-fg px-1.5 py-[3px] text-[10px] font-medium leading-none tracking-[0.04em] text-bg">IA</span>}
                   </span>
                   <span aria-hidden="true" className={`faq-plus ${on ? "is-open" : ""}`} />
                 </button>
