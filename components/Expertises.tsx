@@ -15,7 +15,7 @@ const skills = expertises;
 export function Expertises() {
   const [open, setOpen] = useState(0);
   return (
-    <section aria-label="Expertises" className="px-6 py-[max(64px,6vw)] max-[640px]:px-4">
+    <section id="expertises" aria-label="Expertises" className="scroll-mt-14 px-6 pb-[max(64px,6vw)] pt-[max(36px,3.2vw)] max-[640px]:px-4">
       <Reveal>
         <h2 className="m-0 mb-4 flex justify-between text-[13px] font-normal text-mute">
           Expertises

@@ -21,22 +21,27 @@ const SUB = "Product designer · IA & SaaS · Paris";
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const volet = [0.75, 0, 0.15, 1] as const;
 
-// Chaque card a sa propre série d'images et son propre rythme, pour qu'elles ne changent jamais ensemble
-const setA = heroShots.filter((_, k) => k % 2 === 0);
-const setB = heroShots.filter((_, k) => k % 2 === 1);
+// Quatre cards, chacune avec sa série d'images et son rythme, pour qu'elles ne changent jamais ensemble.
+// Une cinquième image ne sert qu'à l'empilement de départ.
+const sets = [0, 1, 2, 3].map((n) => heroShots.filter((_, k) => k % 4 === n));
+const parallax = [[26, 22], [-18, -16], [14, -12], [-22, 18]] as const;
+const WORDS = NAME.split(" ");
 
 /**
- * Comme la couverture du portfolio : le nom en très large d'un bord à l'autre,
- * deux cards arrondies et atténuées derrière (grande en haut à droite, petite en bas à gauche),
- * le métier en mono dessous. Au scroll, le nom s'efface en rétrécissant.
+ * Les projets s'empilent au centre comme des tirages qu'on pose, puis s'écartent aux quatre coins
+ * et le nom monte au milieu, d'un bord à l'autre. Au scroll, le nom s'efface en rétrécissant.
  */
 export function Hero() {
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 50, damping: 20 });
   const sy = useSpring(my, { stiffness: 50, damping: 20 });
-  const x1 = useTransform(sx, (v) => v * 26), y1 = useTransform(sy, (v) => v * 22);
-  const x2 = useTransform(sx, (v) => v * -18), y2 = useTransform(sy, (v) => v * -16);
+  // Passe à vrai quand la pile s'écarte : les cards s'atténuent et la cinquième disparaît
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    const t = window.setTimeout(() => setSettled(true), 1200);
+    return () => clearTimeout(t);
+  }, []);
 
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 300], [1, 0.6]);
@@ -56,43 +61,45 @@ export function Hero() {
       aria-label="Introduction"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="relative flex h-[min(86svh,820px)] min-h-[520px] flex-col items-center justify-center gap-[max(18px,2.4vw)] overflow-hidden max-[760px]:h-[min(78svh,640px)] max-[760px]:min-h-[460px]"
+      className="hero relative flex h-[min(74svh,760px)] min-h-[480px] flex-col items-center justify-center gap-[max(18px,2.4vw)] overflow-hidden max-[760px]:h-[min(70svh,600px)] max-[760px]:min-h-[440px]"
     >
-      <FloatCard
-        shots={setA}
-        x={x1} y={y1}
-        delay={0.45}
-        className="right-[5vw] top-[16%] w-[30vw] max-w-[600px] max-[760px]:right-4 max-[760px]:top-[14%] max-[760px]:w-[58vw]"
-      />
-      <FloatCard
-        shots={setB}
-        x={x2} y={y2}
-        delay={0.6}
-        className="left-[6vw] top-[50%] w-[17vw] max-w-[340px] max-[760px]:left-4 max-[760px]:top-[64%] max-[760px]:w-[40vw]"
-      />
+      {sets.map((shots, n) => (
+        <StackCard key={n} n={n} shots={shots} sx={sx} sy={sy} settled={settled} />
+      ))}
+      <span aria-hidden="true" className={`hc hc-5 transition-opacity duration-700 ${settled ? "opacity-0" : ""}`} style={{ "--i": 4 } as React.CSSProperties}>
+        <Image src={heroShots[4].src} alt="" fill sizes="(max-width: 760px) 46vw, 520px" className="object-cover" />
+      </span>
 
       <motion.h1
         aria-label="Pablo Cuerva"
-        className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap font-display text-[9.6vw] font-extrabold leading-[0.86] tracking-[-0.03em] [font-stretch:125%]"
+        className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap text-center font-display text-[9.6vw] font-extrabold leading-[0.86] tracking-[-0.03em] [font-stretch:125%] max-[760px]:text-[17vw]"
         style={{ scale, y: nameY, opacity: nameOpacity }}
       >
-        {NAME.split("").map((c, k) => (
-          <span key={k} aria-hidden="true" className="inline-block overflow-hidden pb-[0.04em] align-bottom">
-            <motion.span
-              className="inline-block"
-              initial={{ y: "105%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1.1, ease, delay: k * 0.04 }}
-            >
-              {c === " " ? "\u00a0" : c}
-            </motion.span>
-          </span>
-        ))}
+        {WORDS.map((w, wi) => {
+          const start = WORDS.slice(0, wi).join(" ").length + (wi ? 1 : 0);
+          return (
+            <span key={wi} aria-hidden="true" className="inline-block max-[760px]:block">
+              {wi > 0 && <span className="max-[760px]:hidden">{"\u00a0"}</span>}
+              {w.split("").map((c, k) => (
+                <span key={k} className="inline-block overflow-hidden pb-[0.04em] align-bottom">
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: "105%" }}
+                    animate={{ y: "0%" }}
+                    transition={{ duration: 1.1, ease, delay: 1.45 + (start + k) * 0.04 }}
+                  >
+                    {c}
+                  </motion.span>
+                </span>
+              ))}
+            </span>
+          );
+        })}
       </motion.h1>
 
       <Scramble text={SUB} />
 
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 1.1 }} className="relative z-[2]">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 2.3 }} className="relative z-[2]">
         <MagneticLink href="/work">Voir le travail</MagneticLink>
       </motion.div>
     </section>
@@ -104,7 +111,7 @@ function Scramble({ text }: { text: string }) {
   const [out, run] = useScramble(text);
 
   useEffect(() => {
-    const t = window.setTimeout(run, 700);
+    const t = window.setTimeout(run, 2100);
     return () => clearTimeout(t);
   }, [run]);
 
@@ -115,54 +122,54 @@ function Scramble({ text }: { text: string }) {
       className="relative z-[2] m-0 font-mono text-[max(12px,1.15vw)] font-medium uppercase tracking-[0.08em] max-[760px]:text-[11px]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, delay: 0.7 }}
+      transition={{ duration: 0.4, delay: 2.1 }}
     >
       <span aria-hidden="true">{out}</span>
     </motion.p>
   );
 }
 
-/** Une card arrondie et atténuée, qui change d'image à un rythme irrégulier, rien qu'à elle. */
-function FloatCard({
-  shots, x, y, delay, className,
+/** Une card de la pile : elle se pose au centre, file à sa place, puis change d'image à son rythme. */
+function StackCard({
+  n, shots, sx, sy, settled,
 }: {
-  shots: typeof heroShots; x: MotionValue<number>; y: MotionValue<number>; delay: number; className: string;
+  n: number; shots: typeof heroShots; sx: MotionValue<number>; sy: MotionValue<number>; settled: boolean;
 }) {
   const reduce = useReducedMotion();
+  const x = useTransform(sx, (v) => v * parallax[n][0]);
+  const y = useTransform(sy, (v) => v * parallax[n][1]);
   const [i, setI] = useState(0);
   const p = shots[i % shots.length];
 
   useEffect(() => {
     if (reduce) return;
     let t = 0;
-    // Entre 0,6 et 1,3 s à chaque fois, tiré au hasard : les deux cards ne se synchronisent jamais
+    // Entre 0,6 et 1,3 s à chaque fois, tiré au hasard : les cards ne se synchronisent jamais
     const next = () => { t = window.setTimeout(() => { setI((v) => v + 1); next(); }, 600 + Math.random() * 700); };
-    const first = window.setTimeout(next, 1500 + Math.random() * 500);
+    const first = window.setTimeout(next, 2800 + Math.random() * 600);
     return () => { clearTimeout(first); clearTimeout(t); };
   }, [reduce]);
 
   return (
-    <motion.div className={`absolute z-[1] ${className}`} style={{ x, y }}>
-      <Link href={`/work/${p.slug}`} aria-label={`${p.title}, voir le projet`} className="group block">
-        <motion.span
-          className="relative block aspect-[16/10] overflow-hidden rounded-[min(1.2vw,16px)] bg-line opacity-60 transition-opacity duration-500 group-hover:opacity-100 max-[760px]:rounded-[10px]"
-          initial={{ clipPath: "inset(100% 0 0 0 round 16px)" }}
-          animate={{ clipPath: "inset(0% 0 0 0 round 16px)" }}
-          transition={{ duration: 1.2, ease: [0.65, 0, 0.15, 1], delay }}
-        >
-          <AnimatePresence initial={false}>
-            <motion.span
-              key={i}
-              className="absolute inset-0 block"
-              initial={{ clipPath: "inset(100% 0 0 0)" }}
-              animate={{ clipPath: "inset(0% 0 0 0)", zIndex: 1 }}
-              exit={{ zIndex: 0, opacity: 0.99, transition: { duration: 0.55 } }}
-              transition={{ duration: 0.5, ease: volet }}
-            >
-              <Image src={p.src} alt="" fill priority={i === 0} sizes="(max-width: 760px) 60vw, 600px" className="object-cover" />
-            </motion.span>
-          </AnimatePresence>
-        </motion.span>
+    <motion.div className="pointer-events-none absolute inset-0 z-[1]" style={{ x, y }}>
+      <Link
+        href={`/work/${p.slug}`}
+        aria-label={`${p.title}, voir le projet`}
+        className={`hc hc-${n + 1} pointer-events-auto transition-opacity duration-700 hover:opacity-100 ${settled ? "opacity-60" : ""}`}
+        style={{ "--i": n } as React.CSSProperties}
+      >
+        <AnimatePresence initial={false}>
+          <motion.span
+            key={i}
+            className="absolute inset-0 block"
+            initial={{ clipPath: "inset(100% 0 0 0)" }}
+            animate={{ clipPath: "inset(0% 0 0 0)", zIndex: 1 }}
+            exit={{ zIndex: 0, opacity: 0.99, transition: { duration: 0.55 } }}
+            transition={{ duration: 0.5, ease: volet }}
+          >
+            <Image src={p.src} alt="" fill priority={i === 0} sizes="(max-width: 760px) 46vw, 520px" className="object-cover" />
+          </motion.span>
+        </AnimatePresence>
       </Link>
     </motion.div>
   );

@@ -98,3 +98,35 @@ body {
 }
 .faq-rows { opacity: 0; transform: translateY(6px); transition: opacity .5s ease .16s, transform .6s var(--ease-out-soft) .16s; }
 .faq-a.is-open .faq-rows { opacity: 1; transform: none; }
+
+/* Hero : les cards s'empilent au centre puis s'écartent. Positions en cqw / cqh, relatives au hero. */
+.hero { container-type: size; }
+.hc {
+  --w: min(26cqw, 520px);
+  position: absolute; left: 50%; top: 50%; display: block; width: var(--w); aspect-ratio: 16 / 10;
+  margin: calc(var(--w) * -0.3125) 0 0 calc(var(--w) * -0.5);
+  overflow: hidden; border-radius: min(1.2vw, 16px); background: var(--line);
+  transform: translate(var(--x), var(--y)) scale(var(--s));
+  animation: hc-pin .55s var(--ease-inout) both calc(var(--i) * .17s), hc-scatter 1.15s var(--ease-inout) forwards 1.2s;
+}
+@keyframes hc-pin {
+  from { clip-path: inset(100% 0 0 0 round 16px); transform: rotate(var(--r)) scale(.9); }
+  to { clip-path: inset(0 0 0 0 round 16px); transform: rotate(var(--r)); }
+}
+@keyframes hc-scatter {
+  from { transform: rotate(var(--r)); }
+  to { transform: translate(var(--x), var(--y)) scale(var(--s)); }
+}
+.hc-1 { --x: -34cqw; --y: -30cqh; --s: .6; --r: -5deg; }
+.hc-2 { --x: 32cqw; --y: -24cqh; --s: .95; --r: 3deg; }
+.hc-3 { --x: -33cqw; --y: 27cqh; --s: .5; --r: 6deg; }
+.hc-4 { --x: 31cqw; --y: 30cqh; --s: .68; --r: -3deg; }
+.hc-5 { --x: 0cqw; --y: 0cqh; --s: .8; --r: 1deg; z-index: 1; pointer-events: none; }
+@media (max-width: 760px) {
+  .hc { --w: 46cqw; border-radius: 10px; }
+  .hc-1 { --x: -22cqw; --y: -34cqh; --s: .8; }
+  .hc-2 { --x: 20cqw; --y: -22cqh; --s: .9; }
+  .hc-3 { --x: -24cqw; --y: 27cqh; --s: .78; }
+  .hc-4 { --x: 18cqw; --y: 37cqh; --s: .95; }
+}
+@media (prefers-reduced-motion: reduce) { .hc { animation: none; } }

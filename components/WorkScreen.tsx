@@ -10,6 +10,7 @@ import { ProjectList } from "./ProjectList";
 
 const NAV = [
   { href: "/work", label: "Travaux" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Contact" },
 ];
 

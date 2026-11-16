@@ -8,7 +8,7 @@ import { Reveal } from "./Reveal";
 export function Faq() {
   const [open, setOpen] = useState(0);
   return (
-    <section aria-label="Questions fréquentes" className="px-6 py-[6vw]">
+    <section id="faq" aria-label="Questions fréquentes" className="scroll-mt-14 px-6 py-[6vw]">
       <p className="m-0 mb-[4vw] max-w-[30ch] text-[max(16px,1.9vw)] leading-[1.3] tracking-[-0.01em]">
         Ce qu&apos;on me demande avant de travailler ensemble.
       </p>

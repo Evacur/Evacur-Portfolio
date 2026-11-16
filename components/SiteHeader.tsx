@@ -22,7 +22,7 @@ export function SiteHeader({ hideLogoUntilScroll = false }: { hideLogoUntilScrol
 
   return (
     <header
-      className={`sticky top-0 z-20 flex items-center justify-between bg-bg px-6 transition-[border-color] duration-300 border-b ${scrolled ? "border-line" : "border-transparent"}`}
+      className={`sticky top-0 z-20 flex items-center justify-between bg-bg px-6 max-[640px]:px-4 transition-[border-color] duration-300 border-b ${scrolled ? "border-line" : "border-transparent"}`}
     >
       <Link
         href="/"
@@ -31,8 +31,9 @@ export function SiteHeader({ hideLogoUntilScroll = false }: { hideLogoUntilScrol
       >
         Pablo Cuerva
       </Link>
-      <nav aria-label="Navigation principale" className="flex items-center gap-6">
+      <nav aria-label="Navigation principale" className="flex items-center gap-6 max-[640px]:gap-3.5">
         <Link href="/work" className="u inline-flex min-h-14 items-center">Travaux</Link>
+        <Link href="/#faq" className="u inline-flex min-h-14 items-center">FAQ</Link>
         <Link href="/#contact" className="u inline-flex min-h-14 items-center">Contact</Link>
         <button type="button" onClick={toggle} aria-label={dark ? "Passer en thème clair" : "Passer en thème sombre"} className="inline-flex min-h-14 items-center text-mute">
           ({dark ? "clair" : "sombre"})
