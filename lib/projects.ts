@@ -379,7 +379,7 @@ const kleioDesignSystem: Case = {
       body: [
         "À mon arrivée, le produit reposait sur les maquettes d'un premier designer, sans système partagé. J'ai pris en charge l'ensemble du design : le widget, l'application et le site.",
       ],
-      media: [{ ...shot("kleio/ds-figma", "Le design system du chatbot dans Figma : pages par composant et variantes du champ de saisie"), ratio: "2295 / 1660" }],
+      media: [{ ...shot("kleio/ds-figma", "Le champ de saisie du widget dans le design system : états replié, étendu et avec suggestions"), ratio: "1551 / 976" }],
     },
     {
       title: "Problème et recherche",
