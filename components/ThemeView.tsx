@@ -220,6 +220,9 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
   const lead = contexte.media[0];
   const rest = all.filter((m) => m !== lead && isReal(m));
 
+  // Cas en rangs : un écran par section, les écrans en plus rejoignent la dernière
+  const rows = [0, 1, 2].map((i) => (i < 2 ? screens.slice(i, i + 1) : screens.slice(2)));
+
   const pickCase = (i: number) => {
     if (i === ci) return;
     setCi(i);
@@ -309,7 +312,17 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease } }}
           exit={{ opacity: 0, y: -12, transition: { duration: 0.25, ease: "easeIn" } }}
         >
-          {visual ? (
+          {project.layout === "rangs" ? (
+            [[contexte, undefined], [probleme, "Problème"], [decisions, "Choix"]].map(([ch, title], i) => (
+              <section key={i} className={`${section} grid grid-cols-2 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-8`}>
+                {i > 0 && <Rule />}
+                <ChapterText ch={ch as Chapter} n={i + 1} title={title as string | undefined} />
+                <div className="sticky top-24 flex flex-col gap-[max(16px,2vw)] self-start max-[900px]:static">
+                  {rows[i].map((m, j) => <Media key={mediaKey(m)} media={m} ratio="16 / 10" tint={j % 2 ? project.tint : neutral} />)}
+                </div>
+              </section>
+            ))
+          ) : visual ? (
             <>
               <section className={`${section} grid grid-cols-3 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-10`}>
                 <ChapterText ch={contexte} n={1} lede={false} />

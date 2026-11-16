@@ -42,8 +42,8 @@ export type Project = {
   pitch: string;
   /** Visuel de couverture dans /public (portrait 18:23). Sans visuel, un aperçu neutre s'affiche. */
   cover?: string;
-  /** "recherche" : texte d'abord, résultats en bas. "visuel" : trois textes courts puis les écrans. */
-  layout: "recherche" | "visuel";
+  /** "recherche" : texte d'abord, résultats en bas. "visuel" : trois textes courts puis les écrans. "rangs" : contexte, problème et choix, chacun avec son écran à droite. */
+  layout: "recherche" | "visuel" | "rangs";
   /** Teintes de l'aperçu neutre, en attendant les vraies captures. */
   tint: string;
   ink: string;
@@ -460,7 +460,7 @@ export const projects: Project[] = [
     cases: [bim, livestore],
   },
   {
-    slug: "design-system", layout: "visuel", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
+    slug: "design-system", layout: "rangs", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
     pitch: "Trois systèmes construits, et comment chacun a été pensé.",
     cover: "/projects/bim/04.webp", tint: "#DEE5DE", ink: "#2F5D3F",
     cases: [bimDesignSystem, placeholder("Cegid", "Cegid"), kleioDesignSystem],
