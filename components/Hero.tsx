@@ -14,6 +14,7 @@ import {
   type MotionValue,
 } from "motion/react";
 import { heroShots } from "@/lib/projects";
+import { useScramble } from "./useScramble";
 
 const NAME = "PABLO CUERVA";
 const SUB = "Product designer · IA & SaaS · Paris";
@@ -100,28 +101,12 @@ export function Hero() {
 
 /** Le métier en mono : les lettres se déchiffrent à l'arrivée, et de nouveau au survol. */
 function Scramble({ text }: { text: string }) {
-  const reduce = useReducedMotion();
-  const [out, setOut] = useState(text);
-  const raf = useRef(0);
-
-  const run = () => {
-    if (reduce) return;
-    cancelAnimationFrame(raf.current);
-    const glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ/·&";
-    const start = performance.now();
-    const step = (now: number) => {
-      const t = (now - start) / 900;
-      setOut(text.split("").map((ch, k) => (ch === " " || k / text.length < t ? ch : glyphs[(Math.random() * glyphs.length) | 0])).join(""));
-      if (t < 1) raf.current = requestAnimationFrame(step);
-    };
-    raf.current = requestAnimationFrame(step);
-  };
+  const [out, run] = useScramble(text);
 
   useEffect(() => {
     const t = window.setTimeout(run, 700);
-    return () => { clearTimeout(t); cancelAnimationFrame(raf.current); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => clearTimeout(t);
+  }, [run]);
 
   return (
     <motion.p

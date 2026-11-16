@@ -25,7 +25,7 @@ export type FaqItem = { q: string; a: string; rows?: { when: string; where: stri
 
 // Réponses tirées du profil Malt et de LinkedIn (novembre 2026)
 export const faq: FaqItem[] = [
-  { q: "Quel est ton TJM ?", a: "450 € HT par jour." },
+  { q: "Quel est ton TJM ?", a: "450 € HT par jour, négociable pour une mission longue. Forfait possible pour un projet bien cadré." },
   {
     q: "Quelle est ton expérience ?",
     a: "Cinq ans chez Cegid, puis le freelance.",
