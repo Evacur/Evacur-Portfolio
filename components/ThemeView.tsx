@@ -153,6 +153,14 @@ function ChapterBody({ ch, className = "" }: { ch: Chapter; className?: string }
   return (
     <div className={`flex max-w-[62ch] flex-col gap-3.5 ${className}`}>
       {ch.body.map((b, j) => <Rise key={j} delay={0.2 + j * 0.06}><p className="m-0 text-mute">{b}</p></Rise>)}
+      {ch.link && (
+        <Rise delay={0.35}>
+          <a href={ch.link.href} target="_blank" rel="noopener noreferrer" data-cur="ouvrir" className="group/link inline-flex items-center gap-1.5 underline decoration-line underline-offset-4 transition-colors duration-300 hover:decoration-fg">
+            {ch.link.label}
+            <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">↗</span>
+          </a>
+        </Rise>
+      )}
       {ch.sources && (
         <Rise delay={0.4}>
           <p className="m-0 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-mute">
@@ -217,8 +225,8 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
   const lead = contexte.media[0];
   const rest = all.filter((m) => m !== lead && isReal(m));
 
-  // Cas en rangs : un écran par section, les écrans en plus rejoignent la dernière
-  const rows = [0, 1, 2].map((i) => (i < 2 ? screens.slice(i, i + 1) : screens.slice(2)));
+  // Cas en rangs : chaque section montre ses propres écrans (ceux des résultats rejoignent les choix)
+  const rows = [contexte, probleme, [...decisions.media, ...resultats.media]].map((x) => (Array.isArray(x) ? x : x.media).filter((m) => !all.some(isReal) || isReal(m)));
 
   const pickCase = (i: number) => {
     if (i === ci) return;

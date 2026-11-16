@@ -13,6 +13,8 @@ export type Chapter = {
   media: Media[];
   /** Sources publiques des données citées dans le chapitre. */
   sources?: { label: string; href: string }[];
+  /** Lien public vers le travail présenté, affiché sous le texte. */
+  link?: { label: string; href: string };
 };
 
 /** Une image (16:9) ou une vidéo en boucle dans /public, ou une simple légende tant qu'elle manque. */
@@ -183,6 +185,7 @@ const cegidDesignSystem: Case = {
         "Compose Design est le design system de Cegid, fondé sur Material Design. Il sert une pluralité de produits, développés avec des frameworks différents.",
         "J'y ai contribué en tant que designer : création de composants et rédaction des guidelines qui les documentent.",
       ],
+      link: { label: "Voir Compose Design", href: "https://composedesign.ila.cegid.com/" },
       media: [{ ...shot("cegid-ds/01", "Compose Design : fondations, composants, patterns et templates"), ratio: "2614 / 1700" }],
     },
     {
@@ -376,24 +379,26 @@ const kleioDesignSystem: Case = {
       body: [
         "À mon arrivée, le produit reposait sur les maquettes d'un premier designer, sans système partagé. J'ai pris en charge l'ensemble du design : le widget, l'application et le site.",
       ],
-      media: ["L'interface avant le design system"],
+      media: [{ ...shot("kleio/ds-figma", "Le design system du chatbot dans Figma : pages par composant et variantes du champ de saisie"), ratio: "2295 / 1660" }],
     },
     {
       title: "Problème et recherche",
-      lede: "Trois surfaces, aucune règle commune.",
+      lede: "Des composants et des couleurs codés en dur, sans référentiel.",
       body: [
-        "Le widget intégré chez les clients, l'application et le site évoluaient séparément. Sans référentiel, chaque écran demandait de nouvelles décisions et la cohérence graphique se dégradait.",
+        "Le widget intégré chez les clients, l'application et le site évoluaient séparément. Beaucoup de composants et de couleurs étaient codés en dur : chaque écran demandait de nouvelles décisions et la cohérence graphique se dégradait.",
+        "Les styles typographiques et le nommage des composants ne suivaient pas de convention commune.",
       ],
-      media: ["Inventaire des composants"],
+      media: [],
     },
     {
       title: "Décisions",
-      lede: "Un seul système, dans Figma et dans le code.",
+      lede: "Une base propre, identique dans Figma et dans le code.",
       body: [
-        "J'ai construit le design system dans Figma et en code, pour que la maquette et le produit partagent les mêmes tokens et les mêmes composants.",
-        "J'ai mis en place des process de design : une source unique, des règles d'usage, et un circuit de validation avant le développement.",
+        "J'ai structuré le design system dans Figma, puis créé les premières briques côté développement avec Claude Code : tokens de couleur, de typographie, d'espacement, de rayon et d'ombre, puis primitives et composants.",
+        "Ce travail a demandé un nettoyage complet : remplacement des valeurs codées en dur par des tokens, restructuration des styles typographiques et renommage des composants selon une convention unique.",
+        "L'objectif était l'harmonisation : que le code reproduise fidèlement la maquette, à partir de la même base.",
       ],
-      media: ["Composants du design system Kleio"],
+      media: [{ ...shot("kleio/ds-code", "Le système côté code : tokens, primitives, icônes et composants"), ratio: "870 / 604" }],
     },
     {
       title: "Résultats",
@@ -401,7 +406,7 @@ const kleioDesignSystem: Case = {
       body: [
         "Le système en code m'a permis d'intégrer directement des interfaces avec Claude Code, et de produire les démonstrations commerciales plus vite.",
       ],
-      media: ["Le système appliqué au widget et à l'application"],
+      media: [],
     },
   ],
 };
