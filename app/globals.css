@@ -65,9 +65,24 @@ body {
 }
 .strip-pic { position: absolute; top: 0; height: 100%; width: 600%; }
 
-/* Accueil : expertises. Le nom reste lisible, il s'allume et glisse au survol. */
+/* Accueil : expertises. Le nom s'allume et glisse, un trait se dessine dessous, la flèche avance. */
+.xp-row { position: relative; }
+.xp-row::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: right; transition: transform .7s var(--ease-inout);
+}
 .xp-name { color: var(--mute); transition: color .4s ease, transform .6s var(--ease-out-soft); }
-.xp-row:hover .xp-name, .xp-row:focus-visible .xp-name { color: var(--fg); transform: translateX(8px); }
+.xp-arrow { transition: transform .5s var(--ease-out-soft); }
+@media (hover: hover) {
+  .xp-row:hover::after { transform: scaleX(1); transform-origin: left; }
+  .xp-row:hover .xp-name { color: var(--fg); transform: translateX(8px); }
+  .xp-row:hover .xp-arrow { transform: translateX(4px); }
+}
+.xp-row:focus-visible::after { transform: scaleX(1); }
+.xp-row:focus-visible .xp-name { color: var(--fg); }
+/* Au toucher : retour immédiat sur la ligne pressée */
+.xp-row:active .xp-name { color: var(--fg); }
+@media (hover: none) { .xp-name { color: var(--fg); } }
 
 /* Work : la ligne survolée glisse, un trait se dessine dessous */
 .wk-row { position: relative; }
