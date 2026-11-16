@@ -126,29 +126,44 @@ const bim: Case = {
 const bimDesignSystem: Case = {
   ...bim,
   slug: "bim-design-system",
+  role: "Référent design system",
   chapters: [
     {
       title: "Contexte",
-      lede: "Un design system créé de zéro pour toute l'interface.",
-      body: ["Il fallait un socle commun aux deux équipes de dix designers, pour livrer vite sans perdre en cohérence."],
+      lede: "Un design system créé de zéro, hors de la charte graphique de Cegid.",
+      body: [
+        "Repartir de zéro répondait à un objectif de positionnement : s'émanciper de la charte graphique de Cegid pour s'adresser à une cible que la marque ne touchait pas, avec un design plus contemporain.",
+        "Le travail a associé une illustratrice et un UX writer, afin que l'interface, les contenus et le marketing portent la même identité.",
+      ],
       media: [shot("bim/04", "Composants du design system Bim ! : tabs, boutons, sélection, statuts")],
     },
     {
       title: "Problème et recherche",
-      lede: "Ce qui bloquait, et comment je l'ai vérifié.",
-      body: ["[Le problème, la recherche menée, ce qu'elle a montré.]"],
-      media: ["Inventaire de l'existant"],
+      lede: "Une direction artistique à valider, puis une équipe qui grandit plus vite que ses règles.",
+      body: [
+        "Plusieurs directions artistiques ont été soumises à des tests quantitatifs et qualitatifs, pour identifier celle qui parlait le plus aux cibles. [Taille des échantillons et direction retenue.]",
+        "Les premières bases ont été posées à deux designers. L'arrivée d'autres designers, alors que la direction artistique était encore en cours de définition, a produit des écarts : chacun appliquait sa propre interprétation.",
+        "Le modèle de départ était collaboratif : chaque designer créait ses composants et les versait dans la bibliothèque Figma. À dix designers, ce fonctionnement multipliait les doublons et les variantes.",
+      ],
+      media: ["Directions artistiques testées"],
     },
     {
       title: "Décisions",
-      lede: "Simplicité et accessibilité d'abord.",
-      body: ["[Les choix de tokens, de composants et de documentation.]"],
+      lede: "Passer d'une contribution ouverte à une gouvernance par un référent.",
+      body: [
+        "J'ai été désigné référent du design system. Je veillais à la cohérence visuelle du travail des dix designers et j'arbitrais l'entrée de chaque composant : création, fusion avec un composant existant, ou refus.",
+        "J'ai formé les designers moins expérimentés à la création de composants, et j'assurais le lien direct avec le développeur full stack pour que la bibliothèque Figma et le code restent alignés.",
+        "Résultat : une cohérence graphique sur l'ensemble du produit, et une application construite plus vite.",
+      ],
       media: [shot("bim/05", "Le système appliqué : cartes, transactions, navigation mobile")],
     },
     {
       title: "Résultats",
-      lede: "Ce qui a changé pour les équipes.",
-      body: ["[Les résultats mesurés.]"],
+      lede: "Une cohérence graphique sur tout le produit, et une application construite plus vite.",
+      body: [
+        "La gouvernance par un référent a rétabli la cohérence graphique sur l'ensemble du produit et accéléré la construction de l'application.",
+        "[Nombre de composants, mesures de vélocité.]",
+      ],
       media: [shot("bim/03", "Fiche article et catalogue construits avec le système")],
     },
   ],
