@@ -65,24 +65,16 @@ body {
 }
 .strip-pic { position: absolute; top: 0; height: 100%; width: 600%; }
 
-/* Accueil : expertises. Le nom s'allume et glisse, un trait se dessine dessous, la flèche avance. */
-.xp-row { position: relative; }
-.xp-row::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: currentColor;
-  transform: scaleX(0); transform-origin: right; transition: transform .7s var(--ease-inout);
-}
-.xp-name { color: var(--mute); transition: color .4s ease, transform .6s var(--ease-out-soft); }
-.xp-arrow { transition: transform .5s var(--ease-out-soft); }
-@media (hover: hover) {
-  .xp-row:hover::after { transform: scaleX(1); transform-origin: left; }
-  .xp-row:hover .xp-name { color: var(--fg); transform: translateX(8px); }
-  .xp-row:hover .xp-arrow { transform: translateX(4px); }
-}
-.xp-row:focus-visible::after { transform: scaleX(1); }
-.xp-row:focus-visible .xp-name { color: var(--fg); }
-/* Au toucher : retour immédiat sur la ligne pressée */
-.xp-row:active .xp-name { color: var(--fg); }
-@media (hover: none) { .xp-name { color: var(--fg); } }
+/* Accueil : expertises en accordéon. La ligne s'ouvre, la vignette se dévoile, le texte monte. */
+.xp-title { transition: transform .6s var(--ease-out-soft); }
+@media (hover: hover) { .xp-btn:hover .xp-title { transform: translateX(8px); } }
+.xp-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease-inout); }
+.xp-a > div { overflow: hidden; }
+.xp-a.is-open { grid-template-rows: 1fr; }
+.xp-thumb { clip-path: inset(0 0 100% 0); transition: clip-path .8s var(--ease-inout) .05s; }
+.xp-a.is-open .xp-thumb { clip-path: inset(0 0 0 0); }
+.xp-text { opacity: 0; transform: translateY(6px); transition: opacity .5s ease .12s, transform .6s var(--ease-out-soft) .12s; }
+.xp-a.is-open .xp-text { opacity: 1; transform: none; }
 
 /* Work : la ligne survolée glisse, un trait se dessine dessous */
 .wk-row { position: relative; }
