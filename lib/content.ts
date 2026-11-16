@@ -39,7 +39,7 @@ export const faq: FaqItem[] = [
   { q: "Tu sais travailler en équipe ?", a: "Chez Cegid, dans une équipe de 30 designers, j'ai coordonné jusqu'à 10 designers sur un même produit et j'étais le référent du design system. J'ai aussi été mentor UX Research pour des startups au Cegid Data Lab, à Station F." },
   { q: "Comment tu mènes la recherche ?", a: "Entretiens, ateliers de cadrage, tests utilisateurs et questionnaires in-app pour une discovery continue. Outils : Figma, Maze, Dovetail, Jira et Confluence." },
   { q: "Freelance, CDI, remote ?", a: "Freelance sur Malt, Supermalter noté 5/5, et ouvert à un poste. Basé à Paris, sur site ou en hybride." },
-  { q: "Tu parles anglais ?", a: "Oui. Français natif, anglais et espagnol courants." },
+  { q: "Tu parles anglais ?", a: "Oui. Français natif, anglais professionnel (B2)." },
   { q: "Quand es-tu dispo ?", a: "À partir de [mois]. Le premier échange de 30 min est offert." },
 ];
 
