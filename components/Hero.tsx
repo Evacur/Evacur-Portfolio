@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -10,38 +11,46 @@ import {
   useScroll,
   useSpring,
   useTransform,
-  type MotionValue,
 } from "motion/react";
-import Image from "next/image";
 import { heroShots } from "@/lib/projects";
 
 const NAME = "PABLO CUERVA";
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const volet = [0.75, 0, 0.15, 1] as const;
-/** Temps d'affichage d'un projet dans une card avant de passer au suivant. */
+/** Temps d'affichage d'un projet dans la card avant de passer au suivant. */
 const SWITCH_MS = 1100;
+const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
- * Arrivée : le nom monte lettre par lettre, deux cards s'ouvrent puis flottent.
- * Chaque card fait défiler les projets, en décalé l'une de l'autre.
- * Au scroll, le nom s'efface en rétrécissant.
+ * Variante C : une seule grande card portrait au centre, derrière le nom.
+ * Elle fait défiler les projets avec un volet et suit un peu la souris.
+ * Un compteur en bas à droite. Au scroll, le nom s'efface en rétrécissant.
  */
 export function Hero() {
-  // Parallaxe douce des cards, à la souris uniquement
+  const reduce = useReducedMotion();
+  const [i, setI] = useState(0);
+  const shot = heroShots[i % heroShots.length];
+
+  useEffect(() => {
+    if (reduce) return;
+    let interval = 0;
+    const first = window.setTimeout(() => {
+      setI((v) => v + 1);
+      interval = window.setInterval(() => setI((v) => v + 1), SWITCH_MS);
+    }, 1800);
+    return () => { clearTimeout(first); clearInterval(interval); };
+  }, [reduce]);
+
+  // La card suit la souris avec un ressort doux (pas au doigt)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 50, damping: 20 });
-  const sy = useSpring(my, { stiffness: 50, damping: 20 });
-  const x1 = useTransform(sx, (v) => v * 28), y1 = useTransform(sy, (v) => v * 28);
-  const x2 = useTransform(sx, (v) => v * -18), y2 = useTransform(sy, (v) => v * -18);
+  const cx = useSpring(useTransform(mx, (v) => v * 40), { stiffness: 60, damping: 20 });
+  const cy = useSpring(useTransform(my, (v) => v * 30), { stiffness: 60, damping: 20 });
 
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 300], [1, 0.5]);
   const nameY = useTransform(scrollY, [0, 300], [0, 40]);
   const nameOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-  // Les cards s'écartent légèrement au scroll
-  const lift1 = useTransform(scrollY, [0, 500], [0, -60]);
-  const lift2 = useTransform(scrollY, [0, 500], [0, 40]);
 
   const onMove = (e: React.PointerEvent<HTMLElement>) => {
     if (e.pointerType !== "mouse") return;
@@ -56,39 +65,49 @@ export function Hero() {
       aria-label="Introduction"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="relative flex h-[min(82svh,760px)] min-h-[520px] items-center justify-center overflow-hidden px-4 max-[760px]:h-auto max-[760px]:min-h-0 max-[760px]:pb-[calc(23.75vw+36px)] max-[760px]:pt-[calc(31.25vw+40px)]"
+      className="relative grid h-[min(84svh,780px)] min-h-[520px] place-items-center overflow-hidden px-4 max-[760px]:h-[min(78svh,640px)] max-[760px]:min-h-[460px]"
     >
-      {/* Bloc texte : les cards sont accrochées à lui, pas aux bords de l'écran, pour rester collées au nom */}
-      <div className="relative flex flex-col items-center gap-[max(14px,2vw)]">
-        <FloatCard
-          start={0}
-          offset={0}
-          x={x1} y={y1} lift={lift1}
-          delay={0.5}
-          bob={0}
-          className="bottom-full right-[1vw] -mb-[2.2vw] w-[21vw] max-w-[340px] max-[760px]:right-0 max-[760px]:-mb-2 max-[760px]:w-[50vw]"
-        />
-        <FloatCard
-          start={2}
-          offset={SWITCH_MS / 2}
-          x={x2} y={y2} lift={lift2}
-          delay={0.65}
-          bob={-3.5}
-          className="left-[2vw] top-[10.6vw] w-[16vw] max-w-[260px] max-[760px]:left-0 max-[760px]:top-[calc(100%+20px)] max-[760px]:w-[38vw]"
-        />
+      {/* La card, dans la même cellule que le texte, donc toujours centrée derrière le nom */}
+      <motion.div className="col-start-1 row-start-1 w-[min(30vw,420px)] max-[760px]:w-[62vw]" style={{ x: cx, y: cy }}>
+        <Link href={`/work/${shot.slug}`} aria-label={`${shot.title}, voir le projet`} className="group block">
+          <motion.span
+            className="relative block aspect-[4/5] overflow-hidden bg-line"
+            initial={{ clipPath: "inset(100% 0 0 0)" }}
+            animate={{ clipPath: "inset(0% 0 0 0)" }}
+            transition={{ duration: 1.2, ease: [0.65, 0, 0.15, 1], delay: 0.45 }}
+          >
+            <AnimatePresence initial={false}>
+              <motion.span
+                key={i}
+                className="absolute inset-0 block"
+                initial={{ clipPath: "inset(100% 0 0 0)" }}
+                animate={{ clipPath: "inset(0% 0 0 0)", zIndex: 1 }}
+                // L'ancienne image reste dessous le temps que la nouvelle la recouvre
+                exit={{ zIndex: 0, opacity: 0.99, transition: { duration: 0.65 } }}
+                transition={{ duration: 0.6, ease: volet }}
+              >
+                <span className="absolute inset-0 block transition-transform duration-700 ease-out-soft group-hover:scale-[1.04]">
+                  <Image src={shot.src} alt="" fill priority={i === 0} sizes="(max-width: 760px) 140vw, 940px" className="object-cover" />
+                </span>
+              </motion.span>
+            </AnimatePresence>
+          </motion.span>
+        </Link>
+      </motion.div>
 
+      <div className="pointer-events-none relative z-[2] col-start-1 row-start-1 flex flex-col items-center gap-[max(14px,2vw)]">
         <motion.h1
           aria-label="Pablo Cuerva"
-          className="pointer-events-none relative z-[2] m-0 origin-top whitespace-nowrap text-[11.2vw] font-bold leading-[0.9] tracking-[-0.045em] max-[760px]:text-[12.4vw]"
+          className="m-0 origin-top whitespace-nowrap text-[11.2vw] font-bold leading-[0.9] tracking-[-0.045em] max-[760px]:text-[12.4vw]"
           style={{ scale, y: nameY, opacity: nameOpacity }}
         >
-          {NAME.split("").map((c, i) => (
-            <span key={i} aria-hidden="true" className="inline-block overflow-hidden pb-[0.04em] align-bottom">
+          {NAME.split("").map((c, k) => (
+            <span key={k} aria-hidden="true" className="inline-block overflow-hidden pb-[0.04em] align-bottom">
               <motion.span
                 className="inline-block"
                 initial={{ y: "105%" }}
                 animate={{ y: "0%" }}
-                transition={{ duration: 1.1, ease, delay: i * 0.04 }}
+                transition={{ duration: 1.1, ease, delay: k * 0.04 }}
               >
                 {c === " " ? "\u00a0" : c}
               </motion.span>
@@ -96,94 +115,46 @@ export function Hero() {
           ))}
         </motion.h1>
 
-        <motion.p
-          className="relative z-[2] m-0 text-[max(11px,1.1vw)] font-medium uppercase tracking-[0.12em]"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.8 }}
-        >
-          Product designer · IA et SaaS
-        </motion.p>
-
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.9 }} className="relative z-[2]">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.9 }} className="pointer-events-auto">
           <MagneticLink href="/work">Voir le travail</MagneticLink>
         </motion.div>
       </div>
-    </section>
-  );
-}
 
-/** Une card qui flotte et fait défiler les projets avec un volet. */
-function FloatCard({
-  start, offset, x, y, lift, delay, bob, className,
-}: {
-  start: number; offset: number;
-  x: MotionValue<number>; y: MotionValue<number>; lift: MotionValue<number>;
-  delay: number; bob: number; className: string;
-}) {
-  const reduce = useReducedMotion();
-  const [i, setI] = useState(start);
-  // Sur mobile (pas de survol), la card reste fixe : ni flottement, ni décalage au scroll
-  const [still, setStill] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: none)");
-    const on = () => setStill(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  const p = heroShots[i % heroShots.length];
+      {/* Sous la card, hors de l'image pour rester lisible : le métier à gauche, le compteur à droite */}
+      <motion.p
+        className="absolute bottom-5 left-6 m-0 text-[11px] font-medium uppercase leading-[18px] tracking-[0.12em] max-[760px]:left-4"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease, delay: 0.8 }}
+      >
+        Product designer · IA et SaaS
+      </motion.p>
 
-  useEffect(() => {
-    if (reduce) return;
-    let interval = 0;
-    // Premier changement après l'ouverture, puis à rythme régulier. Les deux cards avancent
-    // d'un projet en décalé (départs 0 et 2) : elles ne montrent jamais le même.
-    const first = window.setTimeout(() => {
-      setI((v) => v + 1);
-      interval = window.setInterval(() => setI((v) => v + 1), SWITCH_MS);
-    }, 1700 + offset);
-    return () => { clearTimeout(first); clearInterval(interval); };
-  }, [reduce, offset]);
-
-  return (
-    <motion.div className={`absolute z-[1] ${className}`} style={{ x, y }}>
-      <motion.div style={still ? undefined : { y: lift }}>
-        <motion.div
-          animate={reduce || still ? { y: 0 } : { y: [0, -8, 0] }}
-          transition={still ? { duration: 0 } : { duration: 7, repeat: Infinity, ease: "easeInOut", delay: bob }}
-        >
-          <Link
-            href={`/work/${p.slug}`}
-            aria-label={`${p.title}, voir le projet`}
-            className="group block"
-          >
+      {/* Compteur : le chiffre roule à chaque changement */}
+      <motion.p
+        aria-hidden="true"
+        className="absolute bottom-5 right-6 m-0 flex gap-1 leading-[18px] text-mute tabular-nums max-[760px]:right-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+      >
+        <span className="relative block h-[18px] w-[2ch] overflow-hidden">
+          <AnimatePresence initial={false}>
             <motion.span
-              className="relative block aspect-[16/10] overflow-hidden bg-line"
-              initial={{ clipPath: "inset(0 0 100% 0)" }}
-              animate={{ clipPath: "inset(0 0 0% 0)" }}
-              transition={{ duration: 1.2, ease: [0.65, 0, 0.15, 1], delay }}
+              key={i}
+              className="absolute inset-0"
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.5, ease }}
             >
-              <AnimatePresence initial={false}>
-                <motion.span
-                  key={i}
-                  className="absolute inset-0 block"
-                  initial={{ clipPath: "inset(100% 0 0 0)" }}
-                  animate={{ clipPath: "inset(0% 0 0 0)", zIndex: 1 }}
-                  // L'ancienne image reste dessous le temps que la nouvelle la recouvre
-                  exit={{ zIndex: 0, opacity: 0.99, transition: { duration: 0.65 } }}
-                  transition={{ duration: 0.6, ease: volet }}
-                >
-                  <span className="absolute inset-0 block transition-transform duration-700 ease-out-soft group-hover:scale-[1.04]">
-                    <Image src={p.src} alt="" fill sizes="(max-width: 760px) 50vw, 340px" priority={i === start} className="object-cover" />
-                  </span>
-                </motion.span>
-              </AnimatePresence>
+              {pad((i % heroShots.length) + 1)}
             </motion.span>
-          </Link>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+          </AnimatePresence>
+        </span>
+        <span>/ {pad(heroShots.length)}</span>
+      </motion.p>
+    </section>
   );
 }
 
