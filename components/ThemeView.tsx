@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Media as MediaItem, Project } from "@/lib/projects";
 import { scrollToTarget } from "./SmoothScroll";
@@ -12,35 +12,59 @@ const inout = [0.65, 0, 0.15, 1] as const;
 const seen = { once: true, margin: "0px 0px -60px 0px" } as const;
 
 /**
- * Le visuel du chapitre en cours, dans un cadre qui reste en place : image, vidéo en boucle ou aplat en attendant.
- * Le nouveau visuel monte en volet par-dessus l'ancien.
+ * Visuel du chapitre : image, vidéo en boucle ou aplat en attendant.
+ * Il se dévoile de haut en bas avec un léger dézoom, puis glisse doucement dans son cadre pendant le scroll.
+ * Une vidéo ne joue que lorsqu'elle est à l'écran.
  */
-function Pinned({ media, id, tint }: { media: MediaItem; id: string; tint: string }) {
+function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: string }) {
   const reduce = useReducedMotion();
-  const shape = typeof media !== "string" && "video" in media ? media.ratio : "16 / 10";
+  const box = useRef<HTMLDivElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
+  const visible = useInView(box, { margin: "100px 0px 100px 0px" });
+  const { scrollYProgress } = useScroll({ target: box, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-2.6%", "2.6%"]);
+
+  useEffect(() => {
+    const v = video.current;
+    if (!v || reduce) return;
+    if (visible) v.play().catch(() => {}); else v.pause();
+  }, [visible, reduce]);
+
+  const label = typeof media === "string" ? media : media.alt;
+  const shape = typeof media === "string" ? ratio : "video" in media ? media.ratio : "16 / 9";
+  // Une vidéo presque carrée resterait trop haute en pleine largeur : on la limite
   const [w, h] = shape.split("/").map(Number);
-  // Un visuel presque carré est montré en entier plutôt que rogné
-  const fit = w / h < 1.3 ? "object-contain" : "object-cover";
+  const tall = w / h < 1.3;
+
   return (
-    <div className="relative aspect-[16/10] overflow-hidden rounded-[8px] bg-line">
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={id}
-          className="absolute inset-0"
-          style={typeof media === "string" ? { background: tint } : undefined}
-          initial={{ clipPath: "inset(100% 0 0 0)" }}
-          animate={{ clipPath: "inset(0% 0 0 0)", zIndex: 1 }}
-          exit={{ zIndex: 0, opacity: 0.99, transition: { duration: 0.85 } }}
-          transition={{ duration: 0.8, ease: [0.75, 0, 0.15, 1] }}
+    <figure className={`group/media m-0 flex flex-col gap-2.5 ${tall ? "w-full max-w-[min(100%,560px)]" : ""}`}>
+      <motion.div
+        ref={box}
+        className="relative overflow-hidden rounded-[8px] bg-line"
+        style={{ aspectRatio: shape }}
+        initial={{ clipPath: "inset(0 0 100% 0 round 8px)" }}
+        whileInView={{ clipPath: "inset(0 0 0% 0 round 8px)" }}
+        viewport={seen}
+        transition={{ duration: 1.1, ease: inout }}
+      >
+        <motion.span
+          className="absolute inset-0 block"
+          initial={{ scale: 1.12 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.6, ease }}
         >
-          <motion.div className="absolute inset-0" initial={{ scale: 1.1 }} animate={{ scale: 1 }} transition={{ duration: 1.4, ease }}>
+          <motion.span
+            className="absolute inset-x-0 -inset-y-[3%] block transition-transform duration-[900ms] ease-out-soft group-hover/media:scale-[1.015]"
+            style={typeof media === "string" ? { background: tint } : reduce ? undefined : { y }}
+          >
             {typeof media !== "string" && ("video" in media ? (
               <video
+                ref={video}
                 src={media.video}
                 poster={media.poster}
                 aria-label={media.alt}
-                className={`absolute inset-0 h-full w-full ${fit}`}
-                autoPlay={!reduce}
+                className="absolute inset-0 h-full w-full object-cover"
                 controls={!!reduce}
                 muted
                 loop
@@ -48,12 +72,21 @@ function Pinned({ media, id, tint }: { media: MediaItem; id: string; tint: strin
                 preload="metadata"
               />
             ) : (
-              <Image src={media.src} alt={media.alt} fill priority sizes="(max-width: 640px) 100vw, 60vw" className={fit} />
+              <Image src={media.src} alt={media.alt} fill sizes="(max-width: 640px) 100vw, 60vw" className="object-cover" />
             ))}
-          </motion.div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
+          </motion.span>
+        </motion.span>
+      </motion.div>
+      <motion.figcaption
+        className="text-mute"
+        initial={{ opacity: 0, y: 6 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={seen}
+        transition={{ duration: 0.8, ease, delay: 0.35 }}
+      >
+        {label}
+      </motion.figcaption>
+    </figure>
   );
 }
 
@@ -77,7 +110,7 @@ function NextLink({ label, title, href, onClick }: { label: string; title: strin
   const inner = (
     <>
       <span className="text-mute">{label}</span>
-      <span className="flex items-baseline gap-[0.25em] text-[max(28px,5vw)] font-semibold leading-none tracking-[-0.04em]">
+      <span className="flex items-baseline gap-[0.25em] font-serif text-[max(32px,5.8vw)] font-normal leading-none tracking-[-0.025em]">
         <span className="relative block overflow-hidden pb-[0.12em]">
           <span className="block transition-transform duration-700 ease-out-soft group-hover:-translate-y-[110%]">{title}</span>
           <span aria-hidden="true" className="absolute inset-0 block translate-y-[110%] transition-transform duration-700 ease-out-soft group-hover:translate-y-0">{title}</span>
@@ -94,40 +127,26 @@ function NextLink({ label, title, href, onClick }: { label: string; title: strin
 
 /**
  * Page thème : le thème en grand, les cas en onglets, puis pour le cas choisi
- * un sommaire collant et 4 chapitres. Le texte défile à gauche, l'image reste en place à droite
- * et change quand on passe d'un chapitre (ou d'un visuel) à l'autre.
+ * un sommaire collant et 4 chapitres (texte à gauche, ses images à droite).
  */
 export function ThemeView({ project, next }: { project: Project; next: Project }) {
   const [ci, setCi] = useState(0);
   const [active, setActive] = useState(0);
-  const [shot, setShot] = useState(0);
   const refs = useRef<(HTMLElement | null)[]>([]);
   const c = project.cases[ci];
   const lastCase = ci === project.cases.length - 1;
 
-  // Le chapitre qui passe le milieu de l'écran s'allume. S'il a plusieurs visuels,
-  // sa hauteur est découpée en autant de paliers : le visuel change à chaque palier.
+  // Le sommaire suit la lecture : le chapitre passé aux 40 % de l'écran s'allume.
   useEffect(() => {
     const on = () => {
-      const mid = window.innerHeight * (window.innerWidth <= 640 ? 0.66 : 0.5);
-      let a = 0, m = 0;
-      refs.current.forEach((el, i) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        if (r.top < mid) {
-          a = i;
-          const n = Math.max(1, c.chapters[i]?.media.length ?? 1);
-          m = Math.min(n - 1, Math.max(0, Math.floor(((mid - r.top) / r.height) * n)));
-        }
-      });
+      let a = 0;
+      refs.current.forEach((el, i) => { if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) a = i; });
       setActive(a);
-      setShot(m);
     };
     on();
     window.addEventListener("scroll", on, { passive: true });
-    window.addEventListener("resize", on);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); };
-  }, [ci, c]);
+    return () => window.removeEventListener("scroll", on);
+  }, [ci]);
 
   const pickCase = (i: number) => {
     if (i === ci) return;
@@ -218,7 +237,7 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
             href={`#ch-${i}`}
             aria-current={i === active ? "true" : undefined}
             className={`relative flex-none py-3 transition-colors duration-300 hover:text-fg ${i === active ? "text-fg" : "text-mute"}`}
-            onClick={(e) => { e.preventDefault(); const el = refs.current[i]; if (el) scrollToTarget(el, -Math.round(window.innerHeight * 0.3)); }}
+            onClick={(e) => { e.preventDefault(); const el = refs.current[i]; if (el) scrollToTarget(el, -100); }}
           >
             <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span> {ch.title}
             {/* Le trait suit le chapitre en cours de lecture */}
@@ -234,54 +253,41 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease } }}
           exit={{ opacity: 0, y: -12, transition: { duration: 0.25, ease: "easeIn" } }}
         >
-          <div className="grid grid-cols-[minmax(0,.9fr)_minmax(0,1.3fr)] gap-x-[4vw] border-b border-line max-[640px]:grid-cols-1">
-            <div>
-              {c.chapters.map((ch, i) => (
-                <section
-                  key={ch.title}
-                  id={`ch-${i}`}
-                  ref={(el) => { refs.current[i] = el; }}
-                  style={{ "--n": Math.max(1, ch.media.length) } as React.CSSProperties}
-                  className={`min-h-[calc(var(--n)*62svh+16svh)] transition-opacity duration-700 max-[640px]:min-h-[calc(var(--n)*46svh+10svh)] ${i === active ? "" : "opacity-30"}`}
+          {c.chapters.map((ch, i) => (
+            <section
+              key={ch.title}
+              id={`ch-${i}`}
+              ref={(el) => { refs.current[i] = el; }}
+              className="relative grid scroll-mt-28 grid-cols-[minmax(0,.8fr)_minmax(0,1.4fr)] gap-[4vw] py-[5vw] max-[640px]:grid-cols-1 max-[640px]:gap-6 max-[640px]:py-10"
+            >
+              <div className="sticky top-32 flex flex-col gap-2.5 self-start max-[640px]:static">
+                <Rise><span className="text-[11px] text-mute tabular-nums">{String(i + 1).padStart(2, "0")}</span></Rise>
+                {/* Le titre monte derrière un masque ; c'est le h2, jamais masqué, qui détecte l'entrée à l'écran */}
+                <motion.h2
+                  className="m-0 overflow-hidden pb-[0.1em] font-serif text-[max(28px,3.2vw)] font-normal leading-[1.05] tracking-[-0.015em]"
+                  initial="hide" whileInView="show" viewport={seen}
                 >
-                  {/* Le texte reste en place tant que son chapitre défile */}
-                  <div className="sticky top-[max(150px,calc(50svh-90px))] flex flex-col gap-2.5 py-8 max-[640px]:top-[calc(62.5vw+176px)] max-[640px]:py-5">
-                    <Rise><span className="font-mono text-[11px] uppercase tracking-[0.06em] text-mute tabular-nums">{String(i + 1).padStart(2, "0")}</span></Rise>
-                    {/* Le titre monte derrière un masque ; c'est le h2, jamais masqué, qui détecte l'entrée à l'écran */}
-                    <motion.h2
-                      className="m-0 overflow-hidden pb-[0.1em] font-serif text-[max(30px,3.8vw)] font-normal leading-[1.02] tracking-[-0.015em]"
-                      initial="hide" whileInView="show" viewport={seen}
-                    >
-                      <motion.span className="block" variants={{ hide: { y: "110%" }, show: { y: "0%" } }} transition={{ duration: 1, ease, delay: 0.05 }}>
-                        {ch.title}
-                      </motion.span>
-                    </motion.h2>
-                    <Rise delay={0.15}><p className="m-0 max-w-[44ch]">{ch.lede}</p></Rise>
-                    {ch.body.map((b, j) => <Rise key={j} delay={0.22 + j * 0.07}><p className="m-0 max-w-[44ch] text-mute">{b}</p></Rise>)}
-                  </div>
-                </section>
-              ))}
-            </div>
-
-            {/* L'image reste en place et change avec le chapitre en cours */}
-            {(() => {
-              const list = c.chapters[active]?.media ?? [];
-              const m = list[Math.min(shot, list.length - 1)] ?? "";
-              const label = typeof m === "string" ? m : m.alt;
-              return (
-                <div className="sticky top-[max(120px,calc(50svh-17vw+20px))] flex flex-col gap-2.5 self-start pb-10 max-[640px]:top-[104px] max-[640px]:z-[5] max-[640px]:order-first max-[640px]:-mx-4 max-[640px]:bg-bg max-[640px]:px-4 max-[640px]:pb-3 max-[640px]:pt-4">
-                  <Pinned media={m} id={`${ci}-${active}-${shot}`} tint={(active + shot) % 2 ? project.tint : "color-mix(in srgb, var(--fg) 7%, var(--bg))"} />
-                  <div className="flex items-start justify-between gap-4 text-mute">
-                    <span className="min-h-[2lh] max-[640px]:line-clamp-2">{label}</span>
-                    <span className="flex-none font-mono text-[11px] uppercase tracking-[0.06em] tabular-nums">
-                      {String(active + 1).padStart(2, "0")} / {String(c.chapters.length).padStart(2, "0")}
-                      {list.length > 1 && <span className="ml-2 text-fg">{shot + 1}/{list.length}</span>}
-                    </span>
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
+                  <motion.span className="block" variants={{ hide: { y: "110%" }, show: { y: "0%" } }} transition={{ duration: 1, ease, delay: 0.05 }}>
+                    {ch.title}
+                  </motion.span>
+                </motion.h2>
+                <Rise delay={0.15}><p className="m-0">{ch.lede}</p></Rise>
+                {ch.body.map((b, j) => <Rise key={j} delay={0.22 + j * 0.07}><p className="m-0 text-mute">{b}</p></Rise>)}
+              </div>
+              {/* Deux légendes sans image : côte à côte. Dès qu'il y a de vraies images, elles passent en pleine largeur. */}
+              <div className={`grid gap-[max(16px,2vw)] ${ch.media.length === 2 && ch.media.every((m) => typeof m === "string") ? "grid-cols-2 max-[640px]:grid-cols-1" : ""}`}>
+                {ch.media.map((m, j) => (
+                  <Media key={typeof m === "string" ? m : m.alt} media={m} ratio={ch.media.length === 2 ? "4 / 5" : "16 / 10"} tint={j % 2 ? project.tint : "color-mix(in srgb, var(--fg) 7%, var(--bg))"} />
+                ))}
+              </div>
+              {/* Le filet de fin de chapitre se dessine de gauche à droite */}
+              <motion.span
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 h-px origin-left bg-line"
+                initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: inout }}
+              />
+            </section>
+          ))}
         </motion.div>
       </AnimatePresence>
 
