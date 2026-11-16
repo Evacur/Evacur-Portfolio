@@ -499,6 +499,54 @@ const versLeSud: Case = (() => {
   return c;
 })();
 
+const laku: Case = {
+  slug: "laku",
+  name: "Laku",
+  client: "Laku",
+  year: "2026",
+  role: "Design et développement",
+  duration: "Depuis juin 2026",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Une application mobile de pratique quotidienne du dessin, conçue et développée de bout en bout.",
+      body: [
+        "Laku propose chaque semaine une œuvre à réinterpréter, sur trois niveaux de difficulté, avec des points d'observation posés sur l'image. L'application réunit un tableau de bord de pratique, un fil d'inspirations, des salons de discussion et un profil.",
+        "J'ai conçu le produit et je l'ai développé avec Claude Code : une application Expo (React Native) pour iOS, Android et le web, un outil de curation pour préparer l'œuvre de la semaine, et Supabase pour les données.",
+      ],
+      media: [{ ...shot("laku/01", "L'atelier, l'œuvre de la semaine avec un point d'observation ouvert, et le fil d'inspirations"), ratio: "16 / 10" }],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Développer avec un agent IA sans laisser l'interface et le code dériver.",
+      body: [
+        "Un agent produit du code rapidement, mais il recrée volontiers un bouton, une couleur ou un espacement à chaque écran. Sans cadre, la cohérence graphique se dégrade au fil des écrans, comme dans une équipe sans design system.",
+        "Le second risque concernait les données. L'application n'a pas de serveur applicatif : les règles d'accès sont portées par la base. Une règle oubliée expose directement le contenu d'un utilisateur.",
+      ],
+      media: [{ ...shot("laku/02", "Le répertoire sur l'atelier, une catégorie et le profil"), ratio: "16 / 10" }],
+    },
+    {
+      title: "Décisions",
+      lede: "Un design system partagé et des règles vérifiées par la machine.",
+      body: [
+        "J'ai construit un design system en code, partagé par l'application et l'outil de curation : des tokens de couleur, de typographie, d'espacement, de rayon et d'ombre, puis des composants rangés en atomes, molécules, organismes et gabarits de page. Chaque composant est documenté dans Storybook.",
+        "Les règles du projet sont écrites dans le dépôt et, dès que c'est possible, contrôlées automatiquement. Le lint refuse une couleur ou une taille de texte écrite en dur dans un écran, un test vérifie la hiérarchie des composants, et l'intégration continue rejoue ces contrôles à chaque modification.",
+        "Chaque écran traite ses états de chargement, vide et erreur avec les mêmes composants. Les règles d'accès aux données sont couvertes par des tests qui vérifient l'autorisation comme le refus.",
+      ],
+      media: [
+        { ...shot("laku/03", "Un gabarit de page dans Storybook, avec les niveaux du design system dans le menu"), ratio: "2880 / 1198" },
+        { ...shot("laku/04", "Les tokens de couleur dans Storybook"), ratio: "2880 / 1198" },
+      ],
+    },
+    {
+      title: "Résultats",
+      lede: "Une application fonctionnelle de bout en bout, sur une base qui reste cohérente.",
+      body: [],
+      media: [],
+    },
+  ],
+};
+
 export const projects: Project[] = [
   {
     slug: "ia-conversationnelle", layout: "recherche", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
@@ -528,7 +576,7 @@ export const projects: Project[] = [
     slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
     pitch: "React, Next.js et animations, codés par moi.",
     tint: "#EEE9D6", ink: "#6B5A1E",
-    cases: [placeholder("Progemi", "Progemi"), placeholder("Laku")],
+    cases: [placeholder("Progemi", "Progemi"), laku],
   },
 ];
 
