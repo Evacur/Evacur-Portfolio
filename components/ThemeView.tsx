@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import type { Media as MediaItem, Project } from "@/lib/projects";
+import type { Chapter, Media as MediaItem, Project } from "@/lib/projects";
 import { scrollToTarget } from "./SmoothScroll";
 
 const ease = [0.2, 0.7, 0.1, 1] as const;
@@ -125,28 +125,96 @@ function NextLink({ label, title, href, onClick }: { label: string; title: strin
     : <button type="button" onClick={onClick} className={cls}>{inner}</button>;
 }
 
+/** Le texte d'un chapitre : numéro, titre, phrase de synthèse, puis les blocs. */
+function ChapterText({ ch, n, title, lede = true }: { ch: Chapter; n: number; title?: string; lede?: boolean }) {
+  return (
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2.5">
+        <Rise><span className="text-[11px] text-mute tabular-nums">{String(n).padStart(2, "0")}</span></Rise>
+        {/* Le titre monte derrière un masque ; c'est le h2, jamais masqué, qui détecte l'entrée à l'écran */}
+        <motion.h2
+          className="m-0 overflow-hidden pb-[0.1em] font-serif text-[max(28px,3.2vw)] font-normal leading-[1.05] tracking-[-0.015em]"
+          initial="hide" whileInView="show" viewport={seen}
+        >
+          <motion.span className="block" variants={{ hide: { y: "110%" }, show: { y: "0%" } }} transition={{ duration: 1, ease, delay: 0.05 }}>
+            {title ?? ch.title}
+          </motion.span>
+        </motion.h2>
+        {lede && <Rise delay={0.15}><p className="m-0 max-w-[46ch] text-[15px] leading-[1.45]">{ch.lede}</p></Rise>}
+      </div>
+      <ChapterBody ch={ch} />
+    </div>
+  );
+}
+
+function ChapterBody({ ch, className = "" }: { ch: Chapter; className?: string }) {
+  return (
+    <div className={`flex max-w-[62ch] flex-col gap-3.5 ${className}`}>
+      {ch.body.map((b, j) => <Rise key={j} delay={0.2 + j * 0.06}><p className="m-0 text-mute">{b}</p></Rise>)}
+      {ch.sources && (
+        <Rise delay={0.4}>
+          <p className="m-0 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-mute">
+            <span>{ch.sources.length > 1 ? "Sources" : "Source"}</span>
+            {ch.sources.map((src) => (
+              <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-fg">{src.label}</a>
+            ))}
+          </p>
+        </Rise>
+      )}
+    </div>
+  );
+}
+
+/** Filet qui se dessine de gauche à droite, en tête de section. */
+function Rule() {
+  return (
+    <motion.span
+      aria-hidden="true"
+      className="absolute inset-x-0 top-0 h-px origin-left bg-line"
+      initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: inout }}
+    />
+  );
+}
+
+const isReal = (m: MediaItem) => typeof m !== "string";
+const mediaKey = (m: MediaItem) => (typeof m === "string" ? m : m.alt);
+const section = "relative py-[5vw] max-[640px]:py-10";
+const neutral = "color-mix(in srgb, var(--fg) 7%, var(--bg))";
+
+/** Les écrans d'un cas, sur deux colonnes. Le premier (ou le dernier d'un nombre impair) prend toute la largeur. */
+function Gallery({ items, tint, wideFirst }: { items: MediaItem[]; tint: string; wideFirst?: boolean }) {
+  const odd = items.length % 2 === 1;
+  return (
+    <div className="grid grid-cols-2 items-start gap-[max(16px,2vw)] max-[640px]:grid-cols-1">
+      {items.map((m, j) => {
+        const wide = odd && (wideFirst ? j === 0 : j === items.length - 1);
+        return (
+          <div key={mediaKey(m)} className={wide ? "col-span-full" : ""}>
+            <Media media={m} ratio="16 / 10" tint={j % 2 ? tint : neutral} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /**
- * Page thème : le thème en grand, les cas en onglets, puis pour le cas choisi
- * un sommaire collant et 4 chapitres (texte à gauche, ses images à droite).
+ * Page thème : le thème en grand, les cas en onglets, puis le cas choisi.
+ * Cas de recherche : contexte et son écran, problème et décisions côte à côte en texte,
+ * les écrans, puis les résultats. Cas visuel : trois textes courts, puis les écrans.
  */
 export function ThemeView({ project, next }: { project: Project; next: Project }) {
   const [ci, setCi] = useState(0);
-  const [active, setActive] = useState(0);
-  const refs = useRef<(HTMLElement | null)[]>([]);
   const c = project.cases[ci];
   const lastCase = ci === project.cases.length - 1;
-
-  // Le sommaire suit la lecture : le chapitre passé aux 40 % de l'écran s'allume.
-  useEffect(() => {
-    const on = () => {
-      let a = 0;
-      refs.current.forEach((el, i) => { if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) a = i; });
-      setActive(a);
-    };
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
-  }, [ci]);
+  const [contexte, probleme, decisions, resultats] = c.chapters;
+  const all = c.chapters.flatMap((ch) => ch.media);
+  const visual = project.layout === "visuel";
+  // Cas visuel : tous les écrans, ou les emplacements tant qu'aucune image n'existe
+  const screens = all.some(isReal) ? all.filter(isReal) : all;
+  // Cas de recherche : le premier visuel accompagne le contexte, les autres vraies images suivent
+  const lead = contexte.media[0];
+  const rest = all.filter((m) => m !== lead && isReal(m));
 
   const pickCase = (i: number) => {
     if (i === ci) return;
@@ -230,74 +298,55 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
         </motion.div>
       </header>
 
-      <nav aria-label="Chapitres" className="sticky top-14 z-10 flex gap-x-6 overflow-x-auto border-y border-line bg-bg [scrollbar-width:none] max-[640px]:-mx-4 max-[640px]:gap-x-5 max-[640px]:px-4">
-        {c.chapters.map((ch, i) => (
-          <a
-            key={ch.title}
-            href={`#ch-${i}`}
-            aria-current={i === active ? "true" : undefined}
-            className={`relative flex-none py-3 transition-colors duration-300 hover:text-fg ${i === active ? "text-fg" : "text-mute"}`}
-            onClick={(e) => { e.preventDefault(); const el = refs.current[i]; if (el) scrollToTarget(el, -100); }}
-          >
-            <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span> {ch.title}
-            {/* Le trait suit le chapitre en cours de lecture */}
-            {i === active && <motion.span layoutId="chapter-line" className="absolute inset-x-0 -bottom-px h-px bg-fg" transition={{ duration: 0.6, ease: inout }} />}
-          </a>
-        ))}
-      </nav>
-
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={ci}
+          className="border-t border-line"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease } }}
           exit={{ opacity: 0, y: -12, transition: { duration: 0.25, ease: "easeIn" } }}
         >
-          {c.chapters.map((ch, i) => (
-            <section
-              key={ch.title}
-              id={`ch-${i}`}
-              ref={(el) => { refs.current[i] = el; }}
-              className="relative grid scroll-mt-28 grid-cols-[minmax(0,.8fr)_minmax(0,1.4fr)] gap-[4vw] py-[5vw] max-[640px]:grid-cols-1 max-[640px]:gap-6 max-[640px]:py-10"
-            >
-              <div className="sticky top-32 flex flex-col gap-2.5 self-start max-[640px]:static">
-                <Rise><span className="text-[11px] text-mute tabular-nums">{String(i + 1).padStart(2, "0")}</span></Rise>
-                {/* Le titre monte derrière un masque ; c'est le h2, jamais masqué, qui détecte l'entrée à l'écran */}
-                <motion.h2
-                  className="m-0 overflow-hidden pb-[0.1em] font-serif text-[max(28px,3.2vw)] font-normal leading-[1.05] tracking-[-0.015em]"
-                  initial="hide" whileInView="show" viewport={seen}
-                >
-                  <motion.span className="block" variants={{ hide: { y: "110%" }, show: { y: "0%" } }} transition={{ duration: 1, ease, delay: 0.05 }}>
-                    {ch.title}
-                  </motion.span>
-                </motion.h2>
-                <Rise delay={0.15}><p className="m-0">{ch.lede}</p></Rise>
-                {ch.body.map((b, j) => <Rise key={j} delay={0.22 + j * 0.07}><p className="m-0 text-mute">{b}</p></Rise>)}
-                {ch.sources && (
-                  <Rise delay={0.4}>
-                    <p className="m-0 mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-mute">
-                      <span>{ch.sources.length > 1 ? "Sources" : "Source"}</span>
-                      {ch.sources.map((src) => (
-                        <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-fg">{src.label}</a>
-                      ))}
-                    </p>
-                  </Rise>
+          {visual ? (
+            <>
+              <section className={`${section} grid grid-cols-3 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-10`}>
+                <ChapterText ch={contexte} n={1} lede={false} />
+                <ChapterText ch={probleme} n={2} title="Problème" lede={false} />
+                <ChapterText ch={decisions} n={3} title="Choix" lede={false} />
+              </section>
+              <section className={`${section} pt-0 max-[640px]:pt-0`}>
+                <Gallery items={screens} tint={project.tint} wideFirst />
+              </section>
+            </>
+          ) : (
+            <>
+              <section className={`${section} grid grid-cols-2 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-8`}>
+                <ChapterText ch={contexte} n={1} />
+                {lead && (
+                  <div className="sticky top-24 self-start max-[900px]:static">
+                    <Media media={lead} ratio="16 / 10" tint={neutral} />
+                  </div>
                 )}
-              </div>
-              {/* Deux légendes sans image : côte à côte. Dès qu'il y a de vraies images, elles passent en pleine largeur. */}
-              <div className={`grid gap-[max(16px,2vw)] ${ch.media.length === 2 && ch.media.every((m) => typeof m === "string") ? "grid-cols-2 max-[640px]:grid-cols-1" : ""}`}>
-                {ch.media.map((m, j) => (
-                  <Media key={typeof m === "string" ? m : m.alt} media={m} ratio={ch.media.length === 2 ? "4 / 5" : "16 / 10"} tint={j % 2 ? project.tint : "color-mix(in srgb, var(--fg) 7%, var(--bg))"} />
-                ))}
-              </div>
-              {/* Le filet de fin de chapitre se dessine de gauche à droite */}
-              <motion.span
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-px origin-left bg-line"
-                initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: inout }}
-              />
-            </section>
-          ))}
+              </section>
+              <section className={`${section} grid grid-cols-2 max-[900px]:grid-cols-1 max-[900px]:gap-10`}>
+                <Rule />
+                <div className="pr-[4vw] max-[900px]:pr-0"><ChapterText ch={probleme} n={2} /></div>
+                <div className="border-l border-line pl-[4vw] max-[900px]:border-l-0 max-[900px]:border-t max-[900px]:pl-0 max-[900px]:pt-10"><ChapterText ch={decisions} n={3} /></div>
+              </section>
+              {rest.length > 0 && (
+                <section className={`${section} pt-0 max-[640px]:pt-0`}>
+                  <Gallery items={rest} tint={project.tint} />
+                </section>
+              )}
+              <section className={`${section} grid grid-cols-[minmax(0,.8fr)_minmax(0,1.4fr)] gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-6`}>
+                <Rule />
+                <ChapterText ch={{ ...resultats, body: [], sources: undefined }} n={4} lede={false} />
+                <div className="flex flex-col gap-[max(20px,2.4vw)]">
+                  <Rise><p className="m-0 max-w-[26ch] font-serif text-[max(24px,2.6vw)] leading-[1.12] tracking-[-0.015em]">{resultats.lede}</p></Rise>
+                  <ChapterBody ch={resultats} />
+                </div>
+              </section>
+            </>
+          )}
         </motion.div>
       </AnimatePresence>
 

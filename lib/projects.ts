@@ -42,6 +42,8 @@ export type Project = {
   pitch: string;
   /** Visuel de couverture dans /public (portrait 18:23). Sans visuel, un aperçu neutre s'affiche. */
   cover?: string;
+  /** "recherche" : texte d'abord, résultats en bas. "visuel" : trois textes courts puis les écrans. */
+  layout: "recherche" | "visuel";
   /** Teintes de l'aperçu neutre, en attendant les vraies captures. */
   tint: string;
   ink: string;
@@ -81,7 +83,7 @@ const bim: Case = {
       body: [
         "Bim ! s'adresse aux dirigeants de TPE, aux indépendants et aux micro-entrepreneurs, en particulier à ceux qui n'utilisent aucun outil de facturation. Le produit se positionne face à des acteurs installés comme Pennylane, Qonto ou Indy.",
         "L'enjeu était aussi interne : installer chez Cegid une autre façon de concevoir, avec une squad dédiée et resserrée, sur le modèle d'une start-up. L'échéance était fixée dès janvier : présenter un produit complet au Congrès des experts-comptables, neuf mois plus tard.",
-        "Le calendrier réglementaire renforçait cette échéance. Depuis le 1er septembre 2026, toute entreprise assujettie à la TVA doit pouvoir recevoir des factures électroniques. L'obligation d'en émettre s'applique aux TPE, aux PME et aux micro-entreprises au 1er septembre 2027.",
+        "Le calendrier de la facture électronique renforçait cette échéance. Depuis le 1er septembre 2026, toute entreprise assujettie à la TVA doit pouvoir recevoir des factures électroniques. L'obligation d'en émettre s'applique aux TPE, aux PME et aux micro-entreprises au 1er septembre 2027.",
         "En tant que designer référent, j'ai porté la vision produit et assuré la cohérence entre deux équipes de dix designers pendant les neuf mois de conception.",
       ],
       media: [shot("bim/02", "Bim ! : tableau de bord, factures et aperçu d'une facture")],
@@ -90,9 +92,9 @@ const bim: Case = {
       title: "Problème et recherche",
       lede: "Produire un maximum d'hypothèses, puis les confronter au terrain en continu.",
       body: [
-        "Cadrage. En amont, des ateliers internes avec les directions produit et marketing, que j'ai menés avec le manager UX. L'objectif n'était pas de décider, mais de formuler le plus grand nombre d'hypothèses d'usage, à valider ou à invalider ensuite.",
-        "Discovery. Une première vague d'études menée avec le lab de Station F a fourni des enseignements rapides sur une population difficile à atteindre : des dirigeants qui ne sont équipés d'aucun outil de facturation.",
-        "Recherche continue. Environ une étude par mois, sous forme de tests de maquettes, dans une logique de test and learn. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant.",
+        "En amont, j'ai mené avec le manager UX des ateliers internes avec les directions produit et marketing. L'objectif n'était pas de décider, mais de formuler le plus grand nombre d'hypothèses d'usage, à valider ou à invalider ensuite.",
+        "Une première vague d'études menée avec le lab de Station F a fourni des enseignements rapides sur une population difficile à atteindre : des dirigeants qui ne sont équipés d'aucun outil de facturation.",
+        "La recherche s'est ensuite poursuivie en continu : environ une étude par mois, sous forme de tests de maquettes, dans une logique de test and learn. Chaque cycle corrigeait la conception avant le développement et alimentait le suivant.",
         "[Nombre de participants par étude, et les trois ou quatre constats qui ont orienté la conception.]",
       ],
       media: [shot("bim/01", "Bim ! sur mobile : cartes, accueil et parcours de démarrage")],
@@ -101,10 +103,10 @@ const bim: Case = {
       title: "Décisions",
       lede: "Peu de fonctionnalités, mais les plus pertinentes : le principe de départ, et ce qu'il est devenu.",
       body: [
-        "Principe de départ. Sortir vite imposait un périmètre réduit : peu de fonctionnalités, retenues pour leur valeur d'usage immédiate, à commencer par le devis et la facture.",
-        "Saisie par la voix. Sur mobile, l'utilisateur dicte son devis et l'IA en structure le client, les lignes et les montants. La saisie manuelle reste disponible à chaque étape : l'utilisateur relit et corrige avant d'émettre, ce qui lui laisse le contrôle sur un document à valeur légale.",
-        "Un design system créé de zéro. Tokens, composants et règles d'usage sont partagés par les deux équipes de design et par le développement. Ce socle a servi de référence unique pour la simplicité et l'accessibilité des maquettes, sans ralentir l'exécution.",
-        "Arbitrage. Le produit s'inscrit dans un écosystème de logiciels existants. S'appuyer sur ces briques réduisait le coût et le délai de développement, mais imposait de reprendre les fonctionnalités qui leur étaient liées. Le périmètre s'est donc élargi au fil du projet.",
+        "Sortir vite imposait un périmètre réduit : peu de fonctionnalités, retenues pour leur valeur d'usage immédiate, à commencer par le devis et la facture.",
+        "Sur mobile, l'utilisateur dicte son devis et l'IA en structure le client, les lignes et les montants. La saisie manuelle reste disponible à chaque étape : l'utilisateur relit et corrige avant d'émettre, ce qui lui laisse le contrôle sur un document à valeur légale.",
+        "Un design system a été créé de zéro : tokens, composants et règles d'usage sont partagés par les deux équipes de design et par le développement. Ce socle a servi de référence unique pour la simplicité et l'accessibilité des maquettes, sans ralentir l'exécution.",
+        "Le produit s'inscrit dans un écosystème de logiciels existants. S'appuyer sur ces briques réduisait le coût et le délai de développement, mais imposait de reprendre les fonctionnalités qui leur étaient liées. Le périmètre s'est donc élargi au fil du projet.",
       ],
       media: [
         shot("bim/06", "Dicter un devis via l'IA, puis le créer en un clic"),
@@ -116,8 +118,8 @@ const bim: Case = {
       lede: "Un produit lancé en 2025, et un enseignement sur la tenue du périmètre.",
       body: [
         "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable. L'éditeur annonce une facture créée en moins d'une minute.",
-        "Limite. L'ambition initiale, un produit minimal et radicalement nouveau, s'est atténuée à mesure que le périmètre s'élargissait. Le résultat est plus structuré et plus classique que prévu.",
-        "Enseignement. Dans un grand groupe, le périmètre se protège comme le calendrier : par un arbitrage explicite dès le cadrage, et par des critères d'entrée pour chaque fonctionnalité ajoutée.",
+        "L'ambition initiale, un produit minimal et radicalement nouveau, s'est atténuée à mesure que le périmètre s'élargissait. Le résultat est plus structuré et plus classique que prévu.",
+        "Dans un grand groupe, le périmètre se protège comme le calendrier : par un arbitrage explicite dès le cadrage, et par des critères d'entrée pour chaque fonctionnalité ajoutée.",
         "[Mesures à compléter : taux de complétion du premier devis, temps médian de création, part des devis dictés, satisfaction.]",
       ],
       media: [shot("bim/05", "Bim ! by Cegid : cartes, transactions et identité")],
@@ -169,8 +171,8 @@ const livestore: Case = {
       lede: "Une application de vente en magasin en marque blanche, et un défaut d'adoption à expliquer.",
       body: [
         "Livestore est une progressive web app en marque blanche pour le retail. Elle réunit le clienteling et l'encaissement, et sert aux vendeurs, aux responsables de magasin et aux directeurs de réseau. Elle est déployée chez plusieurs grandes marques internationales : LVMH, Zadig & Voltaire, Pomellato, Balibaris, Palais des Thés.",
-        "Constat de départ : l'adoption restait faible dans plusieurs enseignes. En tant que designer référent, ma mission était d'en identifier les causes, puis de concevoir les améliorations.",
-        "Organisation : deux équipes distinctes, l'une pour le clienteling, l'autre pour l'encaissement, chacune avec son product manager, son product owner et ses développeurs. Le design était le rôle commun aux deux.",
+        "L'adoption restait faible dans plusieurs enseignes. En tant que designer référent, ma mission était d'en identifier les causes, puis de concevoir les améliorations.",
+        "Le produit était porté par deux équipes distinctes, l'une pour le clienteling, l'autre pour l'encaissement, chacune avec son product manager, son product owner et ses développeurs. Le design était le rôle commun aux deux.",
       ],
       media: [
         clip("livestore", "La caisse Livestore sur mobile", "16 / 9"),
@@ -181,10 +183,10 @@ const livestore: Case = {
       title: "Problème et recherche",
       lede: "Observer le logiciel là où il sert : sur la surface de vente.",
       body: [
-        "Hypothèse. Dans le retail, l'adoption ne dépend pas seulement de l'ergonomie des écrans. Elle dépend de l'adéquation du produit à la situation de travail du vendeur et du manager.",
-        "Méthode. Du shadowing et de l'observation dans douze magasins, auprès d'enseignes du luxe, du haut de gamme et du mass market. Les personnes observées étaient essentiellement des vendeurs et des managers de magasin. L'étude portait sur l'usage réel du logiciel au quotidien, et non sur l'usage déclaré.",
-        "Constat principal. Le type d'appareil freinait l'usage. Beaucoup d'enseignes équipaient leurs équipes de tablettes, alors que le vendeur a besoin d'un téléphone : il tient dans une poche et se manipule d'une main, pendant que l'autre présente le produit au client.",
-        "Facteur externe. Tap to Pay sur iPhone est arrivé en France en novembre 2023 et permet d'encaisser sans terminal de paiement. Il fallait tester ce mode d'encaissement avec les vendeurs avant de l'intégrer.",
+        "Dans le retail, l'adoption ne dépend pas seulement de l'ergonomie des écrans. Elle dépend de l'adéquation du produit à la situation de travail du vendeur et du manager.",
+        "L'étude a reposé sur du shadowing et de l'observation dans douze magasins, auprès d'enseignes du luxe, du haut de gamme et du mass market. Les personnes observées étaient essentiellement des vendeurs et des managers de magasin. L'étude portait sur l'usage réel du logiciel au quotidien, et non sur l'usage déclaré.",
+        "Constat principal : le type d'appareil freinait l'usage. Beaucoup d'enseignes équipaient leurs équipes de tablettes, alors que le vendeur a besoin d'un téléphone : il tient dans une poche et se manipule d'une main, pendant que l'autre présente le produit au client.",
+        "Tap to Pay sur iPhone est arrivé en France en novembre 2023 et permet d'encaisser sans terminal de paiement. Il fallait tester ce mode d'encaissement avec les vendeurs avant de l'intégrer.",
       ],
       media: [shot("livestore/02", "Panier, actions et fiche client sur mobile")],
       sources: [
@@ -195,9 +197,9 @@ const livestore: Case = {
       title: "Décisions",
       lede: "Une refonte complète du design et de l'ergonomie, pour des parcours plus fluides.",
       body: [
-        "Refonte complète. Tous les composants ont été retravaillés pour fluidifier les parcours de vente et d'encaissement, et les adapter au contexte du point de vente.",
-        "Tap to Pay. L'encaissement sans contact sur iPhone a été testé, puis intégré au parcours des vendeurs.",
-        "Un seul produit pour deux équipes. Le travail de conception a été mené avec l'équipe clienteling et l'équipe encaissement, afin que le vendeur retrouve les mêmes composants et les mêmes règles d'un module à l'autre.",
+        "Tous les composants ont été retravaillés pour fluidifier les parcours de vente et d'encaissement, et les adapter au contexte du point de vente.",
+        "L'encaissement sans contact sur iPhone a été testé, puis intégré au parcours des vendeurs.",
+        "Le travail de conception a été mené avec l'équipe clienteling et l'équipe encaissement, afin que le vendeur retrouve les mêmes composants et les mêmes règles d'un module à l'autre.",
         "[Les alternatives écartées, et pourquoi.]",
       ],
       media: [shot("livestore/03", "Livestore sur desktop : panier, actions et catalogue")],
@@ -239,9 +241,9 @@ const pulse: Case = {
       title: "Problème et recherche",
       lede: "Un panel d'utilisateurs suivi dans la durée, et une étude par mois.",
       body: [
-        "Question de recherche. Quelles formes d'interaction rendent un assistant conversationnel utile pour une tâche comptable, au-delà de la réponse en texte ?",
-        "Méthode. Une recherche continue, à raison d'environ une étude par mois, menée avec UserTesting et Maze. Le panel était conservé d'une étude à l'autre : les mêmes utilisateurs évaluaient les évolutions successives et disaient si le produit se rapprochait de leurs attentes.",
-        "Intérêt du dispositif. Un panel longitudinal mesure une progression perçue, là où un test isolé ne donne qu'un état à un instant donné.",
+        "La question de recherche : quelles formes d'interaction rendent un assistant conversationnel utile pour une tâche comptable, au-delà de la réponse en texte ?",
+        "La recherche a été continue, à raison d'environ une étude par mois, menée avec UserTesting et Maze. Le panel était conservé d'une étude à l'autre : les mêmes utilisateurs évaluaient les évolutions successives et disaient si le produit se rapprochait de leurs attentes.",
+        "Un panel longitudinal mesure une progression perçue, là où un test isolé ne donne qu'un état à un instant donné.",
       ],
       media: ["Protocole de recherche continue"],
     },
@@ -249,9 +251,9 @@ const pulse: Case = {
       title: "Décisions",
       lede: "Sortir du texte seul : des composants intégrés à la conversation.",
       body: [
-        "Graphiques éditables. L'assistant répond par un graphique que l'utilisateur peut modifier directement, sans reformuler sa demande.",
-        "Liens et actions. La conversation renvoie vers les écrans du produit et permet d'agir sans quitter le fil.",
-        "Composants conversationnels. Nous avons conçu et testé les premiers composants intégrés au chat, en comparant plusieurs manières de présenter une même réponse. Les versions retenues sont celles que le panel a validées d'une étude à l'autre.",
+        "L'assistant répond par un graphique que l'utilisateur peut modifier directement, sans reformuler sa demande.",
+        "La conversation renvoie vers les écrans du produit et permet d'agir sans quitter le fil.",
+        "Nous avons conçu et testé les premiers composants intégrés au chat, en comparant plusieurs manières de présenter une même réponse. Les versions retenues sont celles que le panel a validées d'une étude à l'autre.",
       ],
       media: [shot("pulse-ia/01", "Audit de l'entreprise, balance âgée et réponses de l'assistant")],
     },
@@ -289,9 +291,9 @@ const kleio: Case = {
       title: "Problème et recherche",
       lede: "Retenir l'utilisateur après son premier message.",
       body: [
-        "Problème. Des visiteurs quittaient la conversation après le premier message. Deux causes étaient à traiter : l'incertitude sur la nature de l'interlocuteur, et le délai avant de voir un premier produit.",
-        "Données. J'ai travaillé avec un AI researcher qui a analysé plusieurs centaines de milliers de conversations. Ce corpus a permis de construire des personas types, fondés sur l'intention exprimée dès le premier message : chercher une information, voir rapidement des offres, comparer.",
-        "Tests. En complément de cette analyse quantitative, j'ai mis en place des tests utilisateurs avec Maze pour évaluer les parcours avant leur mise en production.",
+        "Des visiteurs quittaient la conversation après le premier message. Deux causes étaient à traiter : l'incertitude sur la nature de l'interlocuteur, et le délai avant de voir un premier produit.",
+        "J'ai travaillé avec un AI researcher qui a analysé plusieurs centaines de milliers de conversations. Ce corpus a permis de construire des personas types, fondés sur l'intention exprimée dès le premier message : chercher une information, voir rapidement des offres, comparer.",
+        "En complément de cette analyse quantitative, j'ai mis en place des tests utilisateurs avec Maze pour évaluer les parcours avant leur mise en production.",
       ],
       media: ["Personas issus de l'analyse des messages"],
     },
@@ -299,9 +301,9 @@ const kleio: Case = {
       title: "Décisions",
       lede: "Rassurer, montrer vite, et adapter le ton à l'intention.",
       body: [
-        "Réassurance. L'interface indique clairement à l'utilisateur qu'il échange avec une IA, et ce qu'il peut en attendre.",
-        "Produits visibles tôt. La conversation affiche des produits le plus tôt possible, pour apporter une valeur concrète dès les premiers échanges.",
-        "Détection du persona. Dès le premier message, le système identifie le type d'utilisateur, puis adapte le ton et le contenu des réponses de l'IA pour proposer un échange plus personnalisé.",
+        "L'interface indique clairement à l'utilisateur qu'il échange avec une IA, et ce qu'il peut en attendre.",
+        "La conversation affiche des produits le plus tôt possible, pour apporter une valeur concrète dès les premiers échanges.",
+        "Dès le premier message, le système identifie le type d'utilisateur, puis adapte le ton et le contenu des réponses de l'IA pour proposer un échange plus personnalisé.",
       ],
       media: ["Premier message, réassurance et produits", "Réponses adaptées selon le persona"],
     },
@@ -442,31 +444,31 @@ const versLeSud: Case = (() => {
 
 export const projects: Project[] = [
   {
-    slug: "ia-conversationnelle", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
+    slug: "ia-conversationnelle", layout: "recherche", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
     pitch: "Assistants, chatbots et outils connectés en MCP.",
     cover: "/projects/pulse-ia/03.webp", tint: "#E4DEEA", ink: "#5B3F86",
     cases: [pulse, kleio],
   },
   {
-    slug: "produit-et-discovery", n: "02", title: "Produit et discovery", kind: "Bim ! · Livestore", year: "2 cas",
+    slug: "produit-et-discovery", layout: "recherche", n: "02", title: "Produit et discovery", kind: "Bim ! · Livestore", year: "2 cas",
     pitch: "Facturation avec IA intégrée, encaissement et clienteling retail en marque blanche.",
     cover: "/projects/bim.webp", tint: "#DCE3EC", ink: "#2B4C7E",
     cases: [bim, livestore],
   },
   {
-    slug: "design-system", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
+    slug: "design-system", layout: "visuel", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
     pitch: "Trois systèmes construits, et comment chacun a été pensé.",
     cover: "/projects/bim/04.webp", tint: "#DEE5DE", ink: "#2F5D3F",
     cases: [bimDesignSystem, placeholder("Cegid", "Cegid"), kleioDesignSystem],
   },
   {
-    slug: "sites-vitrines", n: "04", title: "Sites vitrines", kind: "Gaspard Mariotte · Vers le Sud · Kleio", year: "3 cas",
+    slug: "sites-vitrines", layout: "visuel", n: "04", title: "Sites vitrines", kind: "Gaspard Mariotte · Vers le Sud · Kleio", year: "3 cas",
     pitch: "Des sites de marque, du mock à la mise en ligne.",
     cover: "/projects/gaspard.webp", tint: "#ECE2D6", ink: "#7A4A2A",
     cases: [gaspard, versLeSud, kleioSite],
   },
   {
-    slug: "front-end", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
+    slug: "front-end", layout: "visuel", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
     pitch: "React, Next.js et animations, codés par moi.",
     tint: "#EEE9D6", ink: "#6B5A1E",
     cases: [placeholder("Progemi", "Progemi"), placeholder("Laku")],
