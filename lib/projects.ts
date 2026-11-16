@@ -223,9 +223,10 @@ const pulse: Case = {
   chapters: [
     {
       title: "Contexte",
-      lede: "La comptabilité au quotidien, simplifiée par l'IA.",
+      lede: "Un produit conversationnel créé de zéro, pour la comptabilité des indépendants.",
       body: [
-        "Une solution desktop de comptabilité pour les TPE, les auto-entrepreneurs et les dirigeants de petites structures, avec des fonctionnalités avancées intégrant l'IA.",
+        "Pulse IA est une solution de comptabilité pour les auto-entrepreneurs, les professions libérales et les dirigeants de petites structures. Le produit a été créé de zéro au sein de Cegid, et j'y ai travaillé en tant que product designer.",
+        "C'était la première interface conversationnelle conçue par l'entreprise. Les assistants généralistes comme ChatGPT entraient alors dans l'usage courant, mais les conventions d'un chat relié à des outils métier restaient à établir : afficher un graphique, le modifier, déclencher une action depuis la conversation.",
       ],
       media: [
         shot("pulse-ia/03", "Une équipe d'assistants : Shop, Fisca, Devis Fact et Compta"),
@@ -236,20 +237,31 @@ const pulse: Case = {
     },
     {
       title: "Problème et recherche",
-      lede: "Une discovery approfondie avant de dessiner.",
-      body: ["Recherches utilisateurs, entretiens et ateliers.", "[Ce que la recherche a montré.]"],
-      media: ["Entretiens utilisateurs"],
+      lede: "Un panel d'utilisateurs suivi dans la durée, et une étude par mois.",
+      body: [
+        "Question de recherche. Quelles formes d'interaction rendent un assistant conversationnel utile pour une tâche comptable, au-delà de la réponse en texte ?",
+        "Méthode. Une recherche continue, à raison d'environ une étude par mois, menée avec UserTesting et Maze. Le panel était conservé d'une étude à l'autre : les mêmes utilisateurs évaluaient les évolutions successives et disaient si le produit se rapprochait de leurs attentes.",
+        "Intérêt du dispositif. Un panel longitudinal mesure une progression perçue, là où un test isolé ne donne qu'un état à un instant donné.",
+      ],
+      media: ["Protocole de recherche continue"],
     },
     {
       title: "Décisions",
-      lede: "Un travail complet sur l'UX et l'UI.",
-      body: ["Pour une expérience fluide et accessible.", "[Les décisions clés et ce qu'on a écarté.]"],
+      lede: "Sortir du texte seul : des composants intégrés à la conversation.",
+      body: [
+        "Graphiques éditables. L'assistant répond par un graphique que l'utilisateur peut modifier directement, sans reformuler sa demande.",
+        "Liens et actions. La conversation renvoie vers les écrans du produit et permet d'agir sans quitter le fil.",
+        "Composants conversationnels. Nous avons conçu et testé les premiers composants intégrés au chat, en comparant plusieurs manières de présenter une même réponse. Les versions retenues sont celles que le panel a validées d'une étude à l'autre.",
+      ],
       media: [shot("pulse-ia/01", "Audit de l'entreprise, balance âgée et réponses de l'assistant")],
     },
     {
       title: "Résultats",
-      lede: "Ce qui a changé pour les dirigeants.",
-      body: ["[Les résultats mesurés.]"],
+      lede: "Un produit sorti, adopté en interne et approuvé par ses bêta-testeurs.",
+      body: [
+        "Pulse IA a été mis en production et bien adopté en interne. Environ 80 % des bêta-testeurs ont approuvé le produit.",
+        "Le sujet s'inscrit dans la durée : les composants conversationnels conçus ici servent de base aux itérations suivantes.",
+      ],
       media: ["Écran final en production"],
     },
   ],
