@@ -13,12 +13,12 @@ export type Expertise = {
 
 // Sujets, secteurs et compétences mélangés, l'IA en tête.
 export const expertises: Expertise[] = [
-  { n: "01", name: "IA conversationnelle", kind: "Sujet", text: "Assistants, chatbots, outils connectés en MCP.", cases: "Kleio, Pulse AI", href: "/work/ia-conversationnelle", ai: true },
+  { n: "01", name: "IA conversationnelle", kind: "Sujet", text: "Assistants, chatbots, outils connectés en MCP.", cases: "Pulse IA, Kleio", href: "/work/ia-conversationnelle", ai: true },
   { n: "02", name: "Discovery", kind: "Compétence", text: "Comprendre le métier, tester tôt, décider sur des faits.", cases: "Bim !, Livestore", href: "/work/produit-et-discovery", ai: true },
   { n: "03", name: "Retail", kind: "Secteur", text: "Encaissement et clienteling, du luxe à la grande distribution.", cases: "Livestore", href: "/work/produit-et-discovery" },
-  { n: "04", name: "Design system", kind: "Compétence", text: "Trois systèmes construits, et comment chacun a été pensé.", cases: "Cegid, Kleio, Bim !", href: "/work/design-system" },
-  { n: "05", name: "Expertise comptable", kind: "Secteur", text: "Facturation et gestion pour cabinets et TPE.", cases: "Cegid, Bim !", href: "/work/produit-et-discovery" },
-  { n: "06", name: "Sites vitrines", kind: "Compétence", text: "Des sites de marque, du mock à la mise en ligne.", cases: "Gaspard Mariotte, Kleio, Vers le Sud", href: "/work/sites-vitrines" },
+  { n: "04", name: "Design system", kind: "Compétence", text: "Trois systèmes construits, et comment chacun a été pensé.", cases: "Bim !, Cegid, Kleio", href: "/work/design-system" },
+  { n: "05", name: "Expertise comptable", kind: "Secteur", text: "Facturation, gestion et comptabilité pour cabinets et TPE.", cases: "Bim !, Pulse IA", href: "/work/produit-et-discovery" },
+  { n: "06", name: "Sites vitrines", kind: "Compétence", text: "Des sites de marque, du mock à la mise en ligne.", cases: "Gaspard Mariotte, Vers le Sud, Kleio", href: "/work/sites-vitrines" },
   { n: "07", name: "PME et startups", kind: "Secteur", text: "Du premier écran au produit en ligne.", cases: "Progemi, Laku", href: "/work/front-end" },
   { n: "08", name: "Front-end", kind: "Compétence", text: "React, Next.js, animations.", cases: "Progemi, Laku", href: "/work/front-end" },
 ];

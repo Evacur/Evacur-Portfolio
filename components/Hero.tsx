@@ -12,8 +12,8 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
-import { projects } from "@/lib/projects";
-import { ProjectVisual } from "./ProjectVisual";
+import Image from "next/image";
+import { heroShots } from "@/lib/projects";
 
 const NAME = "PABLO CUERVA";
 const ease = [0.2, 0.7, 0.1, 1] as const;
@@ -61,7 +61,7 @@ export function Hero() {
       {/* Bloc texte : les cards sont accrochées à lui, pas aux bords de l'écran, pour rester collées au nom */}
       <div className="relative flex flex-col items-center gap-[max(14px,2vw)]">
         <FloatCard
-          start={1}
+          start={0}
           offset={0}
           x={x1} y={y1} lift={lift1}
           delay={0.5}
@@ -69,7 +69,7 @@ export function Hero() {
           className="bottom-full right-[1vw] -mb-[2.2vw] w-[21vw] max-w-[340px] max-[760px]:right-0 max-[760px]:-mb-2 max-[760px]:w-[50vw]"
         />
         <FloatCard
-          start={3}
+          start={2}
           offset={SWITCH_MS / 2}
           x={x2} y={y2} lift={lift2}
           delay={0.65}
@@ -132,13 +132,13 @@ function FloatCard({
     mq.addEventListener("change", on);
     return () => mq.removeEventListener("change", on);
   }, []);
-  const p = projects[i % projects.length];
+  const p = heroShots[i % heroShots.length];
 
   useEffect(() => {
     if (reduce) return;
     let interval = 0;
     // Premier changement après l'ouverture, puis à rythme régulier. Les deux cards avancent
-    // d'un projet en décalé (départs 1 et 3) : elles ne montrent jamais le même.
+    // d'un projet en décalé (départs 0 et 2) : elles ne montrent jamais le même.
     const first = window.setTimeout(() => {
       setI((v) => v + 1);
       interval = window.setInterval(() => setI((v) => v + 1), SWITCH_MS);
@@ -155,7 +155,7 @@ function FloatCard({
         >
           <Link
             href={`/work/${p.slug}`}
-            aria-label={`${p.title}, voir le thème`}
+            aria-label={`${p.title}, voir le projet`}
             className="group block"
           >
             <motion.span
@@ -175,7 +175,7 @@ function FloatCard({
                   transition={{ duration: 0.6, ease: volet }}
                 >
                   <span className="absolute inset-0 block transition-transform duration-700 ease-out-soft group-hover:scale-[1.04]">
-                    <ProjectVisual project={p} />
+                    <Image src={p.src} alt="" fill sizes="(max-width: 760px) 50vw, 340px" priority={i === start} className="object-cover" />
                   </span>
                 </motion.span>
               </AnimatePresence>

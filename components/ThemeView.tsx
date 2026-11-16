@@ -1,32 +1,56 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import type { Project } from "@/lib/projects";
+import Image from "next/image";
+import type { Media as MediaItem, Project } from "@/lib/projects";
 
 const ease = [0.2, 0.7, 0.1, 1] as const;
 
-/** Visuel en attente : se dévoile de haut en bas avec un léger dézoom. */
-function Media({ label, ratio, tint }: { label: string; ratio: string; tint: string }) {
+/** Visuel du chapitre : image, vidéo en boucle ou aplat en attendant. Il se dévoile de haut en bas avec un léger dézoom. */
+function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: string }) {
+  const reduce = useReducedMotion();
+  const label = typeof media === "string" ? media : media.alt;
+  const box = typeof media === "string" ? ratio : "video" in media ? media.ratio : "16 / 9";
+  // Une vidéo presque carrée resterait trop haute en pleine largeur : on la limite
+  const [w, h] = box.split("/").map(Number);
+  const tall = w / h < 1.3;
   return (
-    <figure className="m-0 flex flex-col gap-2">
+    <figure className={`m-0 flex flex-col gap-2 ${tall ? "w-full max-w-[min(100%,560px)]" : ""}`}>
       <motion.div
-        className="relative overflow-hidden rounded-[4px]"
-        style={{ aspectRatio: ratio }}
+        className="relative overflow-hidden rounded-[4px] bg-line"
+        style={{ aspectRatio: box }}
         initial={{ clipPath: "inset(0 0 100% 0)" }}
         whileInView={{ clipPath: "inset(0 0 0% 0)" }}
         viewport={{ once: true, margin: "0px 0px -60px 0px" }}
         transition={{ duration: 1.1, ease: [0.65, 0, 0.15, 1] }}
       >
         <motion.span
-          className="absolute inset-0"
-          style={{ background: tint }}
+          className="absolute inset-0 block"
+          style={typeof media === "string" ? { background: tint } : undefined}
           initial={{ scale: 1.12 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.6, ease }}
-        />
+        >
+          {typeof media !== "string" && ("video" in media ? (
+            <video
+              src={media.video}
+              poster={media.poster}
+              aria-label={media.alt}
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay={!reduce}
+              controls={!!reduce}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <Image src={media.src} alt={media.alt} fill sizes="(max-width: 640px) 100vw, 60vw" className="object-cover" />
+          ))}
+        </motion.span>
       </motion.div>
       <figcaption className="text-mute">{label}</figcaption>
     </figure>
@@ -125,9 +149,10 @@ export function ThemeView({ project, next }: { project: Project; next: Project }
               <p className="m-0">{ch.lede}</p>
               {ch.body.map((b, j) => <p key={j} className="m-0 text-mute">{b}</p>)}
             </div>
-            <div className={`grid gap-[2vw] ${ch.media.length === 2 ? "grid-cols-2 max-[640px]:grid-cols-1" : ""}`}>
+            {/* Deux légendes sans image : côte à côte. Dès qu'il y a de vraies images, elles passent en pleine largeur. */}
+            <div className={`grid gap-[max(16px,2vw)] ${ch.media.length === 2 && ch.media.every((m) => typeof m === "string") ? "grid-cols-2 max-[640px]:grid-cols-1" : ""}`}>
               {ch.media.map((m, j) => (
-                <Media key={m} label={m} ratio={ch.media.length === 2 ? "4 / 5" : "16 / 10"} tint={j % 2 ? project.tint : "color-mix(in srgb, var(--fg) 7%, var(--bg))"} />
+                <Media key={typeof m === "string" ? m : m.alt} media={m} ratio={ch.media.length === 2 ? "4 / 5" : "16 / 10"} tint={j % 2 ? project.tint : "color-mix(in srgb, var(--fg) 7%, var(--bg))"} />
               ))}
             </div>
           </section>
