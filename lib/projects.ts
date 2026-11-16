@@ -274,7 +274,7 @@ const kleio: Case = {
   client: "Kleio",
   year: "2026",
   role: "Product designer freelance",
-  duration: "[x mois]",
+  duration: "6 à 7 mois",
   chapters: [
     {
       title: "Contexte",
@@ -290,8 +290,8 @@ const kleio: Case = {
       lede: "Retenir l'utilisateur après son premier message.",
       body: [
         "Problème. Des visiteurs quittaient la conversation après le premier message. Deux causes étaient à traiter : l'incertitude sur la nature de l'interlocuteur, et le délai avant de voir un premier produit.",
-        "Données. J'ai travaillé avec un AI researcher qui analysait les messages reçus. Ces données ont permis de construire des personas types, fondés sur l'intention exprimée dès le premier message : chercher une information, voir rapidement des offres, comparer.",
-        "[Volume de conversations analysées, et nombre de personas retenus.]",
+        "Données. J'ai travaillé avec un AI researcher qui a analysé plusieurs centaines de milliers de conversations. Ce corpus a permis de construire des personas types, fondés sur l'intention exprimée dès le premier message : chercher une information, voir rapidement des offres, comparer.",
+        "Tests. En complément de cette analyse quantitative, j'ai mis en place des tests utilisateurs avec Maze pour évaluer les parcours avant leur mise en production.",
       ],
       media: ["Personas issus de l'analyse des messages"],
     },
@@ -311,7 +311,7 @@ const kleio: Case = {
       body: [
         "Kleio a signé plusieurs clients sur la période, dont Selectour, Showroomprivé et Orpi.",
         "Les démonstrations commerciales ont été produites plus vite : j'intégrais moi-même les interfaces avec Claude Code, sans attendre un cycle de développement.",
-        "[Évolution de la part d'utilisateurs qui poursuivent après le premier message.]",
+        "Les objectifs d'engagement sont encore en cours de mesure : la mission se poursuit sur ce sujet.",
       ],
       media: ["La V2 en production"],
     },
