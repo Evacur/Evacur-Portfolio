@@ -210,7 +210,6 @@ function Gallery({ items, tint, wideFirst }: { items: MediaItem[]; tint: string;
 export function ThemeView({ project, prev, next }: { project: Project; prev: Project; next: Project }) {
   const [ci, setCi] = useState(0);
   const c = project.cases[ci];
-  const lastCase = ci === project.cases.length - 1;
   const [contexte, probleme, decisions, resultats] = c.chapters;
   const all = c.chapters.flatMap((ch) => ch.media);
   const visual = project.layout === "visuel";
@@ -367,12 +366,8 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
       </AnimatePresence>
 
       <nav aria-label="Précédent et suivant" className="flex items-end justify-between gap-8 border-t border-line py-[5vw] max-[640px]:flex-col max-[640px]:items-start max-[640px]:py-10">
-        {ci === 0
-          ? <EndLink back label="Thème précédent" title={prev.title} href={`/work/${prev.slug}`} />
-          : <EndLink back label="Cas précédent" title={project.cases[ci - 1].name} onClick={() => { setCi(ci - 1); scrollToTarget(0); }} />}
-        {lastCase
-          ? <EndLink label="Thème suivant" title={next.title} href={`/work/${next.slug}`} />
-          : <EndLink label="Cas suivant" title={project.cases[ci + 1].name} onClick={() => { setCi(ci + 1); scrollToTarget(0); }} />}
+        <EndLink back label="Thème précédent" title={prev.title} href={`/work/${prev.slug}`} />
+        <EndLink label="Thème suivant" title={next.title} href={`/work/${next.slug}`} />
       </nav>
     </article>
   );
