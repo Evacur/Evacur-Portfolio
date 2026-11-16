@@ -36,7 +36,7 @@ export const faq: FaqItem[] = [
       { when: "", where: "", what: "Designer référent d'une application retail pour des groupes du luxe, de la cosmétique et du prêt-à-porter." },
     ],
   },
-  { q: "Tu codes aussi ?", a: "Oui, du front. Ce site, je l'ai codé moi-même en Next.js et Tailwind, avec Claude Code et Cursor. Sur un projet, je peux monter un prototype en code ou reprendre des écrans et des composants, ce qui évite pas mal d'allers-retours avec les devs." },
+  { q: "Tu codes aussi ?", a: "Avec l'IA, oui. Claude Code et Cursor font partie de mon process : je passe de la maquette à un prototype qui tourne en quelques heures, on teste sur du vrai plus tôt, et les devs repartent d'une base concrète. Ce site est fait comme ça." },
   { q: "Tu sais travailler en équipe ?", a: "Chez Cegid, dans une équipe de 30 designers, j'ai coordonné jusqu'à 10 designers sur un même produit et j'étais le référent du design system. J'ai aussi été mentor UX Research pour des startups au Cegid Data Lab, à Station F." },
   { q: "Comment tu mènes la recherche ?", a: "Entretiens, ateliers de cadrage, tests utilisateurs et questionnaires in-app pour une discovery continue. Outils : Figma, Maze, Dovetail, Jira et Confluence." },
   { q: "Freelance, CDI, remote ?", a: "Freelance sur Malt, Supermalter noté 5/5, et ouvert à un poste. Basé à Paris, sur site ou en hybride." },
