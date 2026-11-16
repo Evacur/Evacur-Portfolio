@@ -6,7 +6,7 @@ import { useState } from "react";
 import type { Project } from "@/lib/projects";
 import { ProjectVisual } from "./ProjectVisual";
 
-/** Vue liste : numéro, nom, type, année, et un aperçu qui suit la souris. */
+/** Vue liste : numéro, thème, cas inclus, nombre de cas, et un aperçu qui suit la souris. */
 export function ProjectList({ projects }: { projects: Project[] }) {
   const [hov, setHov] = useState(-1);
   const x = useMotionValue(0);
@@ -21,18 +21,18 @@ export function ProjectList({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <section aria-label="Liste des projets" onMouseMove={onMove} className="absolute inset-0 flex items-center justify-center">
+    <section aria-label="Liste des thèmes" onMouseMove={onMove} className="absolute inset-0 flex items-center justify-center">
       <ol className="group/list w-[min(720px,calc(100%-48px))]">
         {projects.map((p, i) => (
           <li key={p.slug}>
             <Link
-              href={`/travaux/${p.slug}`}
+              href={`/work/${p.slug}`}
               onMouseEnter={() => setHov(i)}
               onMouseLeave={() => setHov(-1)}
-              className="grid min-h-11 grid-cols-[48px_1fr_1fr_64px] items-center border-b border-line transition-opacity duration-300 group-hover/list:opacity-30 hover:!opacity-100 focus-visible:!opacity-100 max-[760px]:grid-cols-[36px_1fr_52px]"
+              className="wk-row grid min-h-11 grid-cols-[48px_1fr_1fr_64px] items-center border-b border-line transition-opacity duration-300 group-hover/list:opacity-30 hover:!opacity-100 focus-visible:!opacity-100 max-[760px]:grid-cols-[36px_1fr_52px]"
             >
               <span className="text-mute tabular-nums">{p.n}</span>
-              <span>{p.title}</span>
+              <span className="wk-title">{p.title}</span>
               <span className="text-mute max-[760px]:hidden">{p.kind}</span>
               <span className="text-right text-mute">{p.year}</span>
             </Link>

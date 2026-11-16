@@ -7,5 +7,6 @@ npm install
 npm run dev
 ```
 
-- Contenu des projets : `lib/projects.ts`
+- Thèmes et cas (page Work, pages thème) : `lib/projects.ts`
+- Accueil (expertises, FAQ, contact) : `lib/content.ts`
 - Visuels de couverture : `public/projects/` (puis renseigner `cover`)
