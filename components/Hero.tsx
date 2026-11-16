@@ -19,7 +19,7 @@ const NAME = "PABLO CUERVA";
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const volet = [0.75, 0, 0.15, 1] as const;
 /** Temps d'affichage d'un projet dans une card avant de passer au suivant. */
-const SWITCH_MS = 1800;
+const SWITCH_MS = 1100;
 
 /**
  * Arrivée : le nom monte lettre par lettre, deux cards s'ouvrent puis flottent.
@@ -110,7 +110,7 @@ export function Hero() {
   );
 }
 
-/** Une card qui flotte et fait défiler les projets avec un volet, sa légende roule en même temps. */
+/** Une card qui flotte et fait défiler les projets avec un volet. */
 function FloatCard({
   start, offset, x, y, lift, delay, bob, className,
 }: {
@@ -130,7 +130,7 @@ function FloatCard({
     const first = window.setTimeout(() => {
       setI((v) => v + 1);
       interval = window.setInterval(() => setI((v) => v + 1), SWITCH_MS);
-    }, 1900 + offset);
+    }, 1700 + offset);
     return () => { clearTimeout(first); clearInterval(interval); };
   }, [reduce, offset]);
 
@@ -159,36 +159,13 @@ function FloatCard({
                   initial={{ clipPath: "inset(100% 0 0 0)" }}
                   animate={{ clipPath: "inset(0% 0 0 0)" }}
                   exit={{ opacity: 1 }}
-                  transition={{ duration: 0.75, ease: volet }}
+                  transition={{ duration: 0.6, ease: volet }}
                 >
                   <span className="absolute inset-0 block transition-transform duration-700 ease-out-soft group-hover:scale-[1.04]">
                     <ProjectVisual project={p} />
                   </span>
                 </motion.span>
               </AnimatePresence>
-            </motion.span>
-            <motion.span
-              className="mt-2 flex items-center gap-2 overflow-hidden text-[11px] leading-[14px] text-mute"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: delay + 0.9 }}
-            >
-              <span className="relative block h-[14px] grow overflow-hidden">
-                <AnimatePresence initial={false}>
-                  <motion.span
-                    key={i}
-                    className="absolute inset-0 flex gap-2 whitespace-nowrap"
-                    initial={{ y: "100%" }}
-                    animate={{ y: "0%" }}
-                    exit={{ y: "-100%" }}
-                    transition={{ duration: 0.6, ease }}
-                  >
-                    <span className="tabular-nums">{p.n}</span>
-                    <span className="transition-colors duration-300 group-hover:text-fg">{p.title}</span>
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-              <span className="-translate-x-1 opacity-0 transition duration-400 ease-out-soft group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-fg">→</span>
             </motion.span>
           </Link>
         </motion.div>
