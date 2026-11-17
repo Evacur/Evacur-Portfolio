@@ -334,7 +334,7 @@ const kleio: Case = {
         "Kleio fournit à des sites de voyage, d'immobilier ou de e-commerce un **widget intégré à leurs pages**. Le visiteur y engage une conversation avec une IA, qui se poursuit ensuite dans l'interface de Kleio.",
         "Je suis intervenu en freelance en 2026, après une levée de fonds. Un premier designer avait fait les maquettes initiales. Ma mission était de concevoir une **V2 plus moderne et plus professionnelle**, et de prendre en charge tout le design.",
       ],
-      media: [{ ...shot("kleio/ia-desktop-resultats", "Sur ordinateur : la conversation à gauche, les offres trouvées à droite"), ratio: "16 / 10" }],
+      media: [{ ...shot("kleio/ia-desktop-resultats", "Sur ordinateur : la conversation à gauche, les offres trouvées à droite"), ratio: "2880 / 1672" }],
     },
     {
       title: "Problème et recherche",
@@ -355,8 +355,8 @@ const kleio: Case = {
         "Dès le premier message, le système identifie le type d'utilisateur. Il **adapte ensuite le ton et le contenu** des réponses de l'IA.",
       ],
       media: [
-        { ...shot("kleio/ia-desktop-recherche", "Sur ordinateur : l'assistant détaille les étapes de sa recherche pendant le chargement"), ratio: "16 / 10" },
-        { ...shot("kleio/ia-desktop-fiche", "Sur ordinateur : la fiche d'une offre, avec les questions suggérées"), ratio: "16 / 10" },
+        { ...shot("kleio/ia-desktop-recherche", "Sur ordinateur : l'assistant détaille les étapes de sa recherche pendant le chargement"), ratio: "2880 / 1672" },
+        { ...shot("kleio/ia-desktop-fiche", "Sur ordinateur : la fiche d'une offre, avec les questions suggérées"), ratio: "2880 / 1672" },
         { ...shot("kleio/ia-mobile", "Sur mobile : l'accueil de l'assistant, la recherche, les offres et la fiche"), ratio: "16 / 7" },
       ],
     },
