@@ -222,7 +222,7 @@ const livestore: Case = {
       title: "Contexte",
       lede: "Une application de vente en magasin, peu utilisée dans plusieurs enseignes.",
       body: [
-        "Livestore est une progressive web app en marque blanche pour le retail. Elle réunit le clienteling et l'encaissement, et sert aux vendeurs, aux responsables de magasin et aux directeurs de réseau. Elle est déployée chez plusieurs grandes marques internationales : LVMH, Zadig & Voltaire, Pomellato, Balibaris, Palais des Thés.",
+        "Livestore est une progressive web app en marque blanche pour le retail. Elle réunit le clienteling et l'encaissement, et sert aux vendeurs, aux responsables de magasin et aux directeurs de réseau. Elle est déployée chez plusieurs grandes marques internationales du luxe, du prêt-à-porter et de la cosmétique.",
         "Plusieurs enseignes utilisaient peu l'application. J'étais le designer référent, et ma mission était de comprendre pourquoi puis de concevoir les améliorations.",
         "Deux équipes développaient le produit, une pour le clienteling et une pour l'encaissement. Chacune avait son product manager, son product owner et ses développeurs. Je travaillais avec les deux.",
       ],
@@ -255,9 +255,9 @@ const livestore: Case = {
     },
     {
       title: "Résultats",
-      lede: "Pandora a signé après la présentation de la refonte.",
+      lede: "Une enseigne internationale a signé après la présentation de la refonte.",
       body: [
-        "J'ai présenté la refonte à plusieurs clients. Pandora a signé après cette présentation et a cité une application plus moderne et plus ergonomique parmi ses raisons.",
+        "J'ai présenté la refonte à plusieurs clients. Une enseigne internationale a signé après cette présentation et a cité une application plus moderne et plus ergonomique parmi ses raisons.",
       ],
       media: ["Écran final en production"],
     },
@@ -331,7 +331,7 @@ const kleio: Case = {
       title: "Contexte",
       lede: "La V2 d'un assistant conversationnel intégré aux sites des marques.",
       body: [
-        "Kleio fournit à des sites comme Orpi ou Selectour un widget intégré à leurs pages. Le visiteur y engage une conversation avec une IA, qui se poursuit ensuite dans l'interface de Kleio.",
+        "Kleio fournit à des sites de voyage, d'immobilier ou de e-commerce un widget intégré à leurs pages. Le visiteur y engage une conversation avec une IA, qui se poursuit ensuite dans l'interface de Kleio.",
         "Je suis intervenu en freelance en 2026, après une levée de fonds. Un premier designer avait fait les maquettes initiales. Ma mission était de concevoir une V2 plus moderne et plus professionnelle, et de prendre en charge tout le design.",
       ],
       media: [{ ...shot("kleio/ia-desktop-resultats", "Sur ordinateur : la conversation à gauche, les offres trouvées à droite"), ratio: "16 / 10" }],
@@ -341,7 +341,7 @@ const kleio: Case = {
       lede: "Des visiteurs quittaient la conversation après le premier message.",
       body: [
         "Nous avions identifié deux causes. Le visiteur ne savait pas s'il parlait à une IA ou à une personne, et il attendait trop longtemps avant de voir un premier produit.",
-        "J'ai travaillé avec un AI researcher qui a analysé plusieurs centaines de milliers de conversations. Nous en avons tiré des personas, définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
+        "J'ai travaillé avec un AI researcher qui a analysé un grand volume de conversations. Nous en avons tiré des personas, définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
         "J'ai aussi mis en place des tests utilisateurs avec Maze pour évaluer les parcours avant leur mise en production.",
       ],
       media: [],
@@ -364,7 +364,7 @@ const kleio: Case = {
       title: "Résultats",
       lede: "Plusieurs clients signés pendant la mission.",
       body: [
-        "Kleio a signé plusieurs clients sur la période, dont Selectour, Showroomprivé et Orpi.",
+        "Kleio a signé plusieurs clients sur la période, dans le voyage, l'immobilier et le e-commerce.",
         "J'intégrais moi-même les interfaces avec Claude Code, ce qui a permis de produire les démonstrations commerciales plus vite.",
         "Les effets sur l'engagement sont encore en cours de mesure.",
       ],
