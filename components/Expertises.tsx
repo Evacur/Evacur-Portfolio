@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { expertises } from "@/lib/content";
+import { rich } from "./Rich";
 import { Reveal } from "./Reveal";
 
 const skills = expertises;
@@ -61,7 +62,7 @@ export function Expertises() {
                         {e.image && <Image src={e.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" className="object-cover" style={e.position ? { objectPosition: e.position } : undefined} />}
                       </span>
                       <span className="xp-text flex flex-col gap-1">
-                        <span className="text-[15px] leading-[1.4]">{e.text}</span>
+                        <span className="text-[15px] leading-[1.4]">{rich(e.text)}</span>
                         <span className="inline-flex items-center gap-1.5 text-mute transition-colors duration-300 group-hover:text-fg">
                           {e.cases}
                           <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:translate-x-1">→</span>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { faq } from "@/lib/content";
+import { rich } from "./Rich";
 import { Reveal } from "./Reveal";
 
 /** Questions fréquentes : une seule ouverte à la fois, le + devient −. */
@@ -30,7 +31,7 @@ export function Faq() {
                 </button>
                 <div id={`faq-${i}`} className={`faq-a ${on ? "is-open" : ""}`}>
                   <div>
-                    <p className="m-0 mb-[18px] max-w-[52ch] text-mute">{f.a}</p>
+                    <p className="m-0 mb-[18px] max-w-[52ch] text-mute">{rich(f.a)}</p>
                     {f.rows && (
                       <dl className="faq-rows m-0 mb-[22px] max-w-[720px]">
                         {f.rows.map((r, k) => (

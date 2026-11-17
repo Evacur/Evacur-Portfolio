@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/rea
 import { useEffect, useRef, useState } from "react";
 import type { Chapter, Media as MediaItem, Project } from "@/lib/projects";
 import { scrollToTarget } from "./SmoothScroll";
+import { rich } from "./Rich";
 
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const inout = [0.65, 0, 0.15, 1] as const;
@@ -152,7 +153,7 @@ function ChapterText({ ch, n, title, lede = true }: { ch: Chapter; n: number; ti
 function ChapterBody({ ch, className = "" }: { ch: Chapter; className?: string }) {
   return (
     <div className={`flex max-w-[62ch] flex-col gap-3.5 ${className}`}>
-      {ch.body.map((b, j) => <Rise key={j} delay={0.2 + j * 0.06}><p className="m-0 text-mute">{b}</p></Rise>)}
+      {ch.body.map((b, j) => <Rise key={j} delay={0.2 + j * 0.06}><p className="m-0 text-mute">{rich(b)}</p></Rise>)}
       {ch.link && (
         <Rise delay={0.35}>
           <a href={ch.link.href} target="_blank" rel="noopener noreferrer" data-cur="ouvrir" className="group/link inline-flex items-center gap-1.5 underline decoration-line underline-offset-4 transition-colors duration-300 hover:decoration-fg">
