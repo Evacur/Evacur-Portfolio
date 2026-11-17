@@ -334,7 +334,7 @@ const kleio: Case = {
         "Kleio fournit à des sites comme Orpi ou Selectour un widget intégré à leurs pages. Le visiteur y engage une conversation avec une IA, qui se poursuit ensuite dans l'interface de Kleio.",
         "Je suis intervenu en freelance en 2026, après une levée de fonds. Un premier designer avait posé les maquettes initiales. Ma mission était d'amener le produit à une V2 plus moderne et plus professionnelle, et de prendre en charge l'ensemble du design.",
       ],
-      media: ["Le widget Kleio sur le site d'une marque"],
+      media: [{ ...shot("kleio/ia-desktop-resultats", "Sur ordinateur : la conversation à gauche, les offres trouvées à droite"), ratio: "16 / 10" }],
     },
     {
       title: "Problème et recherche",
@@ -344,7 +344,7 @@ const kleio: Case = {
         "J'ai travaillé avec un AI researcher qui a analysé plusieurs centaines de milliers de conversations. Ce corpus a permis de construire des personas types, fondés sur l'intention exprimée dès le premier message : chercher une information, voir rapidement des offres, comparer.",
         "En complément de cette analyse quantitative, j'ai mis en place des tests utilisateurs avec Maze pour évaluer les parcours avant leur mise en production.",
       ],
-      media: ["Personas issus de l'analyse des messages"],
+      media: [],
     },
     {
       title: "Décisions",
@@ -354,7 +354,11 @@ const kleio: Case = {
         "La conversation affiche des produits le plus tôt possible, pour apporter une valeur concrète dès les premiers échanges.",
         "Dès le premier message, le système identifie le type d'utilisateur, puis adapte le ton et le contenu des réponses de l'IA pour proposer un échange plus personnalisé.",
       ],
-      media: ["Premier message, réassurance et produits", "Réponses adaptées selon le persona"],
+      media: [
+        { ...shot("kleio/ia-desktop-recherche", "Sur ordinateur : l'assistant détaille les étapes de sa recherche pendant le chargement"), ratio: "16 / 10" },
+        { ...shot("kleio/ia-desktop-fiche", "Sur ordinateur : la fiche d'une offre, avec les questions suggérées"), ratio: "16 / 10" },
+        { ...shot("kleio/ia-mobile", "Sur mobile : l'accueil de l'assistant, la recherche, les offres et la fiche"), ratio: "16 / 7" },
+      ],
     },
     {
       title: "Résultats",
@@ -364,7 +368,7 @@ const kleio: Case = {
         "Les démonstrations commerciales ont été produites plus vite : j'intégrais moi-même les interfaces avec Claude Code, sans attendre un cycle de développement.",
         "Les objectifs d'engagement sont encore en cours de mesure : la mission se poursuit sur ce sujet.",
       ],
-      media: ["La V2 en production"],
+      media: [],
     },
   ],
 };
