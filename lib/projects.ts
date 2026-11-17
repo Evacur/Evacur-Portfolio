@@ -71,7 +71,7 @@ const bim: Case = {
       body: [
         "Bim ! s'adresse aux dirigeants de TPE, aux indépendants et aux micro-entrepreneurs, en particulier à ceux qui n'utilisent aucun outil de facturation. Le produit se positionne face à des acteurs installés comme Pennylane, Qonto ou Indy.",
         "Cegid a monté pour ce projet une squad réduite, organisée comme une start-up. L'échéance était connue dès janvier : le produit devait être présenté au Congrès des experts-comptables neuf mois plus tard. La facture électronique devient obligatoire pour les TPE et les micro-entreprises (réception au 1er septembre 2026, émission au 1er septembre 2027).",
-        "J'étais le designer référent. Je portais la vision produit et je veillais à la cohérence entre **deux équipes de dix designers** pendant les neuf mois de conception.",
+        "J'étais le designer référent. Je veillais à la cohérence du design entre **deux équipes de dix designers** pendant les neuf mois de conception.",
       ],
       media: [shot("bim/02", "Bim ! : tableau de bord, factures et aperçu d'une facture")],
     },
