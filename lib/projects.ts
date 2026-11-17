@@ -201,7 +201,7 @@ const livestore: Case = {
   name: "Livestore",
   client: "Cegid",
   year: "2025",
-  role: "Lead product designer",
+  role: "Designer référent",
   duration: "2 ans",
   chapters: [
     {
@@ -310,7 +310,7 @@ const kleio: Case = {
   name: "Kleio",
   client: "Kleio",
   year: "2026",
-  role: "Product designer freelance",
+  role: "Product engineer",
   duration: "6 à 7 mois",
   chapters: [
     {
