@@ -25,7 +25,7 @@ export type FaqItem = { q: string; a: string; rows?: { when: string; where: stri
 
 // Réponses tirées du profil Malt et de LinkedIn (novembre 2026)
 export const faq: FaqItem[] = [
-  { q: "Quel est ton TJM ?", a: "Mon tarif est **à définir selon le projet**. Il dépend du périmètre et de la durée de la mission. Je travaille à la journée, ou au forfait quand le projet est bien cadré." },
+  { q: "Quel est ton TJM ?", a: "Mon tarif est **à définir selon le projet**. Il dépend du périmètre et de la durée de la mission. Je travaille à la journée ou au forfait." },
   {
     q: "Quelle est ton expérience ?",
     a: "J'ai passé **cinq ans chez Cegid**, puis je me suis lancé en freelance.",
