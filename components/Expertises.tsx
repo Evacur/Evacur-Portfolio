@@ -41,6 +41,8 @@ export function Expertises() {
                   aria-expanded={on}
                   aria-controls={`xp-${i}`}
                   onClick={() => setOpen(on ? -1 : i)}
+                  data-umami-event={on ? undefined : "expertise-deplier"}
+                  data-umami-event-expertise={e.name}
                   data-cur={on ? "fermer" : "lire"}
                   className="xp-btn flex min-h-11 w-full items-center justify-between gap-4 py-[max(18px,1.5vw)] text-left"
                 >
@@ -55,6 +57,8 @@ export function Expertises() {
                       href={e.href}
                       tabIndex={on ? 0 : -1}
                       data-cur="voir"
+                      data-umami-event="expertise-voir"
+                      data-umami-event-expertise={e.name}
                       aria-label={`${e.name} : voir ${e.cases}`}
                       className="group flex items-start gap-[max(16px,2vw)] pb-[max(20px,1.8vw)] max-[640px]:flex-col max-[640px]:gap-3"
                     >

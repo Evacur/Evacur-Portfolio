@@ -153,6 +153,8 @@ function StackCard({
         href={`/work/${p.slug}`}
         aria-label={`${p.title}, voir le projet`}
         data-cur="ouvrir"
+        data-umami-event="accueil-carte-projet"
+        data-umami-event-expertise={p.title}
         className={`hc hc-${n + 1} pointer-events-auto`}
         style={{ "--i": n } as React.CSSProperties}
       >

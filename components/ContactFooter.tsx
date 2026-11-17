@@ -9,12 +9,12 @@ export function ContactFooter() {
   return (
     <footer id="contact" className="flex flex-col gap-5 border-t border-line px-6 pb-6 pt-[6vw]">
       <span className="text-mute">Un projet en tête ?</span>
-      <a href={`mailto:${contact.email}`} data-cur="écrire" className="max-w-full break-words font-serif text-[max(30px,6.4vw)] font-normal leading-none tracking-[-0.025em]">
+      <a href={`mailto:${contact.email}`} data-cur="écrire" data-umami-event="contact-email" className="max-w-full break-words font-serif text-[max(30px,6.4vw)] font-normal leading-none tracking-[-0.025em]">
         {contact.email}
       </a>
       <div className="flex flex-wrap items-center gap-2.5">
         {contact.links.map((l) => (
-          <a key={l.label} href={l.href} {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={`${pill} hover:border-fg`}>{l.label}</a>
+          <a key={l.label} href={l.href} data-umami-event="contact-lien" data-umami-event-lien={l.label} {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={`${pill} hover:border-fg`}>{l.label}</a>
         ))}
       </div>
       <div className="flex flex-wrap justify-between gap-2 border-t border-line pt-4 text-mute">

@@ -27,6 +27,8 @@ export function Faq() {
                   aria-expanded={on}
                   aria-controls={`faq-${i}`}
                   onClick={() => setOpen(on ? -1 : i)}
+                  data-umami-event={on ? undefined : "faq-question"}
+                  data-umami-event-question={f.q}
                   className="flex min-h-11 w-full items-center justify-between gap-4 py-[18px] text-left text-[17px] font-medium tracking-[-0.01em]"
                 >
                   <span className="faq-q">{f.q}</span>

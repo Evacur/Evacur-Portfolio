@@ -28,6 +28,8 @@ function Row({ p }: { p: Project }) {
         onFocus={run}
         aria-label={`${p.title}, ${p.kind}, ${p.year}`}
         data-cur="ouvrir"
+        data-umami-event="travaux-ligne"
+        data-umami-event-expertise={p.title}
         className="wk-row grid min-h-11 grid-cols-[48px_1fr_1fr_80px] items-center border-b border-line transition-opacity duration-300 group-hover/list:opacity-30 hover:!opacity-100 focus-visible:!opacity-100 max-[760px]:grid-cols-[36px_1fr_72px]"
       >
         <span aria-hidden="true" className="text-mute tabular-nums">{p.n}</span>

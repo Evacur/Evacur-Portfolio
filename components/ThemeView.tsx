@@ -109,7 +109,7 @@ function Rise({ children, delay = 0, className }: { children: React.ReactNode; d
 }
 
 /** Lien de fin de page, précédent ou suivant : le titre roule au survol, la flèche glisse. */
-function EndLink({ label, title, href, onClick, back }: { label: string; title: string; href?: string; onClick?: () => void; back?: boolean }) {
+function EndLink({ label, title, href, onClick, back, from }: { label: string; title: string; href?: string; onClick?: () => void; back?: boolean; from?: string }) {
   const arrow = (
     <span aria-hidden="true" className={`inline-block transition-transform duration-700 ease-out-soft ${back ? "group-hover:-translate-x-[0.2em]" : "group-hover:translate-x-[0.2em]"}`}>{back ? "←" : "→"}</span>
   );
@@ -127,9 +127,10 @@ function EndLink({ label, title, href, onClick, back }: { label: string; title: 
     </>
   );
   const cls = `group flex flex-col gap-2 ${back ? "items-start text-left" : "items-end text-right"}`;
+  const track = { "data-umami-event": "expertise-precedente-suivante", "data-umami-event-sens": back ? "précédente" : "suivante", "data-umami-event-depuis": from, "data-umami-event-vers": title };
   return href
-    ? <Link href={href} className={cls}>{inner}</Link>
-    : <button type="button" onClick={onClick} className={cls}>{inner}</button>;
+    ? <Link href={href} className={cls} {...track}>{inner}</Link>
+    : <button type="button" onClick={onClick} className={cls} {...track}>{inner}</button>;
 }
 
 /** Le texte d'un chapitre : titre, phrase de synthèse, puis les blocs. Pas de numéro : seule l'expertise est numérotée. */
@@ -159,7 +160,7 @@ function ChapterBody({ ch, className = "" }: { ch: Chapter; className?: string }
       {ch.body.map((b, j) => <Rise key={j} delay={0.2 + j * 0.06}><p className="m-0 text-mute">{rich(b)}</p></Rise>)}
       {ch.link && (
         <Rise delay={0.35}>
-          <a href={ch.link.href} target="_blank" rel="noopener noreferrer" data-cur="ouvrir" className="group/link inline-flex items-center gap-1.5 underline decoration-line underline-offset-4 transition-colors duration-300 hover:decoration-fg">
+          <a href={ch.link.href} target="_blank" rel="noopener noreferrer" data-cur="ouvrir" data-umami-event="lien-externe" data-umami-event-lien={ch.link.label} className="group/link inline-flex items-center gap-1.5 underline decoration-line underline-offset-4 transition-colors duration-300 hover:decoration-fg">
             {ch.link.label}
             <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">↗</span>
           </a>
@@ -170,7 +171,7 @@ function ChapterBody({ ch, className = "" }: { ch: Chapter; className?: string }
           <p className="m-0 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-mute">
             <span>{ch.sources.length > 1 ? "Sources" : "Source"}</span>
             {ch.sources.map((src) => (
-              <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-fg">{src.label}</a>
+              <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" data-umami-event="source" data-umami-event-lien={src.href} className="underline decoration-line underline-offset-4 transition-colors duration-300 hover:text-fg">{src.label}</a>
             ))}
           </p>
         </Rise>
@@ -283,7 +284,7 @@ export function ThemeView({ project, prev, next, total }: { project: Project; pr
   return (
     <article className="px-6 max-[640px]:px-4">
       <header className="grid grid-cols-1 items-end gap-x-[4vw] gap-y-[2.4vw] pt-[4vw] max-[900px]:grid-cols-1 max-[640px]:gap-y-5 max-[640px]:pt-8">
-        <Link href="/work" className="group col-span-full inline-flex w-fit items-center gap-1.5 text-mute transition-colors duration-300 hover:text-fg">
+        <Link href="/work" data-umami-event="retour-travaux" data-umami-event-depuis={project.title} className="group col-span-full inline-flex w-fit items-center gap-1.5 text-mute transition-colors duration-300 hover:text-fg">
           <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:-translate-x-1">←</span>
           Travaux
         </Link>
@@ -332,6 +333,9 @@ export function ThemeView({ project, prev, next, total }: { project: Project; pr
             role="tab"
             aria-selected={i === ci}
             onClick={() => pickCase(i)}
+            data-umami-event={i === ci ? undefined : "onglet-projet"}
+            data-umami-event-expertise={project.title}
+            data-umami-event-projet={k.name}
             className={`relative flex flex-none flex-col py-3 text-left transition-colors duration-300 hover:text-fg ${i === ci ? "text-fg" : "text-mute"}`}
           >
             {/* Le trait glisse d'un projet à l'autre, sur le filet */}
@@ -406,8 +410,8 @@ export function ThemeView({ project, prev, next, total }: { project: Project; pr
       </AnimatePresence>
 
       <nav aria-label="Précédent et suivant" className="grid grid-cols-2 items-end gap-6 border-t border-line py-[5vw] max-[640px]:gap-4 max-[640px]:py-10">
-        <EndLink back label="Expertise précédente" title={prev.title} href={`/work/${prev.slug}`} />
-        <EndLink label="Expertise suivante" title={next.title} href={`/work/${next.slug}`} />
+        <EndLink back label="Expertise précédente" title={prev.title} href={`/work/${prev.slug}`} from={project.title} />
+        <EndLink label="Expertise suivante" title={next.title} href={`/work/${next.slug}`} from={project.title} />
       </nav>
     </article>
   );

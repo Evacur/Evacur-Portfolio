@@ -25,6 +25,8 @@ export function SiteHeader({ hideLogoUntilScroll = false, current, className = "
     >
       <Link
         href="/"
+        data-umami-event="navigation"
+        data-umami-event-cible="Accueil"
         className={`inline-flex min-h-14 items-center font-medium transition-[opacity,transform] duration-500 ease-out-soft ${scrolled ? "opacity-100" : "pointer-events-none translate-y-1.5 opacity-0"}`}
         tabIndex={scrolled ? 0 : -1}
       >
@@ -33,9 +35,9 @@ export function SiteHeader({ hideLogoUntilScroll = false, current, className = "
       {/* Coordonnées du curseur, toujours visibles au centre de l'en-tête */}
       <Coords className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
       <nav aria-label="Navigation principale" className="flex items-center gap-6 max-[640px]:gap-3.5">
-        <Link href="/work" aria-current={current === "work" ? "page" : undefined} className="u inline-flex min-h-14 items-center">Travaux</Link>
-        <Link href="/#faq" className="u inline-flex min-h-14 items-center">FAQ</Link>
-        <Link href="/#contact" className="u inline-flex min-h-14 items-center">Contact</Link>
+        <Link href="/work" data-umami-event="navigation" data-umami-event-cible="Travaux" aria-current={current === "work" ? "page" : undefined} className="u inline-flex min-h-14 items-center">Travaux</Link>
+        <Link href="/#faq" data-umami-event="navigation" data-umami-event-cible="FAQ" className="u inline-flex min-h-14 items-center">FAQ</Link>
+        <Link href="/#contact" data-umami-event="navigation" data-umami-event-cible="Contact" className="u inline-flex min-h-14 items-center">Contact</Link>
       </nav>
     </header>
   );
