@@ -12,9 +12,22 @@ const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-
 // Titres : un serif fin, en romain uniquement
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument", display: "swap" });
 
+const description =
+  "Product designer freelance à Paris. Produits SaaS B2B, assistants IA et design systems, de la recherche utilisateur au front-end.";
+
 export const metadata: Metadata = {
-  title: "Pablo Cuerva — Product designer, Paris",
-  description: "Portfolio de Pablo Cuerva, product designer à Paris : SaaS B2B, IA et produits conversationnels.",
+  metadataBase: new URL("https://www.pablocuerva.fr"),
+  title: "Pablo Cuerva",
+  description,
+  openGraph: {
+    title: "Pablo Cuerva",
+    description,
+    url: "/",
+    siteName: "Pablo Cuerva",
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: "Pablo Cuerva", description },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
