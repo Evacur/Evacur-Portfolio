@@ -25,7 +25,7 @@ export type FaqItem = { q: string; a: string; rows?: { when: string; where: stri
 
 // Réponses tirées du profil Malt et de LinkedIn (novembre 2026)
 export const faq: FaqItem[] = [
-  { q: "Quel est ton TJM ?", a: "Mon tarif est de **450 € HT par jour**. On peut en discuter pour une mission longue, et je travaille aussi au forfait quand le projet est bien cadré." },
+  { q: "Quel est ton TJM ?", a: "Mon tarif est de **450 € HT par jour**. Je peux en discuter pour une mission longue, et je travaille aussi au forfait quand le projet est bien cadré." },
   {
     q: "Quelle est ton expérience ?",
     a: "J'ai passé **cinq ans chez Cegid**, puis je me suis lancé en freelance.",
@@ -37,10 +37,10 @@ export const faq: FaqItem[] = [
   },
   { q: "Et le code ?", a: "Je ne tape plus le code à la main, comme beaucoup de monde aujourd'hui. Je le lis, je le comprends et je sais quoi demander. Je travaille avec Claude Code et Cursor, ce qui me permet d'avoir **un prototype qui tourne en quelques heures** et de le tester sur du vrai. J'ai fait ce site de cette façon." },
   { q: "Tu sais travailler en équipe ?", a: "Oui, et j'aime ça. Chez Cegid, dans une équipe de 30 designers, j'ai coordonné **jusqu'à 10 designers** sur un même produit et j'étais le **référent du design system**. J'ai aussi accompagné des startups comme mentor UX Research au Cegid Data Lab, à Station F." },
-  { q: "Comment tu mènes la recherche ?", a: "Cela dépend du projet. Je pars de la question à laquelle on doit répondre, du temps disponible et des utilisateurs qu'on peut rencontrer, puis **je choisis la méthode adaptée**. Pour comprendre un métier, je fais des entretiens ou de l'observation sur le terrain. Pour cadrer, j'anime des ateliers. Pour vérifier une maquette, je fais des **tests utilisateurs**, et des questionnaires in-app quand le produit est en ligne. J'utilise des outils comme Figma, Maze et Dovetail. Je m'appuie aussi sur l'IA pour analyser les retours plus vite et en tirer des enseignements, que je vérifie ensuite." },
+  { q: "Comment tu mènes la recherche ?", a: "Cela dépend du projet. Je pars de la question à laquelle je dois répondre, du temps disponible et des utilisateurs que je peux rencontrer, puis **je choisis la méthode adaptée**. Pour comprendre un métier, je fais des entretiens ou de l'observation sur le terrain. Pour cadrer, j'anime des ateliers. Pour vérifier une maquette, je fais des **tests utilisateurs**, et des questionnaires in-app quand le produit est en ligne. J'utilise des outils comme Figma, Maze et Dovetail. Je m'appuie aussi sur l'IA pour analyser les retours plus vite et en tirer des enseignements, que je vérifie ensuite." },
   { q: "Freelance, CDI, remote ?", a: "Je suis freelance sur Malt, **Supermalter noté 5/5**. Je suis basé à Paris et je travaille sur site ou en hybride." },
   { q: "Tu parles anglais ?", a: "Oui, j'ai un **anglais professionnel (B2)**." },
-  { q: "Quand es-tu dispo ?", a: "Je suis disponible **à partir de janvier 2027**. Le premier échange de 30 minutes est offert, on peut en profiter pour parler de votre projet." },
+  { q: "Quand es-tu dispo ?", a: "Je suis disponible **à partir de janvier 2027**. Le premier échange de 30 minutes est offert, pour parler de votre projet." },
 ];
 
 export const contact = {
