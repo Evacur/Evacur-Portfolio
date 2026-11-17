@@ -255,9 +255,9 @@ const livestore: Case = {
     },
     {
       title: "Résultats",
-      lede: "Une enseigne internationale a signé après la présentation de la refonte.",
+      lede: "Une refonte présentée aux clients et bien reçue.",
       body: [
-        "J'ai présenté la refonte à plusieurs clients. Une enseigne internationale **a signé après cette présentation** et a cité une application plus moderne et plus ergonomique parmi ses raisons.",
+        "J'ai présenté la refonte à plusieurs clients. Les retours ont été positifs, en particulier sur une application jugée **plus moderne et plus ergonomique**.",
       ],
       media: ["Écran final en production"],
     },
@@ -308,9 +308,9 @@ const pulse: Case = {
     },
     {
       title: "Résultats",
-      lede: "Le produit est sorti et les bêta-testeurs l'ont approuvé.",
+      lede: "Le produit est sorti, avec de bons retours des bêta-testeurs.",
       body: [
-        "Pulse IA a été mis en production et bien adopté en interne. Une **large majorité des bêta-testeurs** a approuvé le produit.",
+        "Pulse IA a été mis en production et bien adopté en interne. Les **retours des bêta-testeurs** ont été positifs.",
         "Les composants conversationnels conçus pour ce projet servent de base aux versions suivantes.",
       ],
       media: ["Écran final en production"],
@@ -362,9 +362,8 @@ const kleio: Case = {
     },
     {
       title: "Résultats",
-      lede: "Plusieurs clients signés pendant la mission.",
+      lede: "Des démonstrations produites plus vite.",
       body: [
-        "Kleio a **signé plusieurs clients** sur la période, dans le voyage, l'immobilier et le e-commerce.",
         "J'intégrais moi-même les interfaces avec Claude Code, ce qui a permis de produire les démonstrations commerciales plus vite.",
         "Les effets sur l'engagement sont encore en cours de mesure.",
       ],
