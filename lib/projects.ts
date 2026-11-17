@@ -595,31 +595,31 @@ const progemi: Case = {
 
 export const projects: Project[] = [
   {
-    slug: "ia-conversationnelle", layout: "recherche", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
+    slug: "ia-conversationnelle", layout: "recherche", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 projets",
     pitch: "Assistants, chatbots et outils connectés en MCP.",
     cover: "/projects/pulse-ia/03.webp", tint: "#E4DEEA", ink: "#5B3F86",
     cases: [pulse, kleio],
   },
   {
-    slug: "produit-et-discovery", layout: "recherche", n: "02", title: "Produit et discovery", kind: "Bim ! · Livestore", year: "2 cas",
+    slug: "produit-et-discovery", layout: "recherche", n: "02", title: "Produit et discovery", kind: "Bim ! · Livestore", year: "2 projets",
     pitch: "Deux projets, avec pour chacun le problème rencontré, la recherche menée et les choix faits.",
     cover: "/projects/bim.webp", tint: "#DCE3EC", ink: "#2B4C7E",
     cases: [bim, livestore],
   },
   {
-    slug: "design-system", layout: "rangs", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 cas",
+    slug: "design-system", layout: "rangs", n: "03", title: "Design system", kind: "Bim ! · Cegid · Kleio", year: "3 projets",
     pitch: "Trois design systems, pour Bim !, Cegid et Kleio.",
     cover: "/projects/bim/04.webp", tint: "#DEE5DE", ink: "#2F5D3F",
     cases: [bimDesignSystem, cegidDesignSystem, kleioDesignSystem],
   },
   {
-    slug: "sites-vitrines", layout: "visuel", n: "04", title: "Sites vitrines", kind: "Gaspard Mariotte · Vers le Sud · Kleio", year: "3 cas",
+    slug: "sites-vitrines", layout: "visuel", n: "04", title: "Sites vitrines", kind: "Gaspard Mariotte · Vers le Sud · Kleio", year: "3 projets",
     pitch: "Des sites de marque, du mock à la mise en ligne.",
     cover: "/projects/gaspard.webp", tint: "#ECE2D6", ink: "#7A4A2A",
     cases: [gaspard, versLeSud, kleioSite],
   },
   {
-    slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Laku · Progemi", year: "2 cas",
+    slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Laku · Progemi", year: "2 projets",
     pitch: "React, Next.js et animations, codés par moi.",
     tint: "#EEE9D6", ink: "#6B5A1E",
     cases: [laku, progemi],

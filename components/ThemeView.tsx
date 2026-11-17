@@ -8,6 +8,7 @@ import type { Chapter, Media as MediaItem, Project } from "@/lib/projects";
 import { scrollToTarget } from "./SmoothScroll";
 import { rich } from "./Rich";
 import { CodeSim } from "./CodeSim";
+import { useScramble } from "./useScramble";
 
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const inout = [0.65, 0, 0.15, 1] as const;
@@ -115,7 +116,7 @@ function EndLink({ label, title, href, onClick, back }: { label: string; title: 
   const inner = (
     <>
       <span className="text-mute">{label}</span>
-      <span className="flex items-baseline gap-[0.25em] font-serif text-[max(28px,3.8vw)] font-normal leading-none tracking-[-0.025em]">
+      <span className="flex items-baseline gap-[0.25em] font-serif text-[max(22px,3.8vw)] font-normal leading-[1.05] max-[640px]:text-[22px] tracking-[-0.025em]">
         {back && arrow}
         <span className="relative block overflow-hidden pb-[0.12em]">
           <span className="block transition-transform duration-700 ease-out-soft group-hover:-translate-y-[110%]">{title}</span>
@@ -125,18 +126,17 @@ function EndLink({ label, title, href, onClick, back }: { label: string; title: 
       </span>
     </>
   );
-  const cls = `group flex flex-col gap-2 ${back ? "items-start text-left" : "items-end text-right max-[640px]:items-start max-[640px]:text-left"}`;
+  const cls = `group flex flex-col gap-2 ${back ? "items-start text-left" : "items-end text-right"}`;
   return href
     ? <Link href={href} className={cls}>{inner}</Link>
     : <button type="button" onClick={onClick} className={cls}>{inner}</button>;
 }
 
-/** Le texte d'un chapitre : numéro, titre, phrase de synthèse, puis les blocs. */
-function ChapterText({ ch, n, title, lede = true }: { ch: Chapter; n: number; title?: string; lede?: boolean }) {
+/** Le texte d'un chapitre : titre, phrase de synthèse, puis les blocs. Pas de numéro : seule l'expertise est numérotée. */
+function ChapterText({ ch, title, lede = true }: { ch: Chapter; n?: number; title?: string; lede?: boolean }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-2.5">
-        <Rise><span className="text-[11px] text-mute tabular-nums">{String(n).padStart(2, "0")}</span></Rise>
         {/* Le titre monte derrière un masque ; c'est le h2, jamais masqué, qui détecte l'entrée à l'écran */}
         <motion.h2
           className="m-0 overflow-hidden pb-[0.1em] font-serif text-[max(28px,3.2vw)] font-normal leading-[1.05] tracking-[-0.015em]"
@@ -212,13 +212,38 @@ function Gallery({ items, tint, wideFirst }: { items: MediaItem[]; tint: string;
   );
 }
 
+/** En tête du projet : sa place dans l'expertise, son nom, puis client, année, rôle et durée. */
+function ProjectHead({ k, at, count }: { k: Project["cases"][number]; at: number; count: number }) {
+  const [label, run] = useScramble(`Projet ${at + 1} sur ${count}`, 600, false);
+  useEffect(() => { run(); }, [run]);
+  return (
+    <section className="flex flex-col gap-[max(14px,1.2vw)] pt-[max(36px,3.6vw)]">
+      <p className="m-0 font-mono text-[11px] tracking-[0.02em] text-mute">{label}</p>
+      <h2 className="m-0 overflow-hidden pb-[0.08em] font-serif text-[max(38px,4.4vw)] font-normal leading-none tracking-[-0.02em]">
+        <motion.span className="block" initial={{ y: "110%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, ease, delay: 0.05 }}>{k.name}</motion.span>
+      </h2>
+      <dl className="m-0 mt-[max(6px,.6vw)] grid grid-cols-[1fr_1fr_2fr_1fr] gap-x-6 gap-y-2.5 max-[640px]:grid-cols-2">
+        {[["Client", k.client], ["Année", k.year], ["Rôle", k.role], ["Durée", k.duration]].map(([t, v]) => (
+          <div key={t}>
+            <dt className="text-[11px] text-mute">{t}</dt>
+            <dd className="m-0 mt-0.5">{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
 /**
- * Page thème : le thème en grand, les cas en onglets, puis le cas choisi.
+ * Page expertise : l'expertise en grand, ses projets en onglets libellés, puis le projet choisi
+ * avec son titre et ses infos. Chaque projet a son adresse (?projet=slug), et le retour du navigateur
+ * revient au projet précédent.
  * Cas de recherche : contexte et son écran, problème et décisions côte à côte en texte,
  * les écrans, puis les résultats. Cas visuel : trois textes courts, puis les écrans.
  */
-export function ThemeView({ project, prev, next }: { project: Project; prev: Project; next: Project }) {
+export function ThemeView({ project, prev, next, total }: { project: Project; prev: Project; next: Project; total: number }) {
   const [ci, setCi] = useState(0);
+  const count = project.cases.length;
   const c = project.cases[ci];
   const [contexte, probleme, decisions, resultats] = c.chapters;
   const all = c.chapters.flatMap((ch) => ch.media);
@@ -232,21 +257,42 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
   // Cas en rangs : chaque section montre ses propres écrans (ceux des résultats rejoignent les choix)
   const rows = [contexte, probleme, [...decisions.media, ...resultats.media]].map((x) => (Array.isArray(x) ? x : x.media).filter((m) => !all.some(isReal) || isReal(m)));
 
+  // Le projet vient de l'adresse : à l'arrivée, puis à chaque retour ou avance du navigateur
+  useEffect(() => {
+    const read = () => {
+      const slug = new URLSearchParams(window.location.search).get("projet");
+      const at = project.cases.findIndex((k) => k.slug === slug);
+      setCi(at < 0 ? 0 : at);
+    };
+    read();
+    window.addEventListener("popstate", read);
+    return () => window.removeEventListener("popstate", read);
+  }, [project]);
+
   const pickCase = (i: number) => {
     if (i === ci) return;
     setCi(i);
-    // Onglets déjà collés : on ramène le début du nouveau cas juste dessous
+    const url = new URL(window.location.href);
+    if (i === 0) url.searchParams.delete("projet"); else url.searchParams.set("projet", project.cases[i].slug);
+    window.history.pushState(null, "", url);
+    // Onglets déjà collés : on ramène le début du nouveau projet juste dessous
     const el = document.getElementById("cas-contenu");
-    if (el && el.getBoundingClientRect().top < 110) scrollToTarget(el, -110);
+    if (el && el.getBoundingClientRect().top < 130) scrollToTarget(el, -130);
   };
 
   return (
     <article className="px-6 max-[640px]:px-4">
-      <header className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-end gap-x-[4vw] gap-y-[2.4vw] pt-[4vw] max-[900px]:grid-cols-1 max-[640px]:gap-y-5 max-[640px]:pt-8">
+      <header className="grid grid-cols-1 items-end gap-x-[4vw] gap-y-[2.4vw] pt-[4vw] max-[900px]:grid-cols-1 max-[640px]:gap-y-5 max-[640px]:pt-8">
         <Link href="/work" className="group col-span-full inline-flex w-fit items-center gap-1.5 text-mute transition-colors duration-300 hover:text-fg">
           <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:-translate-x-1">←</span>
-          Travaux · Thème {project.n}
+          Travaux
         </Link>
+        <motion.p
+          className="col-span-full m-0 -mb-[1vw] font-mono text-[11px] tracking-[0.02em] text-mute max-[640px]:mb-0"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, ease, delay: 0.2 }}
+        >
+          Expertise {project.n} sur {String(total).padStart(2, "0")} · {count} projets
+        </motion.p>
         <h1 className="col-span-full m-0 font-serif text-[max(42px,7.2vw)] font-normal leading-[0.95] tracking-[-0.025em]">
           {project.title.split(" ").map((word, wi, all) => {
             const start = all.slice(0, wi).join(" ").length + (wi ? 1 : 0);
@@ -271,37 +317,14 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
         >
           {project.pitch}
         </motion.p>
-        <motion.dl
-          className="m-0 grid grid-cols-[1fr_1fr_2fr_1fr] gap-x-6 gap-y-2.5 max-[640px]:grid-cols-2"
-          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.55 }}
-        >
-          {[["Client", c.client], ["Année", c.year], ["Rôle", c.role], ["Durée", c.duration]].map(([k, v], n) => (
-            <div key={k}>
-              <dt className="text-[11px] text-mute">{k}</dt>
-              {/* La valeur sort par le haut, puis la nouvelle monte : jamais deux textes en même temps */}
-              <dd className="relative m-0 mt-0.5 h-[1.5em] overflow-hidden whitespace-nowrap leading-[1.5]">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={ci + v}
-                    className="block"
-                    initial={{ y: "110%" }}
-                    animate={{ y: "0%", transition: { duration: 0.5, ease, delay: n * 0.03 } }}
-                    exit={{ y: "-110%", transition: { duration: 0.2, ease: "easeIn" } }}
-                  >
-                    {v}
-                  </motion.span>
-                </AnimatePresence>
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
       </header>
 
-      {/* Les onglets des cas restent collés sous le menu pendant la lecture */}
+      {/* Les onglets des projets restent collés sous le menu pendant la lecture */}
       <motion.div
-        id="cas" role="tablist" aria-label="Cas" className="sticky top-14 z-10 mt-[2.4vw] flex gap-x-8 overflow-x-auto border-y border-line bg-bg [scrollbar-width:none] max-[640px]:mt-5 max-[640px]:gap-x-6"
+        id="cas" role="tablist" aria-label="Projets" className="sticky top-14 z-10 mt-[3.2vw] flex items-stretch gap-x-8 overflow-x-auto border-y border-line bg-bg [scrollbar-width:none] max-[640px]:mt-6 max-[640px]:gap-x-6"
         initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 0.65 }}
       >
+        <span aria-hidden="true" className="flex flex-none items-center pr-2 text-mute max-[640px]:hidden">Projets</span>
         {project.cases.map((k, i) => (
           <button
             key={k.slug + i}
@@ -309,11 +332,12 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
             role="tab"
             aria-selected={i === ci}
             onClick={() => pickCase(i)}
-            className={`relative flex-none py-3.5 transition-colors duration-300 hover:text-fg ${i === ci ? "text-fg" : "text-mute"}`}
+            className={`relative flex flex-none flex-col py-3 text-left transition-colors duration-300 hover:text-fg ${i === ci ? "text-fg" : "text-mute"}`}
           >
-            {/* Le trait glisse d'un cas à l'autre, sur le filet */}
+            {/* Le trait glisse d'un projet à l'autre, sur le filet */}
             {i === ci && <motion.span layoutId="case-line" className="absolute inset-x-0 -top-px h-px bg-fg" transition={{ duration: 0.6, ease: inout }} />}
-            <span className="mr-1.5 text-[11px] tabular-nums text-mute">{String(i + 1).padStart(2, "0")}</span>{k.name}
+            <span>{k.name}</span>
+            <span className="text-[11px] text-mute">{/^\d/.test(k.year) ? `${k.client}, ${k.year.replace(" – ", "–")}` : k.client}</span>
           </button>
         ))}
       </motion.div>
@@ -326,6 +350,7 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
           animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease } }}
           exit={{ opacity: 0, y: -12, transition: { duration: 0.25, ease: "easeIn" } }}
         >
+          <ProjectHead k={c} at={ci} count={count} />
           {project.layout === "rangs" ? (
             [[contexte, undefined], [probleme, "Problème"], [decisions, "Choix"]].map(([ch, title], i) => (
               <section key={i} className={`${section} grid grid-cols-2 gap-[4vw] max-[900px]:grid-cols-1 max-[900px]:gap-8`}>
@@ -380,9 +405,9 @@ export function ThemeView({ project, prev, next }: { project: Project; prev: Pro
         </motion.div>
       </AnimatePresence>
 
-      <nav aria-label="Précédent et suivant" className="flex items-end justify-between gap-8 border-t border-line py-[5vw] max-[640px]:flex-col max-[640px]:items-start max-[640px]:py-10">
-        <EndLink back label="Thème précédent" title={prev.title} href={`/work/${prev.slug}`} />
-        <EndLink label="Thème suivant" title={next.title} href={`/work/${next.slug}`} />
+      <nav aria-label="Précédent et suivant" className="grid grid-cols-2 items-end gap-6 border-t border-line py-[5vw] max-[640px]:gap-4 max-[640px]:py-10">
+        <EndLink back label="Expertise précédente" title={prev.title} href={`/work/${prev.slug}`} />
+        <EndLink label="Expertise suivante" title={next.title} href={`/work/${next.slug}`} />
       </nav>
     </article>
   );

@@ -26,9 +26,9 @@ export default async function Page({ params }: Props) {
   const prev = projects[(at + projects.length - 1) % projects.length];
   return (
     <MotionRoot>
-      <SiteHeader />
+      <SiteHeader current="work" />
       <main>
-        <ThemeView key={project.slug} project={project} prev={prev} next={next} />
+        <ThemeView key={project.slug} project={project} prev={prev} next={next} total={projects.length} />
       </main>
       <ContactFooter />
     </MotionRoot>
