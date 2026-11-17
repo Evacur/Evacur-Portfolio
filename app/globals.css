@@ -158,15 +158,6 @@ body {
   a.hc:hover img { transform: scale(1.04); }
 }
 
-/* Lien principal du hero : un texte souligné, le filet se redessine au survol */
-.cta { position: relative; padding-bottom: 2px; }
-.cta::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: currentColor;
-  transform-origin: left; transition: transform .6s var(--ease-inout);
-}
-@media (hover: hover) { .cta:hover::after { animation: cta-line .9s var(--ease-inout); } }
-@keyframes cta-line { 0% { transform: scaleX(1); transform-origin: right; } 45% { transform: scaleX(0); transform-origin: right; } 46% { transform: scaleX(0); transform-origin: left; } 100% { transform: scaleX(1); transform-origin: left; } }
-
 /* Curseur : un point qui s'ouvre en étiquette */
 html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
 .cursor { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; opacity: 0; transition: opacity .3s ease; will-change: transform; }

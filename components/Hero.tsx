@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -97,9 +97,6 @@ export function Hero() {
 
       <Scramble text={SUB} />
 
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease, delay: 2.3 }} className="relative z-[2]">
-        <MagneticLink href="/work">Voir le travail</MagneticLink>
-      </motion.div>
     </section>
   );
 }
@@ -174,41 +171,5 @@ function StackCard({
       </Link>
       </span>
     </motion.div>
-  );
-}
-
-/** Bouton qui suit légèrement le curseur, le libellé roule et la flèche glisse au survol. */
-function MagneticLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18 });
-
-  const onMove = (e: React.PointerEvent) => {
-    if (e.pointerType !== "mouse" || !ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * 0.25);
-    y.set((e.clientY - r.top - r.height / 2) * 0.35);
-  };
-  const reset = () => { x.set(0); y.set(0); };
-
-  return (
-    <span className="-m-3 inline-block p-3" onPointerMove={onMove} onPointerLeave={reset}>
-      <motion.span className="inline-block" style={{ x: sx, y: sy }}>
-        <Link
-          ref={ref}
-          href={href}
-          data-cur="aller"
-          className="cta group inline-flex min-h-11 items-center gap-2.5 text-[max(14px,1.25vw)] max-[760px]:text-[14px]"
-        >
-          <span className="relative block overflow-hidden">
-            <span className="block transition-transform duration-500 ease-out-soft group-hover:-translate-y-full">{children}</span>
-            <span aria-hidden="true" className="absolute inset-0 block translate-y-full transition-transform duration-500 ease-out-soft group-hover:translate-y-0">{children}</span>
-          </span>
-          <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:-rotate-45">→</span>
-        </Link>
-      </motion.span>
-    </span>
   );
 }
