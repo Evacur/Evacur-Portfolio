@@ -401,7 +401,7 @@ const kleioDesignSystem: Case = {
         "Il a fallu tout nettoyer. J'ai **remplacé les valeurs codées en dur par des tokens**, restructuré les styles typographiques et renommé les composants selon une seule convention.",
         "L'objectif était que **le code reproduise fidèlement la maquette**, à partir de la même base.",
       ],
-      media: [{ ...shot("kleio/ds-code", "Le système côté code : tokens, primitives, icônes et composants"), ratio: "870 / 604" }],
+      media: [],
     },
     {
       title: "Résultats",
