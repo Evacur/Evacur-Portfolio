@@ -15,6 +15,7 @@ const display = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument", display: "swap" });
 
 // Umami : suivi des clics (attributs data-umami-event sur les boutons et liens), sans cookie.
+// Script et envoi passent par /pc-stats (voir next.config.ts).
 // Limité au domaine de production pour ne pas compter les aperçus ni le développement local.
 const UMAMI_WEBSITE_ID = "6fe22ba8-b789-4125-b3bc-817427da0227";
 
@@ -41,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable} ${serif.variable}`} suppressHydrationWarning>
       <body>
         <PageTransition>{children}</PageTransition><Cursor /><Tracking />
-        {UMAMI_WEBSITE_ID && <Script src="https://cloud.umami.is/script.js" data-website-id={UMAMI_WEBSITE_ID} data-domains="www.pablocuerva.fr" data-before-send="umamiBeforeSend" strategy="afterInteractive" />}
+        {UMAMI_WEBSITE_ID && <Script src="/pc-stats/script.js" data-website-id={UMAMI_WEBSITE_ID} data-host-url="https://www.pablocuerva.fr/pc-stats" data-domains="www.pablocuerva.fr" data-before-send="umamiBeforeSend" strategy="afterInteractive" />}
       </body>
     </html>
   );
