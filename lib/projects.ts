@@ -551,6 +551,46 @@ const laku: Case = {
   ],
 };
 
+const progemi: Case = {
+  slug: "progemi",
+  name: "Progemi",
+  client: "Progemi",
+  year: "—",
+  role: "Design et front-end",
+  duration: "—",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Un outil d'extraction de factures, dont j'ai fait le design et le front-end.",
+      body: [
+        "Cet outil extrait les données des factures. J'ai conçu l'interface et j'ai développé le front-end avec Claude Code.",
+        "J'ai travaillé avec un développeur back-end et j'ai assuré le suivi du projet.",
+      ],
+      media: [],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Mon premier outil livré sans développeur front-end.",
+      body: [
+        "C'était la première fois que je créais un outil sans développeur front-end. Je me suis appuyé sur un assistant IA pour écrire le code.",
+        "L'interface devait aussi respecter la charte graphique du client.",
+      ],
+      media: [],
+    },
+    {
+      title: "Décisions",
+      lede: "Le design et le code faits par la même personne.",
+      body: [
+        "J'ai fait le design puis le front-end moi-même avec Claude Code, en appliquant la charte graphique.",
+        "Le back-end était développé en parallèle. Je suivais l'avancement du projet avec le développeur back-end.",
+        "Le produit a été livré, dans le respect de la charte.",
+      ],
+      media: [],
+    },
+    { title: "Résultats", lede: "Le produit a été livré.", body: [], media: [] },
+  ],
+};
+
 export const projects: Project[] = [
   {
     slug: "ia-conversationnelle", layout: "recherche", n: "01", title: "IA conversationnelle", kind: "Kleio · Pulse IA", year: "2 cas",
@@ -580,7 +620,7 @@ export const projects: Project[] = [
     slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
     pitch: "React, Next.js et animations, codés par moi.",
     tint: "#EEE9D6", ink: "#6B5A1E",
-    cases: [placeholder("Progemi", "Progemi"), laku],
+    cases: [progemi, laku],
   },
 ];
 
