@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { Analytics } from "@vercel/analytics/next";
 import { Archivo, Instrument_Serif } from "next/font/google";
 import { Cursor } from "@/components/Cursor";
 import { PageTransition } from "@/components/PageTransition";
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable} ${serif.variable}`} suppressHydrationWarning>
-      <body><PageTransition>{children}</PageTransition><Cursor /></body>
+      <body><PageTransition>{children}</PageTransition><Cursor /><Analytics /></body>
     </html>
   );
 }
