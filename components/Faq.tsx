@@ -10,9 +10,12 @@ export function Faq() {
   const [open, setOpen] = useState(0);
   return (
     <section id="faq" aria-label="Questions fréquentes" className="scroll-mt-14 px-6 py-[6vw]">
-      <p className="m-0 mb-[4vw] max-w-[30ch] text-[max(16px,1.9vw)] leading-[1.3] tracking-[-0.01em]">
-        Ce qu&apos;on me demande avant de travailler ensemble.
-      </p>
+      <Reveal>
+        <h2 className="m-0 mb-4 flex justify-between text-[13px] font-normal text-mute">
+          FAQ
+          <span className="tabular-nums">{String(faq.length).padStart(2, "0")}</span>
+        </h2>
+      </Reveal>
       <Reveal>
         <ul className="m-0 list-none border-t border-line p-0">
           {faq.map((f, i) => {
