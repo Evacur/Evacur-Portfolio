@@ -21,7 +21,9 @@ export type Chapter = {
 export type Media =
   | string
   | { src: string; alt: string; ratio?: string }
-  | { video: string; poster: string; alt: string; ratio: string };
+  | { video: string; poster: string; alt: string; ratio: string }
+  /** Une animation de code générique, sans fichier. */
+  | { code: true; alt: string; ratio: string };
 
 export type Case = {
   slug: string;
@@ -401,7 +403,7 @@ const kleioDesignSystem: Case = {
         "Il a fallu tout nettoyer. J'ai **remplacé les valeurs codées en dur par des tokens**, restructuré les styles typographiques et renommé les composants selon une seule convention.",
         "L'objectif était que **le code reproduise fidèlement la maquette**, à partir de la même base.",
       ],
-      media: [],
+      media: [{ code: true, alt: "Illustration animée : des tokens, un composant et son style, en code générique", ratio: "16 / 9" }],
     },
     {
       title: "Résultats",

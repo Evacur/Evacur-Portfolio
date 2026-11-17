@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Chapter, Media as MediaItem, Project } from "@/lib/projects";
 import { scrollToTarget } from "./SmoothScroll";
 import { rich } from "./Rich";
+import { CodeSim } from "./CodeSim";
 
 const ease = [0.2, 0.7, 0.1, 1] as const;
 const inout = [0.65, 0, 0.15, 1] as const;
@@ -57,7 +58,9 @@ function Media({ media, ratio, tint }: { media: MediaItem; ratio: string; tint: 
             className="absolute inset-0 block transition-transform duration-[900ms] ease-out-soft group-hover/media:scale-[1.015]"
             style={typeof media === "string" ? { background: tint } : undefined}
           >
-            {typeof media !== "string" && ("video" in media ? (
+            {typeof media !== "string" && ("code" in media ? (
+              <CodeSim label={media.alt} />
+            ) : "video" in media ? (
               <video
                 ref={video}
                 src={media.video}
