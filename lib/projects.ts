@@ -79,7 +79,7 @@ const bim: Case = {
       title: "Problème et recherche",
       lede: "Des ateliers pour formuler les hypothèses, puis une étude par mois pour les tester.",
       body: [
-        "J'ai d'abord animé avec le manager UX des ateliers avec les directions produit et marketing. Ils ont servi à lister un grand nombre d'hypothèses d'usage, que nous avons testées ensuite.",
+        "J'ai d'abord animé avec le manager UX des ateliers avec les directions produit et marketing. Ils ont servi à lister un grand nombre d'hypothèses d'usage, que j'ai testées ensuite avec l'équipe.",
         "Une première série d'études a été menée avec le **lab de Station F**. Elle a permis d'interroger rapidement des dirigeants qui n'utilisent aucun outil de facturation, une population difficile à recruter.",
         "La recherche a continué pendant tout le projet, avec **environ une étude par mois** sous forme de tests de maquettes. Les maquettes étaient corrigées après chaque test, avant le développement.",
       ],
@@ -89,9 +89,9 @@ const bim: Case = {
       title: "Décisions",
       lede: "Un périmètre réduit au départ, qui s'est élargi pendant le projet.",
       body: [
-        "Pour sortir en neuf mois, nous avons retenu peu de fonctionnalités, en commençant par **le devis et la facture**. Le produit réutilise des logiciels existants de Cegid, ce qui réduisait le coût et le délai. En contrepartie, il a fallu reprendre les fonctionnalités liées à ces logiciels, et le périmètre s'est élargi.",
+        "Pour sortir en neuf mois, j'ai retenu avec l'équipe produit peu de fonctionnalités, en commençant par **le devis et la facture**. Le produit réutilise des logiciels existants de Cegid, ce qui réduisait le coût et le délai. En contrepartie, il a fallu reprendre les fonctionnalités liées à ces logiciels, et le périmètre s'est élargi.",
         "Sur mobile, **l'utilisateur dicte son devis**. L'IA remplit le client, les lignes et les montants. La saisie manuelle reste possible à chaque étape, et l'utilisateur relit et corrige avant d'émettre, car le document a une valeur légale.",
-        "Nous avons créé un **design system de zéro**. Ses tokens, ses composants et ses règles d'usage sont partagés par les deux équipes de design et par les développeurs.",
+        "J'ai créé avec l'équipe de design un **design system de zéro**. Ses tokens, ses composants et ses règles d'usage sont partagés par les deux équipes de design et par les développeurs.",
       ],
       media: [
         shot("bim/06", "Dicter un devis via l'IA, puis le créer en un clic"),
@@ -103,7 +103,7 @@ const bim: Case = {
       lede: "Le produit est sorti en 2025, avec un périmètre plus large que prévu.",
       body: [
         "Bim ! by Cegid couvre la création de devis et de factures par dictée ou saisie manuelle, le traitement des factures fournisseurs, la collecte des justificatifs par photo et la transmission des pièces à l'expert-comptable.",
-        "Nous visions au départ un produit minimal et très différent de l'existant. Avec l'élargissement du périmètre, le résultat est **plus classique que prévu**.",
+        "Avec l'équipe, je visais au départ un produit minimal et très différent de l'existant. Avec l'élargissement du périmètre, le résultat est **plus classique que prévu**.",
         "J'en retiens qu'il faut **arbitrer le périmètre dès le cadrage** et fixer des critères pour chaque fonctionnalité ajoutée en cours de route.",
       ],
       media: [{ ...shot("bim/08", "Accueil, compte restreint, liste des devis et fin de la période d'essai sur mobile"), ratio: "1418 / 710" }],
@@ -120,8 +120,8 @@ const bimDesignSystem: Case = {
       title: "Contexte",
       lede: "Un design system créé de zéro, hors de la charte graphique de Cegid.",
       body: [
-        "Bim ! s'adresse à une cible que la marque Cegid ne touchait pas. Nous sommes donc **sortis de la charte graphique de Cegid** pour proposer un design plus contemporain.",
-        "Une illustratrice et un UX writer ont travaillé avec nous, pour que l'interface, les textes et le marketing aient la même identité.",
+        "Bim ! s'adresse à une cible que la marque Cegid ne touchait pas. Avec l'équipe de design, je suis donc **sorti de la charte graphique de Cegid** pour proposer un design plus contemporain.",
+        "Une illustratrice et un UX writer ont travaillé avec moi, pour que l'interface, les textes et le marketing aient la même identité.",
       ],
       media: [shot("bim/04", "Composants du design system Bim ! : tabs, boutons, sélection, statuts")],
     },
@@ -129,8 +129,8 @@ const bimDesignSystem: Case = {
       title: "Problème et recherche",
       lede: "La direction artistique n'était pas encore fixée quand l'équipe est passée de deux à dix designers.",
       body: [
-        "Nous avons testé plusieurs directions artistiques auprès des cibles, avec des **tests quantitatifs et qualitatifs**, pour retenir celle qu'elles préféraient.",
-        "Nous étions deux designers pour poser les premières bases. D'autres designers sont arrivés alors que la direction artistique était encore en cours de définition, et chacun l'appliquait à sa manière.",
+        "J'ai testé avec l'équipe plusieurs directions artistiques auprès des cibles, avec des **tests quantitatifs et qualitatifs**, pour retenir celle qu'elles préféraient.",
+        "J'ai posé les premières bases avec un autre designer. D'autres designers sont arrivés alors que la direction artistique était encore en cours de définition, et chacun l'appliquait à sa manière.",
         "Au départ, chaque designer créait ses composants et les ajoutait à la bibliothèque Figma. À dix designers, la bibliothèque s'est remplie de **doublons et de variantes**.",
       ],
       media: [{ ...shot("bim/07", "Bannières illustrées du calendrier, en composants desktop et mobile dans Figma"), ratio: "1397 / 1642" }],
@@ -187,8 +187,8 @@ const cegidDesignSystem: Case = {
       title: "Décisions",
       lede: "Un suivi dans Notion et des présentations régulières aux designers.",
       body: [
-        "Nous suivions **dans Notion** les composants à produire, en cours et validés. Chaque composant était validé avant d'être publié.",
-        "Nous présentions régulièrement les avancées et les questions en cours aux équipes de design, soit **une trentaine de designers**.",
+        "Avec les autres contributeurs, je suivais **dans Notion** les composants à produire, en cours et validés. Chaque composant était validé avant d'être publié.",
+        "Avec eux, je présentais régulièrement les avancées et les questions en cours aux équipes de design, soit **une trentaine de designers**.",
       ],
       media: [],
     },
@@ -223,7 +223,7 @@ const livestore: Case = {
       body: [
         "Mon hypothèse était que l'adoption dépendait surtout de la situation de travail du vendeur, plus que de l'ergonomie des écrans. J'ai fait du *shadowing* et de l'observation dans **douze magasins** du luxe, du haut de gamme et du mass market, auprès de vendeurs et de managers. J'ai observé ce qu'ils faisaient réellement avec le logiciel.",
         "Le premier frein était l'appareil. Beaucoup d'enseignes équipaient leurs vendeurs de tablettes. Or **un vendeur a besoin d'un téléphone**, qui tient dans une poche et s'utilise d'une main pendant qu'il présente le produit au client.",
-        "Tap to Pay sur iPhone est arrivé en France en novembre 2023. Il permet d'encaisser sans terminal de paiement. Nous l'avons testé avec les vendeurs avant de l'intégrer.",
+        "Tap to Pay sur iPhone est arrivé en France en novembre 2023. Il permet d'encaisser sans terminal de paiement. Je l'ai testé avec les vendeurs avant son intégration.",
       ],
       media: [shot("livestore/02", "Panier, actions et fiche client sur mobile")],
       sources: [
@@ -276,8 +276,8 @@ const pulse: Case = {
       title: "Problème et recherche",
       lede: "Une étude par mois, avec le même panel d'utilisateurs.",
       body: [
-        "Nous cherchions à savoir quelles interactions rendent un assistant utile pour une tâche comptable, en plus de la réponse en texte.",
-        "Nous avons mené **environ une étude par mois** avec UserTesting et Maze. Nous **gardions le même panel** d'une étude à l'autre. Les mêmes utilisateurs évaluaient chaque évolution et nous disaient si le produit se rapprochait de leurs attentes.",
+        "Avec l'équipe, je cherchais à savoir quelles interactions rendent un assistant utile pour une tâche comptable, en plus de la réponse en texte.",
+        "Avec l'équipe, j'ai mené **environ une étude par mois** sur UserTesting et Maze. Je **gardais le même panel** d'une étude à l'autre. Les mêmes utilisateurs évaluaient chaque évolution et me disaient si le produit se rapprochait de leurs attentes.",
         "Garder le même panel permet de mesurer une progression dans le temps, ce qu'un test isolé ne permet pas.",
       ],
       media: ["Protocole de recherche continue"],
@@ -288,7 +288,7 @@ const pulse: Case = {
       body: [
         "L'assistant peut **répondre par un graphique**. L'utilisateur le modifie directement, sans reformuler sa demande.",
         "La conversation renvoie vers les écrans du produit et permet d'agir **sans quitter le fil**.",
-        "Nous avons conçu et testé les premiers composants intégrés au chat. Pour une même réponse, nous comparions plusieurs présentations et nous gardions celle que le panel validait.",
+        "J'ai conçu et testé avec l'équipe les premiers composants intégrés au chat. Pour une même réponse, je comparais plusieurs présentations et je gardais celle que le panel validait.",
       ],
       media: [shot("pulse-ia/01", "Audit de l'entreprise, balance âgée et réponses de l'assistant")],
     },
@@ -326,8 +326,8 @@ const kleio: Case = {
       title: "Problème et recherche",
       lede: "Des visiteurs quittaient la conversation après le premier message.",
       body: [
-        "Nous avions identifié **deux causes**. Le visiteur ne savait pas s'il parlait à une IA ou à une personne, et il attendait trop longtemps avant de voir un premier produit.",
-        "J'ai travaillé avec un AI researcher qui a analysé un grand volume de conversations. Nous en avons tiré **des personas**, définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
+        "J'avais identifié **deux causes** avec l'équipe. Le visiteur ne savait pas s'il parlait à une IA ou à une personne, et il attendait trop longtemps avant de voir un premier produit.",
+        "J'ai travaillé avec un AI researcher qui a analysé un grand volume de conversations. J'en ai tiré avec lui **des personas**, définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
         "J'ai aussi mis en place des **tests utilisateurs avec Maze** pour évaluer les parcours avant leur mise en production.",
       ],
       media: [],
