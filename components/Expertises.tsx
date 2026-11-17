@@ -46,22 +46,28 @@ export function Expertises() {
                   <span className="xp-title flex items-center gap-3 font-serif text-[max(30px,3.9vw)] font-normal leading-none tracking-[-0.015em]">
                     {e.name}
                   </span>
-                  <span aria-hidden="true" className={`faq-plus ${on ? "is-open" : ""}`} />
+                  <span aria-hidden="true" className="grid size-11 flex-none items-center justify-items-end"><span className={`faq-plus ${on ? "is-open" : ""}`} /></span>
                 </button>
                 <div id={`xp-${i}`} className={`xp-a ${on ? "is-open" : ""}`}>
                   <div>
-                    <div className="flex items-start gap-[max(16px,2vw)] pb-[max(20px,1.8vw)] max-[640px]:flex-col max-[640px]:gap-3">
+                    <Link
+                      href={e.href}
+                      tabIndex={on ? 0 : -1}
+                      data-cur="voir"
+                      aria-label={`${e.name} : voir ${e.cases}`}
+                      className="group flex items-start gap-[max(16px,2vw)] pb-[max(20px,1.8vw)] max-[640px]:flex-col max-[640px]:gap-3"
+                    >
                       <span className="xp-thumb relative block aspect-[16/10] w-[min(280px,22vw)] flex-none overflow-hidden rounded-[6px] bg-line max-[640px]:w-full">
                         {e.image && <Image src={e.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" className="object-cover" style={e.position ? { objectPosition: e.position } : undefined} />}
                       </span>
                       <span className="xp-text flex flex-col gap-1">
                         <span className="text-[15px] leading-[1.4]">{e.text}</span>
-                        <Link href={e.href} tabIndex={on ? 0 : -1} className="group inline-flex items-center gap-1.5 text-mute transition-colors duration-300 hover:text-fg">
+                        <span className="inline-flex items-center gap-1.5 text-mute transition-colors duration-300 group-hover:text-fg">
                           {e.cases}
                           <span aria-hidden="true" className="inline-block transition-transform duration-500 ease-out-soft group-hover:translate-x-1">→</span>
-                        </Link>
+                        </span>
                       </span>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </motion.li>

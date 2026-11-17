@@ -20,7 +20,7 @@ export const expertises: Expertise[] = [
   { n: "02", name: "Discovery", image: "/projects/livestore/01.webp", kind: "Compétence", text: "Entretiens, ateliers et tests pour comprendre le métier avant de dessiner, puis trancher sur des faits. Du retail de luxe aux cabinets d'expertise comptable.", cases: "Bim !, Livestore", href: "/work/produit-et-discovery" },
   { n: "03", name: "Design system", image: "/projects/bim/07.webp", position: "50% 85%", kind: "Compétence", text: "Composants, tokens et documentation partagés entre design et dev. Trois systèmes construits, dont celui d'un produit lancé de zéro en neuf mois.", cases: "Bim !, Cegid, Kleio", href: "/work/design-system" },
   { n: "04", name: "Sites vitrines", image: "/projects/gaspard-mariotte/01.webp", kind: "Compétence", text: "Des sites de marque conçus et développés de bout en bout, de la maquette à la mise en ligne.", cases: "Gaspard Mariotte, Vers le Sud, Kleio", href: "/work/sites-vitrines" },
-  { n: "05", name: "Front-end", image: "/projects/laku/01.webp", kind: "Compétence", text: "Du design au code qui tourne, avec Claude Code et Cursor. Des prototypes testables en quelques heures, puis des interfaces en React, Next.js et Tailwind pour des PME et des startups.", cases: "Progemi, Laku", href: "/work/front-end" },
+  { n: "05", name: "Front-end", image: "/projects/laku/01.webp", kind: "Compétence", text: "Du design au code qui tourne, avec Claude Code et Cursor. Des prototypes testables en quelques heures, puis des interfaces en React, Next.js et Tailwind pour des PME et des startups.", cases: "Laku, Progemi", href: "/work/front-end" },
 ];
 
 export type FaqItem = { q: string; a: string; rows?: { when: string; where: string; what: string }[] };

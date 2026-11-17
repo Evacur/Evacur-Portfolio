@@ -526,6 +526,7 @@ const laku: Case = {
       body: [
         "Un agent IA produit du code rapidement, mais il a tendance à recréer un bouton, une couleur ou un espacement à chaque écran. Sans règles, les écrans deviennent incohérents, comme dans une équipe sans design system.",
         "L'autre risque concernait les données. L'application n'a pas de serveur applicatif, et les règles d'accès sont définies dans la base. Si une règle manque, le contenu d'un utilisateur devient accessible aux autres.",
+        "Les questions en cours ne sont plus techniques. Je cherche comment réunir une première communauté d'utilisateurs et comment faire connaître l'application.",
       ],
       media: [{ ...shot("laku/02", "Le répertoire sur l'atelier, une catégorie et le profil"), ratio: "16 / 10" }],
     },
@@ -617,10 +618,10 @@ export const projects: Project[] = [
     cases: [gaspard, versLeSud, kleioSite],
   },
   {
-    slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Progemi · Laku", year: "2 cas",
+    slug: "front-end", layout: "rangs", n: "05", title: "Front-end", kind: "Laku · Progemi", year: "2 cas",
     pitch: "React, Next.js et animations, codés par moi.",
     tint: "#EEE9D6", ink: "#6B5A1E",
-    cases: [progemi, laku],
+    cases: [laku, progemi],
   },
 ];
 
