@@ -636,7 +636,6 @@ export const heroShots: { src: string; slug: string; title: string }[] = [
   { src: "/projects/laku/01.webp", slug: "front-end", title: "Laku" },
   { src: "/projects/cegid-ds/01.webp", slug: "design-system", title: "Cegid" },
   { src: "/projects/vers-le-sud/01.webp", slug: "sites-vitrines", title: "Vers le Sud" },
-  { src: "/projects/kleio/ds-code.webp", slug: "design-system", title: "Design system Kleio" },
   { src: "/projects/bim/06.webp", slug: "produit-et-discovery", title: "Bim !" },
   { src: "/projects/pulse-ia/02.webp", slug: "ia-conversationnelle", title: "Pulse IA" },
   { src: "/projects/kleio/ia-mobile.webp", slug: "ia-conversationnelle", title: "Kleio" },
