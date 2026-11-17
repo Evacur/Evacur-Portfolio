@@ -27,22 +27,22 @@ export type FaqItem = { q: string; a: string; rows?: { when: string; where: stri
 
 // Réponses tirées du profil Malt et de LinkedIn (novembre 2026)
 export const faq: FaqItem[] = [
-  { q: "Quel est ton TJM ?", a: "**450 € HT par jour**, négociable pour une mission longue. Forfait possible pour un projet bien cadré." },
+  { q: "Quel est ton TJM ?", a: "Mon tarif est de **450 € HT par jour**. On peut en discuter pour une mission longue, et je travaille aussi au forfait quand le projet est bien cadré." },
   {
     q: "Quelle est ton expérience ?",
-    a: "**Cinq ans chez Cegid**, puis le freelance.",
+    a: "J'ai passé **cinq ans chez Cegid**, puis je me suis lancé en freelance.",
     rows: [
-      { when: "Depuis 2025", where: "Freelance", what: "Bots conversationnels et SaaS avec IA." },
+      { when: "Depuis 2025", where: "Freelance", what: "Je conçois des bots conversationnels et des SaaS avec IA." },
       { when: "2020 – 2025", where: "Cegid", what: "Principal designer d'un outil de comptabilité lancé de zéro en neuf mois." },
       { when: "", where: "", what: "Designer référent d'une application retail pour des groupes du luxe, de la cosmétique et du prêt-à-porter." },
     ],
   },
-  { q: "Et le code ?", a: "Je ne tape plus le code à la main (comme la majorité des gens aujourd'hui). Je le lis, je le comprends et je sais quoi demander. L'IA est au cœur de mon process, avec Claude Code et Cursor : **un prototype qui tourne en quelques heures**, testé sur du vrai. Ce site est fait comme ça." },
-  { q: "Tu sais travailler en équipe ?", a: "Chez Cegid, dans une équipe de 30 designers, j'ai coordonné **jusqu'à 10 designers** sur un même produit et j'étais le **référent du design system**. J'ai aussi été mentor UX Research pour des startups au Cegid Data Lab, à Station F." },
-  { q: "Comment tu mènes la recherche ?", a: "Entretiens, ateliers de cadrage, **tests utilisateurs et questionnaires in-app** pour une discovery continue. Outils : Figma, Maze, Dovetail, Jira et Confluence." },
-  { q: "Freelance, CDI, remote ?", a: "Freelance sur Malt, **Supermalter noté 5/5**, et ouvert à un poste. Basé à Paris, sur site ou en hybride." },
-  { q: "Tu parles anglais ?", a: "Oui. Français natif, **anglais professionnel (B2)**." },
-  { q: "Quand es-tu dispo ?", a: "**À partir de janvier 2027**. Le premier échange de 30 min est offert." },
+  { q: "Et le code ?", a: "Je ne tape plus le code à la main, comme beaucoup de monde aujourd'hui. Je le lis, je le comprends et je sais quoi demander. Je travaille avec Claude Code et Cursor, ce qui me permet d'avoir **un prototype qui tourne en quelques heures** et de le tester sur du vrai. J'ai fait ce site de cette façon." },
+  { q: "Tu sais travailler en équipe ?", a: "Oui, et j'aime ça. Chez Cegid, dans une équipe de 30 designers, j'ai coordonné **jusqu'à 10 designers** sur un même produit et j'étais le **référent du design system**. J'ai aussi accompagné des startups comme mentor UX Research au Cegid Data Lab, à Station F." },
+  { q: "Comment tu mènes la recherche ?", a: "Je commence par des entretiens et des ateliers de cadrage. Je continue ensuite avec des **tests utilisateurs et des questionnaires in-app**, pour garder une discovery continue. J'utilise Figma, Maze, Dovetail, Jira et Confluence." },
+  { q: "Freelance, CDI, remote ?", a: "Je suis freelance sur Malt, **Supermalter noté 5/5**, et je reste ouvert à un poste. Je suis basé à Paris et je travaille sur site ou en hybride." },
+  { q: "Tu parles anglais ?", a: "Oui, j'ai un **anglais professionnel (B2)**." },
+  { q: "Quand es-tu dispo ?", a: "Je suis disponible **à partir de janvier 2027**. Le premier échange de 30 minutes est offert, on peut en profiter pour parler de votre projet." },
 ];
 
 export const contact = {
