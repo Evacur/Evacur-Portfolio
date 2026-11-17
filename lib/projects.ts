@@ -601,7 +601,7 @@ export const projects: Project[] = [
   },
   {
     slug: "produit-et-discovery", layout: "recherche", n: "02", title: "Produit et discovery", kind: "Bim ! · Livestore", year: "2 cas",
-    pitch: "Facturation avec IA intégrée, encaissement et clienteling retail en marque blanche.",
+    pitch: "Deux projets, avec pour chacun le problème rencontré, la recherche menée et les choix faits.",
     cover: "/projects/bim.webp", tint: "#DCE3EC", ink: "#2B4C7E",
     cases: [bim, livestore],
   },
