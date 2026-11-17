@@ -1,6 +1,5 @@
 /**
  * Le travail est regroupé par thèmes. Chaque thème montre plusieurs cas concrets.
- * Tout ce qui est entre crochets reste à renseigner.
  */
 
 export type Chapter = {
@@ -53,21 +52,6 @@ export type Project = {
   ink: string;
   cases: Case[];
 };
-
-const placeholder = (name: string, client = "[client]"): Case => ({
-  slug: name.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
-  name,
-  client,
-  year: "[année]",
-  role: "[rôle]",
-  duration: "[x mois]",
-  chapters: [
-    { title: "Contexte", lede: "Qui, quoi, pourquoi maintenant.", body: ["[Le produit, l'équipe, le moment.]"], media: ["Le produit au départ"] },
-    { title: "Problème et recherche", lede: "Ce qui bloquait, et comment je l'ai vérifié.", body: ["[Le problème, la recherche menée, ce qu'elle a montré.]"], media: ["Entretiens utilisateurs", "Parcours avant, points de friction"] },
-    { title: "Décisions", lede: "Les choix clés, et ce qu'on a écarté.", body: ["[Les décisions, les alternatives écartées et pourquoi.]"], media: ["Avant / après", "Détail"] },
-    { title: "Résultats", lede: "Ce qui a changé pour les utilisateurs.", body: ["[Les résultats mesurés.]"], media: ["Écran final en production"] },
-  ],
-});
 
 const shot = (src: string, alt: string) => ({ src: `/projects/${src}.webp`, alt });
 const clip = (dir: string, alt: string, ratio: string, name = "video") => ({ video: `/projects/${dir}/${name}.mp4`, poster: `/projects/${dir}/${name}-poster.webp`, alt, ratio });
@@ -419,35 +403,17 @@ const kleioDesignSystem: Case = {
 const kleioSite: Case = {
   ...kleio,
   slug: "kleio-site",
+  year: "2026",
   chapters: [
     {
       title: "Contexte",
-      lede: "Le site d'une start-up B2B, refait avec la V2 du produit.",
-      body: [
-        "Dans le cadre de ma mission chez Kleio, j'ai repris le site internet pour qu'il porte la même identité que le produit.",
-      ],
-      media: ["Page d'accueil du site Kleio"],
+      lede: "Une refonte du site actuel.",
+      body: ["Une **refonte du site actuel** de Kleio."],
+      media: ["En cours de construction"],
     },
-    {
-      title: "Problème et recherche",
-      lede: "Ce qui bloquait, et comment je l'ai vérifié.",
-      body: ["[Le problème du site existant, la recherche menée, ce qu'elle a montré.]"],
-      media: ["Le site avant la refonte"],
-    },
-    {
-      title: "Décisions",
-      lede: "Le même design system que le produit.",
-      body: [
-        "Le site **utilise le design system du produit**. Le visiteur voit sur le site la même identité que dans l'interface.",
-      ],
-      media: ["Pages clés du site"],
-    },
-    {
-      title: "Résultats",
-      lede: "Ce qui a changé pour les visiteurs.",
-      body: [],
-      media: ["Le site en ligne"],
-    },
+    { title: "Problème et recherche", lede: "", body: ["En cours de construction."], media: [] },
+    { title: "Décisions", lede: "", body: ["En cours de construction."], media: [] },
+    { title: "Résultats", lede: "", body: [], media: [] },
   ],
 };
 
@@ -455,7 +421,7 @@ const gaspard: Case = {
   slug: "gaspard-mariotte",
   name: "Gaspard Mariotte",
   client: "Gaspard Mariotte",
-  year: "[année]",
+  year: "2025",
   role: "UI designer",
   duration: "1 mois",
   chapters: [
@@ -498,11 +464,35 @@ const gaspard: Case = {
   ],
 };
 
-const versLeSud: Case = (() => {
-  const c = placeholder("Vers le Sud");
-  c.chapters[0] = { ...c.chapters[0], media: [{ src: "/projects/vers-le-sud/01.webp", alt: "Vers le Sud : la page d'accueil et sa boussole" }] };
-  return c;
-})();
+const versLeSud: Case = {
+  slug: "vers-le-sud",
+  name: "Vers le Sud",
+  client: "Particulier",
+  year: "2025",
+  role: "Design et développement",
+  duration: "—",
+  chapters: [
+    {
+      title: "Contexte",
+      lede: "Une galerie de photos pour un particulier.",
+      body: ["Une **galerie de photos très simple**, créée pour un particulier. Le site est **100 % codé**."],
+      media: [{ src: "/projects/vers-le-sud/01.webp", alt: "Vers le Sud : la page d'accueil et sa boussole" }],
+    },
+    {
+      title: "Problème et recherche",
+      lede: "Montrer et revendiquer par l'image.",
+      body: ["L'idée de départ était de montrer des choses et de porter des revendications **uniquement à travers des images**."],
+      media: [],
+    },
+    {
+      title: "Décisions",
+      lede: "Des photos brutes, sans texte.",
+      body: ["Les photos sont publiées **brutes, sans aucun texte**. L'histoire se construit à partir du visuel seul."],
+      media: [],
+    },
+    { title: "Résultats", lede: "", body: [], media: [] },
+  ],
+};
 
 const laku: Case = {
   slug: "laku",
