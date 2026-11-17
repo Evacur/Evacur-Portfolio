@@ -16,7 +16,7 @@ const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "-
 
 // Umami : suivi des clics (attributs data-umami-event sur les boutons et liens), sans cookie.
 // Limité au domaine de production pour ne pas compter les aperçus ni le développement local.
-const UMAMI_WEBSITE_ID = "";
+const UMAMI_WEBSITE_ID = "6fe22ba8-b789-4125-b3bc-817427da0227";
 
 const description =
   "Product designer freelance à Paris. Produits SaaS B2B, assistants IA et design systems, de la recherche utilisateur au front-end.";
