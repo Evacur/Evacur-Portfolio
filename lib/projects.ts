@@ -334,11 +334,11 @@ const kleio: Case = {
     },
     {
       title: "Décisions",
-      lede: "Dire que c'est une IA, montrer des produits tôt et prototyper dans le code.",
+      lede: "Trois hypothèses sur la conversion et l'engagement, traduites dans l'interface.",
       body: [
-        "L'interface indique à l'utilisateur **qu'il échange avec une IA** et ce qu'elle peut faire pour lui.",
-        "La conversation affiche des produits **le plus tôt possible**, dès les premiers échanges.",
-        "Je construis des **prototypes haute fidélité avec Claude Code** et j'utilise moins Figma. L'IA me permet de livrer plus vite.",
+        "Ma première hypothèse est qu'un visiteur s'engage davantage quand il sait à qui il parle. L'interface lui indique donc **qu'il échange avec une IA** et ce qu'elle peut faire pour lui.",
+        "La deuxième hypothèse porte sur le délai avant le premier résultat. La conversation affiche des produits **le plus tôt possible**, dès les premiers échanges, pour que le visiteur voie rapidement ce que l'assistant lui apporte.",
+        "La troisième concerne le moment du choix. J'ai conçu la **comparaison entre plusieurs produits**, pour que le visiteur puisse décider sans quitter la conversation. Ces trois choix seront vérifiés avec les retours recueillis dans l'application et les **tests non modérés**.",
       ],
       media: [
         { ...shot("kleio/ia-desktop-recherche", "Sur ordinateur : l'assistant détaille les étapes de sa recherche pendant le chargement"), ratio: "2880 / 1672" },
@@ -348,10 +348,11 @@ const kleio: Case = {
     },
     {
       title: "Résultats",
-      lede: "Des démonstrations produites plus vite.",
+      lede: "L'IA accélère mon travail, sans baisse de qualité.",
       body: [
-        "J'intégrais moi-même les interfaces avec Claude Code, ce qui a permis de produire les démonstrations commerciales plus vite.",
-        "Les effets sur l'engagement sont encore en cours de mesure.",
+        "L'IA a changé ma façon de travailler sur ce projet. Je construis des **prototypes haute fidélité avec Claude Code** et j'utilise moins Figma. Je teste ainsi une interface proche du produit réel, et non une maquette statique.",
+        "J'ai aussi branché des **serveurs MCP** sur mes outils, comme Mobbin et Jira. L'IA accède ainsi aux références d'interface et aux tickets du projet, ce qui m'évite des allers-retours et me rend plus efficace.",
+        "Je livre plus vite, **en gardant le même niveau de qualité**. J'intègre moi-même les interfaces, ce qui a aussi permis de produire les démonstrations commerciales plus vite. Les effets sur la conversion et l'engagement sont encore en cours de mesure.",
       ],
       media: [],
     },
