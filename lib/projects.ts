@@ -318,27 +318,27 @@ const kleio: Case = {
       lede: "La V2 d'un assistant conversationnel intégré aux sites des marques.",
       body: [
         "Kleio fournit à des sites de voyage, d'immobilier ou de e-commerce un **widget intégré à leurs pages**. Le visiteur y engage une conversation avec une IA, qui se poursuit ensuite dans l'interface de Kleio.",
-        "Je suis intervenu en freelance en 2026, après une levée de fonds. Un premier designer avait fait les maquettes initiales. Ma mission était de concevoir une **V2 plus moderne et plus professionnelle**, et de prendre en charge tout le design.",
+        "Je suis intervenu en freelance en 2026. Un premier designer avait fait les maquettes initiales. Ma mission était de concevoir une **V2 plus moderne et plus professionnelle**, de prendre en charge tout le design et de créer de nouvelles fonctionnalités importantes, comme la **comparaison entre plusieurs produits**.",
       ],
       media: [{ ...shot("kleio/ia-desktop-resultats", "Sur ordinateur : la conversation à gauche, les offres trouvées à droite"), ratio: "2880 / 1672" }],
     },
     {
       title: "Problème et recherche",
-      lede: "Des visiteurs quittaient la conversation après le premier message.",
+      lede: "Améliorer la conversion et l'engagement.",
       body: [
-        "J'avais identifié **deux causes** avec l'équipe. Le visiteur ne savait pas s'il parlait à une IA ou à une personne, et il attendait trop longtemps avant de voir un premier produit.",
-        "J'ai travaillé avec un AI researcher qui a analysé un grand volume de conversations. J'en ai tiré avec lui **des personas**, définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
-        "J'ai aussi mis en place des **tests utilisateurs avec Maze** pour évaluer les parcours avant leur mise en production.",
+        "Je travaille sur l'amélioration de **la conversion et de l'engagement** dans la conversation.",
+        "Un travail sur **des personas** est en cours avec un AI researcher, à partir de l'analyse d'un grand volume de conversations. Ils sont définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
+        "Je mets aussi en place de la recherche, avec des **retours recueillis dans l'application** et des **tests modérés**.",
       ],
       media: [],
     },
     {
       title: "Décisions",
-      lede: "Dire que c'est une IA, montrer des produits tôt et adapter les réponses.",
+      lede: "Dire que c'est une IA, montrer des produits tôt et prototyper dans le code.",
       body: [
         "L'interface indique à l'utilisateur **qu'il échange avec une IA** et ce qu'elle peut faire pour lui.",
         "La conversation affiche des produits **le plus tôt possible**, dès les premiers échanges.",
-        "Dès le premier message, le système identifie le type d'utilisateur. Il **adapte ensuite le ton et le contenu** des réponses de l'IA.",
+        "Je construis des **prototypes haute fidélité avec Claude Code** et j'utilise moins Figma. L'IA me permet de livrer plus vite.",
       ],
       media: [
         { ...shot("kleio/ia-desktop-recherche", "Sur ordinateur : l'assistant détaille les étapes de sa recherche pendant le chargement"), ratio: "2880 / 1672" },
@@ -364,7 +364,7 @@ const kleioDesignSystem: Case = {
   chapters: [
     {
       title: "Contexte",
-      lede: "Le design system d'une start-up, après sa levée de fonds.",
+      lede: "Le design system d'une start-up.",
       body: [
         "À mon arrivée, le produit reposait sur les maquettes d'un premier designer, **sans design system**. J'ai pris en charge tout le design, c'est-à-dire le widget, l'application et le site.",
       ],
