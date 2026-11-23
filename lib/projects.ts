@@ -328,7 +328,7 @@ const kleio: Case = {
       body: [
         "Je travaille sur l'amélioration de **la conversion et de l'engagement** dans la conversation.",
         "Un travail sur **des personas** est en cours avec un AI researcher, à partir de l'analyse d'un grand volume de conversations. Ils sont définis par l'intention exprimée dans le premier message, par exemple chercher une information, voir rapidement des offres ou comparer.",
-        "Je mets aussi en place de la recherche, avec des **retours recueillis dans l'application** et des **tests modérés**.",
+        "Je mets aussi en place de la recherche, avec des **retours recueillis dans l'application** et des **tests non modérés**.",
       ],
       media: [],
     },
